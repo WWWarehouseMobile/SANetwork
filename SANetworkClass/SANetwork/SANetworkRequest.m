@@ -9,12 +9,6 @@
 #import "SANetworkRequest.h"
 #import "SANetworkAgent.h"
 
-
-NSString *const kClassNameKey = @"iclass";
-NSString *const kMethodNameKey = @"imethod";
-NSString *const kEMUserIdKey = @"defaultUsername";
-NSString *const kEMUserPasswordKey = @"defaultPassword";
-
 @interface SANetworkRequest ()
 @property (nonatomic, weak) id <SANetworkConfigProtocol> configProtocol;
 

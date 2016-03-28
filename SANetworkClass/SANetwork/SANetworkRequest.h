@@ -53,9 +53,3 @@
 - (void)accessoryWillStop;
 - (void)accessoryDidStop;
 @end
-
-
-extern NSString *const kClassNameKey;
-extern NSString *const kMethodNameKey;
-extern NSString *const kEMUserIdKey;
-extern NSString *const kEMUserPasswordKey;
