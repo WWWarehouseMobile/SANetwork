@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1961A6591CA92C1B001C1B96 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1961A6581CA92C1B001C1B96 /* Default-568h@2x.png */; };
 		19ABE1F61CA50FF300258DD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE1F51CA50FF300258DD2 /* main.m */; };
 		19ABE1F91CA50FF300258DD2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE1F81CA50FF300258DD2 /* AppDelegate.m */; };
 		19ABE1FC1CA50FF300258DD2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE1FB1CA50FF300258DD2 /* ViewController.m */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1961A6581CA92C1B001C1B96 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		19ABE1F11CA50FF300258DD2 /* SANetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SANetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19ABE1F51CA50FF300258DD2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		19ABE1F71CA50FF300258DD2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		19ABE1E81CA50FF300258DD2 = {
 			isa = PBXGroup;
 			children = (
+				1961A6581CA92C1B001C1B96 /* Default-568h@2x.png */,
 				19ABE20B1CA513A600258DD2 /* SANetworkClass */,
 				19ABE1F31CA50FF300258DD2 /* SANetwork */,
 				19ABE1F21CA50FF300258DD2 /* Products */,
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19ABE2041CA50FF300258DD2 /* LaunchScreen.storyboard in Resources */,
+				1961A6591CA92C1B001C1B96 /* Default-568h@2x.png in Resources */,
 				19ABE2011CA50FF300258DD2 /* Assets.xcassets in Resources */,
 				19ABE1FF1CA50FF300258DD2 /* Main.storyboard in Resources */,
 			);
@@ -422,7 +426,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B43642D5D6ECFB87367A499 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SANetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -435,7 +438,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D4B2C51D6FD83AC1525DA048 /* Pods.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SANetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
