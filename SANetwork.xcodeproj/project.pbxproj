@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		19ABE1F61CA50FF300258DD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE1F51CA50FF300258DD2 /* main.m */; };
+		19ABE1F91CA50FF300258DD2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE1F81CA50FF300258DD2 /* AppDelegate.m */; };
+		19ABE1FC1CA50FF300258DD2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE1FB1CA50FF300258DD2 /* ViewController.m */; };
+		19ABE1FF1CA50FF300258DD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19ABE1FD1CA50FF300258DD2 /* Main.storyboard */; };
+		19ABE2011CA50FF300258DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19ABE2001CA50FF300258DD2 /* Assets.xcassets */; };
+		19ABE2041CA50FF300258DD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19ABE2021CA50FF300258DD2 /* LaunchScreen.storyboard */; };
+		19ABE21A1CA513BD00258DD2 /* SANetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE2111CA513BD00258DD2 /* SANetworkAgent.m */; };
+		19ABE21B1CA513BD00258DD2 /* SANetworkBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE2131CA513BD00258DD2 /* SANetworkBatchRequest.m */; };
+		19ABE21C1CA513BD00258DD2 /* SANetworkChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE2151CA513BD00258DD2 /* SANetworkChainRequest.m */; };
+		19ABE21D1CA513BD00258DD2 /* SANetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE2171CA513BD00258DD2 /* SANetworkRequest.m */; };
+		19ABE21E1CA513BD00258DD2 /* SANetworkResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE2191CA513BD00258DD2 /* SANetworkResponse.m */; };
+		19ABE2231CA5143700258DD2 /* SANetworkHUDAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE2201CA5143700258DD2 /* SANetworkHUDAccessory.m */; };
+		19ABE2241CA5143700258DD2 /* SANetworkRefreshAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ABE2221CA5143700258DD2 /* SANetworkRefreshAccessory.m */; };
+		D698B0F143C562D66AC71FE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3252AEDA3E8E2316BEC04A6E /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		19ABE1F11CA50FF300258DD2 /* SANetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SANetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		19ABE1F51CA50FF300258DD2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		19ABE1F71CA50FF300258DD2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		19ABE1F81CA50FF300258DD2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		19ABE1FA1CA50FF300258DD2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		19ABE1FB1CA50FF300258DD2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		19ABE1FE1CA50FF300258DD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		19ABE2001CA50FF300258DD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		19ABE2031CA50FF300258DD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		19ABE2051CA50FF300258DD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19ABE2101CA513BD00258DD2 /* SANetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkAgent.h; sourceTree = "<group>"; };
+		19ABE2111CA513BD00258DD2 /* SANetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkAgent.m; sourceTree = "<group>"; };
+		19ABE2121CA513BD00258DD2 /* SANetworkBatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkBatchRequest.h; sourceTree = "<group>"; };
+		19ABE2131CA513BD00258DD2 /* SANetworkBatchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkBatchRequest.m; sourceTree = "<group>"; };
+		19ABE2141CA513BD00258DD2 /* SANetworkChainRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkChainRequest.h; sourceTree = "<group>"; };
+		19ABE2151CA513BD00258DD2 /* SANetworkChainRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkChainRequest.m; sourceTree = "<group>"; };
+		19ABE2161CA513BD00258DD2 /* SANetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkRequest.h; sourceTree = "<group>"; };
+		19ABE2171CA513BD00258DD2 /* SANetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkRequest.m; sourceTree = "<group>"; };
+		19ABE2181CA513BD00258DD2 /* SANetworkResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkResponse.h; sourceTree = "<group>"; };
+		19ABE2191CA513BD00258DD2 /* SANetworkResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkResponse.m; sourceTree = "<group>"; };
+		19ABE21F1CA5143700258DD2 /* SANetworkHUDAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkHUDAccessory.h; sourceTree = "<group>"; };
+		19ABE2201CA5143700258DD2 /* SANetworkHUDAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkHUDAccessory.m; sourceTree = "<group>"; };
+		19ABE2211CA5143700258DD2 /* SANetworkRefreshAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkRefreshAccessory.h; sourceTree = "<group>"; };
+		19ABE2221CA5143700258DD2 /* SANetworkRefreshAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkRefreshAccessory.m; sourceTree = "<group>"; };
+		19ABE2251CA5144100258DD2 /* SANetworkAccessoryProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SANetworkAccessoryProtocol.h; sourceTree = "<group>"; };
+		19ABE2261CA5144100258DD2 /* SANetworkConfigProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SANetworkConfigProtocol.h; sourceTree = "<group>"; };
+		19ABE2271CA5144100258DD2 /* SANetworkInterceptorProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SANetworkInterceptorProtocol.h; sourceTree = "<group>"; };
+		19ABE2281CA5144100258DD2 /* SANetworkResponseProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SANetworkResponseProtocol.h; sourceTree = "<group>"; };
+		19ABE2291CA5144100258DD2 /* SANetworkResponseReformerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SANetworkResponseReformerProtocol.h; sourceTree = "<group>"; };
+		19ABE22B1CA5148100258DD2 /* SANetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetwork.h; sourceTree = "<group>"; };
+		3252AEDA3E8E2316BEC04A6E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B43642D5D6ECFB87367A499 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D4B2C51D6FD83AC1525DA048 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		19ABE1EE1CA50FF300258DD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D698B0F143C562D66AC71FE8 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19ABE1E81CA50FF300258DD2 = {
+			isa = PBXGroup;
+			children = (
+				19ABE20B1CA513A600258DD2 /* SANetworkClass */,
+				19ABE1F31CA50FF300258DD2 /* SANetwork */,
+				19ABE1F21CA50FF300258DD2 /* Products */,
+				EF69ADC37FBC25C8656E04EC /* Pods */,
+				7D8FB4897569774B46F8166F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		19ABE1F21CA50FF300258DD2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19ABE1F11CA50FF300258DD2 /* SANetwork.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		19ABE1F31CA50FF300258DD2 /* SANetwork */ = {
+			isa = PBXGroup;
+			children = (
+				19ABE1F71CA50FF300258DD2 /* AppDelegate.h */,
+				19ABE1F81CA50FF300258DD2 /* AppDelegate.m */,
+				19ABE1FA1CA50FF300258DD2 /* ViewController.h */,
+				19ABE1FB1CA50FF300258DD2 /* ViewController.m */,
+				19ABE1FD1CA50FF300258DD2 /* Main.storyboard */,
+				19ABE2001CA50FF300258DD2 /* Assets.xcassets */,
+				19ABE2021CA50FF300258DD2 /* LaunchScreen.storyboard */,
+				19ABE2051CA50FF300258DD2 /* Info.plist */,
+				19ABE1F41CA50FF300258DD2 /* Supporting Files */,
+			);
+			path = SANetwork;
+			sourceTree = "<group>";
+		};
+		19ABE1F41CA50FF300258DD2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				19ABE1F51CA50FF300258DD2 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		19ABE20B1CA513A600258DD2 /* SANetworkClass */ = {
+			isa = PBXGroup;
+			children = (
+				19ABE22B1CA5148100258DD2 /* SANetwork.h */,
+				19ABE20C1CA513A600258DD2 /* SANetwork */,
+				19ABE20D1CA513A600258DD2 /* SANetworkAccessory */,
+				19ABE20E1CA513A600258DD2 /* SANetworkProtocol */,
+			);
+			path = SANetworkClass;
+			sourceTree = "<group>";
+		};
+		19ABE20C1CA513A600258DD2 /* SANetwork */ = {
+			isa = PBXGroup;
+			children = (
+				19ABE2101CA513BD00258DD2 /* SANetworkAgent.h */,
+				19ABE2111CA513BD00258DD2 /* SANetworkAgent.m */,
+				19ABE2121CA513BD00258DD2 /* SANetworkBatchRequest.h */,
+				19ABE2131CA513BD00258DD2 /* SANetworkBatchRequest.m */,
+				19ABE2141CA513BD00258DD2 /* SANetworkChainRequest.h */,
+				19ABE2151CA513BD00258DD2 /* SANetworkChainRequest.m */,
+				19ABE2161CA513BD00258DD2 /* SANetworkRequest.h */,
+				19ABE2171CA513BD00258DD2 /* SANetworkRequest.m */,
+				19ABE2181CA513BD00258DD2 /* SANetworkResponse.h */,
+				19ABE2191CA513BD00258DD2 /* SANetworkResponse.m */,
+			);
+			path = SANetwork;
+			sourceTree = "<group>";
+		};
+		19ABE20D1CA513A600258DD2 /* SANetworkAccessory */ = {
+			isa = PBXGroup;
+			children = (
+				19ABE21F1CA5143700258DD2 /* SANetworkHUDAccessory.h */,
+				19ABE2201CA5143700258DD2 /* SANetworkHUDAccessory.m */,
+				19ABE2211CA5143700258DD2 /* SANetworkRefreshAccessory.h */,
+				19ABE2221CA5143700258DD2 /* SANetworkRefreshAccessory.m */,
+			);
+			path = SANetworkAccessory;
+			sourceTree = "<group>";
+		};
+		19ABE20E1CA513A600258DD2 /* SANetworkProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				19ABE2251CA5144100258DD2 /* SANetworkAccessoryProtocol.h */,
+				19ABE2261CA5144100258DD2 /* SANetworkConfigProtocol.h */,
+				19ABE2271CA5144100258DD2 /* SANetworkInterceptorProtocol.h */,
+				19ABE2281CA5144100258DD2 /* SANetworkResponseProtocol.h */,
+				19ABE2291CA5144100258DD2 /* SANetworkResponseReformerProtocol.h */,
+			);
+			path = SANetworkProtocol;
+			sourceTree = "<group>";
+		};
+		7D8FB4897569774B46F8166F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3252AEDA3E8E2316BEC04A6E /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EF69ADC37FBC25C8656E04EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8B43642D5D6ECFB87367A499 /* Pods.debug.xcconfig */,
+				D4B2C51D6FD83AC1525DA048 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		19ABE1F01CA50FF300258DD2 /* SANetwork */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 19ABE2081CA50FF300258DD2 /* Build configuration list for PBXNativeTarget "SANetwork" */;
+			buildPhases = (
+				443611828805D3EFD56FAF69 /* Check Pods Manifest.lock */,
+				19ABE1ED1CA50FF300258DD2 /* Sources */,
+				19ABE1EE1CA50FF300258DD2 /* Frameworks */,
+				19ABE1EF1CA50FF300258DD2 /* Resources */,
+				9D9BC3BD5799EC03AB31FF3F /* Embed Pods Frameworks */,
+				08C8F340068A3C082FC8384E /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SANetwork;
+			productName = SANetwork;
+			productReference = 19ABE1F11CA50FF300258DD2 /* SANetwork.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		19ABE1E91CA50FF300258DD2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "浙江网仓科技有限公司";
+				TargetAttributes = {
+					19ABE1F01CA50FF300258DD2 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 19ABE1EC1CA50FF300258DD2 /* Build configuration list for PBXProject "SANetwork" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 19ABE1E81CA50FF300258DD2;
+			productRefGroup = 19ABE1F21CA50FF300258DD2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				19ABE1F01CA50FF300258DD2 /* SANetwork */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		19ABE1EF1CA50FF300258DD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19ABE2041CA50FF300258DD2 /* LaunchScreen.storyboard in Resources */,
+				19ABE2011CA50FF300258DD2 /* Assets.xcassets in Resources */,
+				19ABE1FF1CA50FF300258DD2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08C8F340068A3C082FC8384E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		443611828805D3EFD56FAF69 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9D9BC3BD5799EC03AB31FF3F /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		19ABE1ED1CA50FF300258DD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19ABE21D1CA513BD00258DD2 /* SANetworkRequest.m in Sources */,
+				19ABE2241CA5143700258DD2 /* SANetworkRefreshAccessory.m in Sources */,
+				19ABE21E1CA513BD00258DD2 /* SANetworkResponse.m in Sources */,
+				19ABE1FC1CA50FF300258DD2 /* ViewController.m in Sources */,
+				19ABE1F91CA50FF300258DD2 /* AppDelegate.m in Sources */,
+				19ABE21B1CA513BD00258DD2 /* SANetworkBatchRequest.m in Sources */,
+				19ABE2231CA5143700258DD2 /* SANetworkHUDAccessory.m in Sources */,
+				19ABE21A1CA513BD00258DD2 /* SANetworkAgent.m in Sources */,
+				19ABE21C1CA513BD00258DD2 /* SANetworkChainRequest.m in Sources */,
+				19ABE1F61CA50FF300258DD2 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		19ABE1FD1CA50FF300258DD2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				19ABE1FE1CA50FF300258DD2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		19ABE2021CA50FF300258DD2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				19ABE2031CA50FF300258DD2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		19ABE2061CA50FF300258DD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		19ABE2071CA50FF300258DD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		19ABE2091CA50FF300258DD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B43642D5D6ECFB87367A499 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SANetwork/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iscs.SANetwork;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		19ABE20A1CA50FF300258DD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4B2C51D6FD83AC1525DA048 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SANetwork/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.iscs.SANetwork;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		19ABE1EC1CA50FF300258DD2 /* Build configuration list for PBXProject "SANetwork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19ABE2061CA50FF300258DD2 /* Debug */,
+				19ABE2071CA50FF300258DD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		19ABE2081CA50FF300258DD2 /* Build configuration list for PBXNativeTarget "SANetwork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19ABE2091CA50FF300258DD2 /* Debug */,
+				19ABE20A1CA50FF300258DD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 19ABE1E91CA50FF300258DD2 /* Project object */;
+}
