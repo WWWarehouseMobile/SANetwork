@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name         = "SANetwork"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "离散式请求二次封装"
   s.license      = 'MIT'
   s.author       = { "阿宝" => "zhanxuebao@outlook.com" }
-  s.homepage     = 'https://github.com/ISCS-iOS/SANetwork'
+  s.homepage     = "https://github.com/ISCS-iOS/SANetwork"
   s.platform     = :ios,'7.0'
   s.ios.deployment_target = '7.0'
   s.source       = { :git => "https://github.com/ISCS-iOS/SANetwork.git", :tag => s.version.to_s}
