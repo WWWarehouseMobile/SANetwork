@@ -13,6 +13,10 @@
 
 + (SANetworkAgent *)sharedInstance;
 
+@property (nonatomic, strong, readwrite) NSString *mainBaseUrlString;// 主url
+
+@property (nonatomic, strong, readwrite) NSString *viceBaseUrlString;// 副url
+
 /**
  *  @brief 添加request到请求栈中，并启动
  *

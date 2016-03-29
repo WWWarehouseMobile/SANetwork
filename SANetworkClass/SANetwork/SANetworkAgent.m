@@ -18,8 +18,7 @@
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 @property (nonatomic, strong) NSMutableDictionary <NSString*, SANetworkRequest*>*requestRecordDict;
 
-@property (nonatomic, strong) NSString *mainBaseUrlString;// 主url
-@property (nonatomic, strong) NSString *viceBaseUrlString;// 副url
+
 
 @property (nonatomic, assign, readonly) BOOL isReachable;
 @end
@@ -41,10 +40,7 @@
         _sessionManager = [AFHTTPSessionManager manager];
         _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
         _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
-
         _requestRecordDict = [NSMutableDictionary dictionary];
-        _mainBaseUrlString = @"http://app.iscs.com.cn/ecm/mobile/";
-        _viceBaseUrlString = @"https://app.iscs.com.cn/ecm/mobile/";
     }
     return self;
 }
@@ -152,6 +148,7 @@
 #pragma mark-处理Request
 
 - (void)addRequest:(__kindof SANetworkRequest<SANetworkConfigProtocol> *)request{
+    NSAssert(self.mainBaseUrlString || self.viceBaseUrlString, @"配置好要请求的url后，可将此行注释掉");
     NSString *requestURLString = [self urlStringByRequest:request];
     if ([requestURLString hasPrefix:@"https"]) {
         AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
