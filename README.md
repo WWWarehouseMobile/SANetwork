@@ -1,4 +1,4 @@
-# ISCSNetwork
+# SANetwork
 
 ###简述
 此类库是对[AFNetworking](https://github.com/AFNetworking/AFNetworking)的二次封装，主要思想是参照[RTNetworking](https://github.com/casatwy/RTNetworking)扩展书写的。  
@@ -47,15 +47,13 @@ return YES;
 
 #####基本的请求配置
 此类库是以离散式方式做的二次封装，也就是说需要针对每个请求创建了一个这个类，这个类需要继承`SANetworkRequest`并必须实现协议`SANetworkConfigProtocol`！  
-就像这样
-<pre><code>
-@interface ExpressRequest : SANetworkRequest<SANetworkConfigProtocol>
+就像这样  
 
-- (instancetype)initWithType:(NSString *)expressType postId:(NSString *)postId;
-@end
-</code></pre>
-<pre><code>
-@implementation ExpressRequest
+	@interface ExpressRequest : SANetworkRequest<SANetworkConfigProtocol>
+
+	- (instancetype)initWithType:(NSString *)expressType postId:(NSString *)postId;
+	@end			
+<pre><code>@implementation ExpressRequest
 
 - (instancetype)initWithType:(NSString *)expressType postId:(NSString *)postId
 {
@@ -77,12 +75,21 @@ return YES;
     return @"query";
 }
 
-@end
+@ende>
+
 </code></pre>
 这两个协议方法，你在创建的请求类中必须实现 
 
-* ** - (SARequestMethod)requestMethod **
-* ** - (NSString *)apiMethodName**
+	- (SARequestMethod)requestMethod
+	- (NSString *)apiMethodName
+创建请求实例，设置请求响应回调，执行请求
+
+	ExpressRequest *expressRequest = [[ExpressRequest alloc] initWithType:self.typeTextField.text postId:self.postidTextField.text];
+	expressRequest.responseDelegate = self;
+    [expressRequest startRequest];
+    
+ 实现协议`SANetworkResponseProtocol`中的方法，处理请求的响应结果
+
 
 #####其他
 此类库简单的封装了批量请求和链式请求以及请求的插件，有兴趣或有需要的同学可以看看

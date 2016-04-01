@@ -36,8 +36,6 @@
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
     NSLog(@"data: %@",response.responseData);
-//    NSDictionary
-//    self.dataTextView.text = [response.contentData stringValue];
 }
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
