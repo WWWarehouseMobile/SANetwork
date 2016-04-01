@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <RealReachability/RealReachability.h>
+#import "SANetwork.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +18,35 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    /**
+     *  设定自己需要请求的URL
+     */
+    [SANetworkAgent sharedInstance].mainBaseUrlString = @"http://www.kuaidi100.com";
+    /**
+     *  当使用viceBaseUrlString时，请设定请求的SANetworkConfigProtocol中的viceBaseUrlString为YES
+     */
+    [SANetworkAgent sharedInstance].viceBaseUrlString = @"http://www.kuaidi100.com";
+    
+    [[SANetworkAgent sharedInstance] setBaseArgumentBlock:^NSDictionary *(){
+        /**
+         *  根据自己的接口中大部分接口所必须的参数，进行统一设定
+         */
+        return @{@"username" : @"001",
+                 @"password" : @"123"};
+    }];
+    [[SANetworkAgent sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
+        /**
+         *  可根据networkRequest、response进行验证
+         */
+        return YES;
+    }];
+    
+    /**
+     *  根据自己的接口返回，自定义设置
+     */
+    [SANetworkResponse setResponseMessageKey:@"msg"];
+    [SANetworkResponse setResponseCodeKey:@"code"];
+    [SANetworkResponse setResponseContentDataKey:@"data"];
     // Override point for customization after application launch.
     return YES;
 }

@@ -18,9 +18,8 @@
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 @property (nonatomic, strong) NSMutableDictionary <NSString*, SANetworkRequest*>*requestRecordDict;
 
-
-
 @property (nonatomic, assign, readonly) BOOL isReachable;
+
 @end
 
 @implementation SANetworkAgent
@@ -41,6 +40,7 @@
         _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
         _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
         _requestRecordDict = [NSMutableDictionary dictionary];
+        [[RealReachability sharedInstance] startNotifier];
     }
     return self;
 }
@@ -76,6 +76,7 @@
     if (baseUrlString) {
         return [baseUrlString stringByAppendingPathComponent:detailUrl];
     }
+    NSLog(@"\n\n\n请设置请求的URL\n\n\n");
     return nil;
 }
 
@@ -148,7 +149,6 @@
 #pragma mark-处理Request
 
 - (void)addRequest:(__kindof SANetworkRequest<SANetworkConfigProtocol> *)request{
-    NSAssert(self.mainBaseUrlString || self.viceBaseUrlString, @"配置好要请求的url后，可将此行注释掉");
     NSString *requestURLString = [self urlStringByRequest:request];
     if ([requestURLString hasPrefix:@"https"]) {
         AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
@@ -156,8 +156,20 @@
         self.sessionManager.securityPolicy = securityPolicy;
     }
     
-    NSDictionary *requestParam = request.requestArgument;
+    BOOL useBaseRequestArgument = YES;
+    if ([request.configProtocol respondsToSelector:@selector(useBaseRequestArgument)]) {
+        useBaseRequestArgument = [request.configProtocol useBaseRequestArgument];
+    }
+    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:request.requestArgument];
+    if (useBaseRequestArgument && self.baseArgumentBlock) {
+        NSDictionary *baseRequestArgument = self.baseArgumentBlock();
+        if (baseRequestArgument != nil) {
+            [tempDict addEntriesFromDictionary:baseRequestArgument];
+        }
+    }
 
+    NSDictionary *requestParam = [NSDictionary dictionaryWithDictionary:tempDict];
+    
     //检查参数配置
     if ([request.configProtocol respondsToSelector:@selector(shouldPerformRequestWithParams:)]) {
         NSAssert([request.configProtocol shouldPerformRequestWithParams:requestParam], @"参数配置有误！请查看shouldPerformRequestWithParams: !");
@@ -186,18 +198,15 @@
     if ([self shouldCacheDataByRequest:request]) {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:succeedByResponse:)]) {
             [[PINDiskCache sharedCache] objectForKey:[self keyWithURLString:requestURLString requestParam:requestParam] block:^(PINDiskCache * _Nonnull cache, NSString * _Nonnull key, id<NSCoding>  _Nullable object, NSURL * _Nullable fileURL) {
-                SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponse:object sessionDataTask:nil requestTag:request.tag networkStatus:SANetworkStatusCache];
-                [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
+                if (object) {
+                    SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponse:object sessionDataTask:nil requestTag:request.tag networkStatus:SANetworkStatusCache];
+                    [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
+                }
             }];
         }
     }
     
     if (self.isReachable == NO) {
-        [request accessoryWillStop];
-        if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
-            SANetworkResponse *noNetResponse = [[SANetworkResponse alloc] initWithResponse:nil sessionDataTask:nil requestTag:request.tag networkStatus:SANetworkStatusNoNet];
-            [request.responseDelegate networkRequest:request failedByResponse:noNetResponse];
-        }
         [request accessoryDidStop];
         return;
     }
@@ -294,7 +303,11 @@
         return;
     }
     
-    if([request.responseDelegate networkRequest:request isCorrectWithResponse:response]){
+    BOOL isAuthentication = YES;
+    if (self.baseAuthenticationBlock) {
+        isAuthentication = self.baseAuthenticationBlock(request,response);
+    }
+    if(isAuthentication && [request.responseDelegate networkRequest:request isCorrectWithResponse:response]){
         if ([self shouldCacheDataByRequest:request]) {
             [[PINDiskCache sharedCache] setObject:response forKey:[self keyWithURLString:[self urlStringByRequest:request] requestParam:request.requestArgument]];
         }
@@ -303,10 +316,10 @@
             SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponse:response sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:SANetworkStatusSuccess];
             [request.responseDelegate networkRequest:request succeedByResponse:successResponse];
         }
-    }else{
+    } else {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
-            SANetworkResponse *dataIncorrectResponse = [[SANetworkResponse alloc] initWithResponse:response sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:SANetworkStatusResponseDataIncorrect];
-            [request.responseDelegate networkRequest:request failedByResponse:dataIncorrectResponse];
+            SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponse:response sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:isAuthentication ? SANetworkStatusResponseDataIncorrect : SANetworkStatusResponseDataFailAuthentication];
+            [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
         }
     }
     [request accessoryDidStop];
