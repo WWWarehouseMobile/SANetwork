@@ -27,7 +27,7 @@
 }
 
 - (NSString *)apiMethodName {
-    return @"do";
+    return @"query";
 }
 
 @end
