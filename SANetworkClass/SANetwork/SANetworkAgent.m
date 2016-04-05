@@ -94,6 +94,21 @@
     return NO;
 }
 
+- (NSDictionary *)requestParamByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
+    BOOL useBaseRequestArgument = YES;
+    if ([request.configProtocol respondsToSelector:@selector(useBaseRequestArgument)]) {
+        useBaseRequestArgument = [request.configProtocol useBaseRequestArgument];
+    }
+    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:request.requestArgument];
+    if (useBaseRequestArgument && self.baseArgumentBlock) {
+        NSDictionary *baseRequestArgument = self.baseArgumentBlock();
+        if (baseRequestArgument != nil) {
+            [tempDict addEntriesFromDictionary:baseRequestArgument];
+        }
+    }
+    return [NSDictionary dictionaryWithDictionary:tempDict];
+}
+
 - (SARequestSerializerType)requestSerializerTypeByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
     SARequestSerializerType requestSerializerType = SARequestSerializerTypeHTTP;
     if ([request.configProtocol respondsToSelector:@selector(requestSerializerType)]) {
@@ -125,21 +140,6 @@
     return nil;
 }
 
-- (NSString *)stringByMd5String:(NSString *)string {
-    if(string == nil || [string length] == 0)
-        return nil;
-    
-    const char *value = [string UTF8String];
-    
-    unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
-    
-    NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
-        [outputString appendFormat:@"%02x",outputBuffer[count]];
-    }
-    return outputString;
-}
 - (NSString *)keyWithURLString:(NSString *)urlString requestParam:(NSDictionary *)requestParam {
     NSString *cacheKey = [self urlStringWithOriginUrlString:urlString appendParameters:requestParam];
     return [self stringByMd5String:cacheKey];
@@ -155,20 +155,8 @@
         [securityPolicy setAllowInvalidCertificates:YES];
         self.sessionManager.securityPolicy = securityPolicy;
     }
-    
-    BOOL useBaseRequestArgument = YES;
-    if ([request.configProtocol respondsToSelector:@selector(useBaseRequestArgument)]) {
-        useBaseRequestArgument = [request.configProtocol useBaseRequestArgument];
-    }
-    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:request.requestArgument];
-    if (useBaseRequestArgument && self.baseArgumentBlock) {
-        NSDictionary *baseRequestArgument = self.baseArgumentBlock();
-        if (baseRequestArgument != nil) {
-            [tempDict addEntriesFromDictionary:baseRequestArgument];
-        }
-    }
 
-    NSDictionary *requestParam = [NSDictionary dictionaryWithDictionary:tempDict];
+    NSDictionary *requestParam = [self requestParamByRequest:request];
     
     //检查参数配置
     if ([request.configProtocol respondsToSelector:@selector(shouldPerformRequestWithParams:)]) {
@@ -391,4 +379,19 @@
     }
 }
 
+- (NSString *)stringByMd5String:(NSString *)string {
+    if(string == nil || [string length] == 0)
+        return nil;
+    
+    const char *value = [string UTF8String];
+    
+    unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
+    
+    NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
+        [outputString appendFormat:@"%02x",outputBuffer[count]];
+    }
+    return outputString;
+}
 @end
