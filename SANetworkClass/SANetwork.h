@@ -9,6 +9,7 @@
 #ifndef SANetwork_h
 #define SANetwork_h
 
+#import "SANetworkAgent.h"
 #import "SANetworkRequest.h"
 #import "SANetworkBatchRequest.h"
 #import "SANetworkChainRequest.h"

@@ -9,9 +9,34 @@
 #import <Foundation/Foundation.h>
 
 @class SANetworkRequest;
+
+/**
+ *  返回数据的基本验证，比如签名
+ *
+ *  @param response 请求返回的数据
+ *
+ *  @return 验证是否通过
+ */
+typedef BOOL (^SANetworkResponseBaseAuthenticationBlock)(SANetworkRequest *networkRequest, id response);
+
+/**
+ *  基本的请求参数，在较多接口都会使用到的参数，这些参数可以作为base参数设定，比如用户名、app标示、版本 等等
+ *
+ *  @return “基本”参数字典
+ */
+typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseArgumentBlock)();
+
 @interface SANetworkAgent : NSObject
 
 + (SANetworkAgent *)sharedInstance;
+
+@property (nonatomic, strong, readwrite) NSString *mainBaseUrlString;// 主url
+
+@property (nonatomic, strong, readwrite) NSString *viceBaseUrlString;// 副url
+
+@property (nonatomic, copy) SANetworkResponseBaseAuthenticationBlock baseAuthenticationBlock;
+
+@property (nonatomic, copy) SANetworkRequestBaseArgumentBlock baseArgumentBlock;
 
 /**
  *  @brief 添加request到请求栈中，并启动
@@ -26,4 +51,5 @@
  *  @param request 一个基于SABaseRequest的实例
  */
 - (void)removeRequest:(__kindof SANetworkRequest *)request;
+
 @end

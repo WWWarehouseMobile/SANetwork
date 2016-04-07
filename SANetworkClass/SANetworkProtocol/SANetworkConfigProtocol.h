@@ -43,6 +43,13 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (BOOL)useViceURL;
 
 /**
+ *  很多请求都会需要相同的请求参数，可设置SANetworkAgent的baseArgumentBlock，这个block会返回你所设置的基础参数。默认YES
+ *
+ *  @return 是否使用基础参数
+ */
+- (BOOL)useBaseRequestArgument;
+
+/**
  *  @brief 是否缓存数据 response。  默认NO
  *
  *  @return 是否缓存

@@ -18,10 +18,8 @@
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 @property (nonatomic, strong) NSMutableDictionary <NSString*, SANetworkRequest*>*requestRecordDict;
 
-@property (nonatomic, strong) NSString *mainBaseUrlString;// 主url
-@property (nonatomic, strong) NSString *viceBaseUrlString;// 副url
-
 @property (nonatomic, assign, readonly) BOOL isReachable;
+
 @end
 
 @implementation SANetworkAgent
@@ -41,10 +39,8 @@
         _sessionManager = [AFHTTPSessionManager manager];
         _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
         _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
-
         _requestRecordDict = [NSMutableDictionary dictionary];
-        _mainBaseUrlString = @"http://app.iscs.com.cn/ecm/mobile/";
-        _viceBaseUrlString = @"https://app.iscs.com.cn/ecm/mobile/";
+        [[RealReachability sharedInstance] startNotifier];
     }
     return self;
 }
@@ -80,6 +76,7 @@
     if (baseUrlString) {
         return [baseUrlString stringByAppendingPathComponent:detailUrl];
     }
+    NSLog(@"\n\n\n请设置请求的URL\n\n\n");
     return nil;
 }
 
@@ -95,6 +92,21 @@
         return [request.configProtocol shouldCancelPreviousRequest];
     }
     return NO;
+}
+
+- (NSDictionary *)requestParamByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
+    BOOL useBaseRequestArgument = YES;
+    if ([request.configProtocol respondsToSelector:@selector(useBaseRequestArgument)]) {
+        useBaseRequestArgument = [request.configProtocol useBaseRequestArgument];
+    }
+    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:request.requestArgument];
+    if (useBaseRequestArgument && self.baseArgumentBlock) {
+        NSDictionary *baseRequestArgument = self.baseArgumentBlock();
+        if (baseRequestArgument != nil) {
+            [tempDict addEntriesFromDictionary:baseRequestArgument];
+        }
+    }
+    return [NSDictionary dictionaryWithDictionary:tempDict];
 }
 
 - (SARequestSerializerType)requestSerializerTypeByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
@@ -128,21 +140,6 @@
     return nil;
 }
 
-- (NSString *)stringByMd5String:(NSString *)string {
-    if(string == nil || [string length] == 0)
-        return nil;
-    
-    const char *value = [string UTF8String];
-    
-    unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
-    
-    NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
-        [outputString appendFormat:@"%02x",outputBuffer[count]];
-    }
-    return outputString;
-}
 - (NSString *)keyWithURLString:(NSString *)urlString requestParam:(NSDictionary *)requestParam {
     NSString *cacheKey = [self urlStringWithOriginUrlString:urlString appendParameters:requestParam];
     return [self stringByMd5String:cacheKey];
@@ -158,9 +155,9 @@
         [securityPolicy setAllowInvalidCertificates:YES];
         self.sessionManager.securityPolicy = securityPolicy;
     }
-    
-    NSDictionary *requestParam = request.requestArgument;
 
+    NSDictionary *requestParam = [self requestParamByRequest:request];
+    
     //检查参数配置
     if ([request.configProtocol respondsToSelector:@selector(shouldPerformRequestWithParams:)]) {
         NSAssert([request.configProtocol shouldPerformRequestWithParams:requestParam], @"参数配置有误！请查看shouldPerformRequestWithParams: !");
@@ -189,18 +186,15 @@
     if ([self shouldCacheDataByRequest:request]) {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:succeedByResponse:)]) {
             [[PINDiskCache sharedCache] objectForKey:[self keyWithURLString:requestURLString requestParam:requestParam] block:^(PINDiskCache * _Nonnull cache, NSString * _Nonnull key, id<NSCoding>  _Nullable object, NSURL * _Nullable fileURL) {
-                SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponse:object sessionDataTask:nil requestTag:request.tag networkStatus:SANetworkStatusCache];
-                [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
+                if (object) {
+                    SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponse:object sessionDataTask:nil requestTag:request.tag networkStatus:SANetworkStatusCache];
+                    [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
+                }
             }];
         }
     }
     
     if (self.isReachable == NO) {
-        [request accessoryWillStop];
-        if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
-            SANetworkResponse *noNetResponse = [[SANetworkResponse alloc] initWithResponse:nil sessionDataTask:nil requestTag:request.tag networkStatus:SANetworkStatusNoNet];
-            [request.responseDelegate networkRequest:request failedByResponse:noNetResponse];
-        }
         [request accessoryDidStop];
         return;
     }
@@ -297,7 +291,11 @@
         return;
     }
     
-    if([request.responseDelegate networkRequest:request isCorrectWithResponse:response]){
+    BOOL isAuthentication = YES;
+    if (self.baseAuthenticationBlock) {
+        isAuthentication = self.baseAuthenticationBlock(request,response);
+    }
+    if(isAuthentication && [request.responseDelegate networkRequest:request isCorrectWithResponse:response]){
         if ([self shouldCacheDataByRequest:request]) {
             [[PINDiskCache sharedCache] setObject:response forKey:[self keyWithURLString:[self urlStringByRequest:request] requestParam:request.requestArgument]];
         }
@@ -306,10 +304,10 @@
             SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponse:response sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:SANetworkStatusSuccess];
             [request.responseDelegate networkRequest:request succeedByResponse:successResponse];
         }
-    }else{
+    } else {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
-            SANetworkResponse *dataIncorrectResponse = [[SANetworkResponse alloc] initWithResponse:response sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:SANetworkStatusResponseDataIncorrect];
-            [request.responseDelegate networkRequest:request failedByResponse:dataIncorrectResponse];
+            SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponse:response sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:isAuthentication ? SANetworkStatusResponseDataIncorrect : SANetworkStatusResponseDataFailAuthentication];
+            [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
         }
     }
     [request accessoryDidStop];
@@ -381,4 +379,19 @@
     }
 }
 
+- (NSString *)stringByMd5String:(NSString *)string {
+    if(string == nil || [string length] == 0)
+        return nil;
+    
+    const char *value = [string UTF8String];
+    
+    unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
+    
+    NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
+        [outputString appendFormat:@"%02x",outputBuffer[count]];
+    }
+    return outputString;
+}
 @end

@@ -18,8 +18,6 @@
 
 @property (nonatomic, strong) NSMutableArray *accessoryArray;
 
-@property (nonatomic, strong) NSMutableArray *responseDataArray;
-
 @property (nonatomic, strong) NSMutableArray<SANetworkResponse *> *responseArray;
 
 - (void)accessoryWillStart;
@@ -35,7 +33,6 @@
     if (self) {
         _requestArray = [requestArray copy];
         _responseArray = [NSMutableArray array];
-        _responseDataArray = [NSMutableArray array];
         _completedCount = 0;
         _isContinueByFailResponse = YES;
     }
@@ -43,7 +40,7 @@
 }
 
 - (void)startBatchRequest {
-    if (self.completedCount >0 ) {
+    if (self.completedCount > 0 ) {
         NSLog(@"批量请求正在进行，请勿重复启动  !");
         return;
     }
@@ -70,7 +67,6 @@
 #pragma mark-SANetworkResponseProtocol
 
 - (BOOL)networkRequest:(SANetworkRequest *)networkRequest isCorrectWithResponse:(id)responseData {
-//    [self.responseDataArray addObject:responseData];
     if ([self.delegate respondsToSelector:@selector(networkBatchRequest:networkRequest:isCorrectWithResponse:)]) {
         return [self.delegate networkBatchRequest:self networkRequest:networkRequest isCorrectWithResponse:responseData];
     }
@@ -111,6 +107,7 @@
             [self.delegate networkBatchRequest:self completedByResponseArray:self.responseArray];
         }
     [self accessoryDidStop];
+    self.completedCount = 0;
 }
 
 - (void)dealloc {

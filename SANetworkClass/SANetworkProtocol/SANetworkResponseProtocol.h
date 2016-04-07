@@ -51,4 +51,6 @@
  */
 - (void)networkRequest:(SANetworkRequest *)networkRequest requestingByProgress:(NSProgress *)progress;
 
+- (Class)responseClassByNetworkRequest:(SANetworkRequest *)networkRequest;
+
 @end
