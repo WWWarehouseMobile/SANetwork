@@ -14,8 +14,6 @@
 
 @optional
 
-- (void)networkRequest:(SANetworkRequest *)networkRequest afterPerformRequestWithParams:(NSDictionary *)params;
-
 - (void)networkRequest:(SANetworkRequest *)networkRequest beforePerformSuccessWithResponse:(SANetworkResponse *)networkResponse;
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest afterPerformSuccessWithResponse:(SANetworkResponse *)networkResponse;

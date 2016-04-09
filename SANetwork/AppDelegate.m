@@ -21,19 +21,19 @@
     /**
      *  设定自己需要请求的URL
      */
-    [SANetworkAgent sharedInstance].mainBaseUrlString = @"http://www.kuaidi100.com";
+    [SANetworkAgent sharedInstance].mainBaseUrlString = @"http://api.dongting.com";
     /**
      *  当使用viceBaseUrlString时，请设定请求的SANetworkConfigProtocol中的viceBaseUrlString为YES
      */
-    [SANetworkAgent sharedInstance].viceBaseUrlString = @"http://www.kuaidi100.com";
+//    [SANetworkAgent sharedInstance].viceBaseUrlString = @"http://www.kuaidi100.com";
     
-    [[SANetworkAgent sharedInstance] setBaseArgumentBlock:^NSDictionary *(){
-        /**
-         *  根据自己的接口中大部分接口所必须的参数，进行统一设定
-         */
-        return @{@"username" : @"001",
-                 @"password" : @"123"};
-    }];
+//    [[SANetworkAgent sharedInstance] setBaseArgumentBlock:^NSDictionary *(){
+//        /**
+//         *  根据自己的接口中大部分接口所必须的参数，进行统一设定
+//         */
+//        return @{@"username" : @"001",
+//                 @"password" : @"123"};
+//    }];
     [[SANetworkAgent sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
         /**
          *  可根据networkRequest、response进行验证

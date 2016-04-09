@@ -10,23 +10,34 @@
 
 @implementation ExpressRequest
 
-- (instancetype)initWithType:(NSString *)expressType postId:(NSString *)postId
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.requestArgument = @{
-                                 @"type" : expressType,
-                                 @"postid" : postId
-                                 };
+        self.paramSourceDelegate = self;
     }
     return self;
+}
+
+- (BOOL)isCorrectWithResponseData:(id)responseData {
+    if (responseData) {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSDictionary *)requestParamDictionary {
+    return @{
+             @"type" : self.type,
+             @"postid" : self.postId
+             };
 }
 
 - (SARequestMethod)requestMethod {
     return SARequestMethodPost;
 }
 
-- (NSString *)apiMethodName {
+- (NSString *)requestMethodName {
     return @"query";
 }
 

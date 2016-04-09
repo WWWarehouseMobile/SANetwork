@@ -12,34 +12,31 @@
 /**
  *  网络请求状态值
  */
-typedef NS_ENUM(NSInteger, SANetworkStatus) {
+typedef NS_ENUM(NSInteger, SANetworkResponseStatus) {
     /**
-     *  请求超时
+     *  请求失败
      */
-    SANetworkStatusTimeout,
+    SANetworkResponseFailureStatus,
     /**
      *  允许缓存的接口，取到缓存数据
      */
-    SANetworkStatusCache,
+    SANetworkResponseCacheStatus,
     /**
      *  请求返回的数据错误，可能是接口错误等等
      */
-    SANetworkStatusResponseDataIncorrect,
+    SANetworkResponseIncorrectStatus,
     
     /**
      *  请求返回的数据没有通过验证
      */
-    SANetworkStatusResponseDataFailAuthentication,
+    SANetworkResponseAuthenticationFailStatus,
     /**
      *  数据请求成功
      */
-    SANetworkStatusSuccess,
+    SANetworkResponseSuccessStatus,
 };
 
 @interface SANetworkResponse : NSObject
-
-@property (nonatomic, copy, readonly) NSURLSessionDataTask *sessionDataTask;
-
 /**
  *  请求得到的全部数据
  */
@@ -49,12 +46,15 @@ typedef NS_ENUM(NSInteger, SANetworkStatus) {
 
 @property (nonatomic, assign, readonly) BOOL isCache;
 
-@property (nonatomic, assign, readonly) SANetworkStatus networkStatus;
+@property (nonatomic, assign, readonly) SANetworkResponseStatus networkResponseStatus;
 
-- (instancetype)initWithResponse:(id)response
-                 sessionDataTask:(NSURLSessionDataTask *)sessionDataTask
+
+- (instancetype)initWithResponseData:(id)responseData
+                  responseModelClass:(Class)responseModelClass
                       requestTag:(NSInteger)requestTag
-                   networkStatus:(SANetworkStatus)networkStatus;
+                   networkResponseStatus:(SANetworkResponseStatus)networkResponseStatus;
+
+
 
 - (id)fetchDataWithReformer:(id<SANetworkResponseReformerProtocol>)reformer;
 
@@ -69,7 +69,7 @@ typedef NS_ENUM(NSInteger, SANetworkStatus) {
 
 + (void)setResponseContentDataKey:(NSString *)contentDataKey;
 
-@property (nonatomic, copy, readonly) id contentData;
+@property (nonatomic, copy, readonly) NSObject *contentData;
 
 @property (nonatomic, copy, readonly) NSString *message;
 

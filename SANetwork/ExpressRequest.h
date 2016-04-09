@@ -8,7 +8,10 @@
 
 #import "SANetworkRequest.h"
 
-@interface ExpressRequest : SANetworkRequest<SANetworkConfigProtocol>
+@interface ExpressRequest : SANetworkRequest<SANetworkConfigProtocol,SANetworkParamSourceProtocol>
 
-- (instancetype)initWithType:(NSString *)expressType postId:(NSString *)postId;
+@property (nonatomic, copy) NSString *type;
+
+@property (nonatomic, copy) NSString *postId;
+
 @end

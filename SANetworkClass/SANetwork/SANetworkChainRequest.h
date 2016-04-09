@@ -14,10 +14,6 @@
 @class SANetworkResponse;
 @protocol SANetworkChainRequestDelegate <NSObject>
 
-@required
-
-- (BOOL)networkChainRequest:(SANetworkChainRequest *)chainRequest nextNetworkRequestByNetworkRequest:(SANetworkRequest *)request isCorrectWithResponse:(id)response;
-
 @optional
 
 - (SANetworkRequest *)networkChainRequest:(SANetworkChainRequest *)chainRequest nextNetworkRequestByNetworkRequest:(SANetworkRequest *)request finishedByResponse:(SANetworkResponse *)response;

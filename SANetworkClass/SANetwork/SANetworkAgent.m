@@ -16,6 +16,7 @@
 @interface SANetworkAgent ()
 
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
+
 @property (nonatomic, strong) NSMutableDictionary <NSString*, SANetworkRequest*>*requestRecordDict;
 
 @property (nonatomic, assign, readonly) BOOL isReachable;
@@ -36,13 +37,40 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _sessionManager = [AFHTTPSessionManager manager];
-        _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
-        _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
         _requestRecordDict = [NSMutableDictionary dictionary];
         [[RealReachability sharedInstance] startNotifier];
     }
     return self;
+}
+
+- (AFHTTPSessionManager *)sessionManager {
+    if (_sessionManager == nil) {
+        _sessionManager = [AFHTTPSessionManager manager];
+        _sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+        _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
+        _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    }
+    return _sessionManager;
+}
+
+- (void)setupSessionManagerRequestSerializerByRequest:(SANetworkRequest<SANetworkConfigProtocol> *)request {
+    //配置requestSerializerType
+    switch ([self requestSerializerTypeByRequest:request]) {
+        case SARequestSerializerTypeJSON:
+            self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+            break;
+        case SARequestSerializerTypeHTTP:
+            self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            break;
+        default:
+            break;
+    }
+    //配置请求超时时间
+    self.sessionManager.requestSerializer.timeoutInterval = [self requestTimeoutIntervalByRequest:request];
+}
+
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field {
+    [self.sessionManager.requestSerializer setValue:value forHTTPHeaderField:field];
 }
 
 #pragma mark-
@@ -61,8 +89,8 @@
     }
     
     NSString *detailUrl = @"";
-    if ([request.configProtocol respondsToSelector:@selector(apiMethodName)]) {
-        detailUrl = [request.configProtocol apiMethodName];
+    if ([request.configProtocol respondsToSelector:@selector(requestMethodName)]) {
+        detailUrl = [request.configProtocol requestMethodName];
     }
     if ([detailUrl hasPrefix:@"http"]) {
         return detailUrl;
@@ -94,13 +122,22 @@
     return NO;
 }
 
-- (NSDictionary *)requestParamByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
-    BOOL useBaseRequestArgument = YES;
-    if ([request.configProtocol respondsToSelector:@selector(useBaseRequestArgument)]) {
-        useBaseRequestArgument = [request.configProtocol useBaseRequestArgument];
+- (BOOL)isCorrectByRequestParams:(NSDictionary *)requestParams request:(SANetworkRequest *)request {
+    if ([request.configProtocol respondsToSelector:@selector(isCorrectWithRequestParams:)]) {
+        return [request.configProtocol isCorrectWithRequestParams:requestParams];
     }
-    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] initWithDictionary:request.requestArgument];
-    if (useBaseRequestArgument && self.baseArgumentBlock) {
+    return YES;
+}
+
+- (NSDictionary *)requestParamByRequest:(SANetworkRequest *)request {
+    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+    if (request.paramSourceDelegate) {
+        NSDictionary *paramDict = [request.paramSourceDelegate requestParamDictionary];
+        if (paramDict != nil) {
+            [tempDict addEntriesFromDictionary:paramDict];
+        }
+    }
+    if ([request.configProtocol respondsToSelector:@selector(useBaseRequestArgument)] && [request.configProtocol useBaseRequestArgument] && self.baseArgumentBlock) {
         NSDictionary *baseRequestArgument = self.baseArgumentBlock();
         if (baseRequestArgument != nil) {
             [tempDict addEntriesFromDictionary:baseRequestArgument];
@@ -110,27 +147,24 @@
 }
 
 - (SARequestSerializerType)requestSerializerTypeByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
-    SARequestSerializerType requestSerializerType = SARequestSerializerTypeHTTP;
     if ([request.configProtocol respondsToSelector:@selector(requestSerializerType)]) {
-        requestSerializerType = [request.configProtocol requestSerializerType];
+        return [request.configProtocol requestSerializerType];
     }
-    return requestSerializerType;
+    return SARequestSerializerTypeHTTP;
 }
 
 - (NSTimeInterval)requestTimeoutIntervalByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
-    NSTimeInterval timeoutInterval = 30.0f;
     if ([request.configProtocol respondsToSelector:@selector(requestTimeoutInterval)]) {
-        timeoutInterval = [request.configProtocol requestTimeoutInterval];
+        return [request.configProtocol requestTimeoutInterval];
     }
-    return timeoutInterval;
+    return 20.0f;
 }
 
 - (SARequestMethod)requestMethodByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
-    SARequestMethod requestMethod = SARequestMethodPost;
     if ([request.configProtocol respondsToSelector:@selector(requestMethod)]) {
-        requestMethod = [request.configProtocol requestMethod];
+        return [request.configProtocol requestMethod];
     }
-    return requestMethod;
+    return SARequestMethodPost;
 }
 
 - (AFConstructingBlock)constructingBlockByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
@@ -144,6 +178,7 @@
     NSString *cacheKey = [self urlStringWithOriginUrlString:urlString appendParameters:requestParam];
     return [self stringByMd5String:cacheKey];
 }
+
 
 #pragma mark-
 #pragma mark-处理Request
@@ -159,14 +194,16 @@
     NSDictionary *requestParam = [self requestParamByRequest:request];
     
     //检查参数配置
-    if ([request.configProtocol respondsToSelector:@selector(shouldPerformRequestWithParams:)]) {
-        NSAssert([request.configProtocol shouldPerformRequestWithParams:requestParam], @"参数配置有误！请查看shouldPerformRequestWithParams: !");
+    if (![self isCorrectByRequestParams:requestParam request:request]) {
+        NSLog(@"参数配置有误！请查看isCorrectWithRequestParams: !");
+        [request accessoryDidStop];
+        return;
     }
-
+    
     //检查是否存在相同请求方法未完成，并根据协议接口决定是否结束之前的请求
     __block BOOL isContinuePerform = YES;
     [self.requestRecordDict enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, SANetworkRequest * _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([[self urlStringByRequest:obj] isEqualToString:requestURLString] && [requestParam isEqualToDictionary:obj.requestArgument]) {
+        if ([[self urlStringByRequest:obj] isEqualToString:requestURLString] && [requestParam isEqualToDictionary:[self requestParamByRequest:obj]]) {
             if ([self shouldCancelPreviousRequestByRequest:request]) {
                 [obj accessoryWillStart];
                 [self removeRequest:obj];
@@ -178,6 +215,7 @@
         }
     }];
     if (isContinuePerform == NO){
+        NSLog(@"有个请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
         [request accessoryDidStop];
         return;
     }
@@ -187,7 +225,7 @@
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:succeedByResponse:)]) {
             [[PINDiskCache sharedCache] objectForKey:[self keyWithURLString:requestURLString requestParam:requestParam] block:^(PINDiskCache * _Nonnull cache, NSString * _Nonnull key, id<NSCoding>  _Nullable object, NSURL * _Nullable fileURL) {
                 if (object) {
-                    SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponse:object sessionDataTask:nil requestTag:request.tag networkStatus:SANetworkStatusCache];
+                    SANetworkResponse *cacheResponse = [self networkResponseByRequest:request responseData:object networkResponseStatus:SANetworkResponseCacheStatus];
                     [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
                 }
             }];
@@ -198,21 +236,8 @@
         [request accessoryDidStop];
         return;
     }
-    //配置requestSerializerType
-    switch ([self requestSerializerTypeByRequest:request]) {
-        case SARequestSerializerTypeJSON:
-            self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-            break;
-        case SARequestSerializerTypeHTTP:
-            self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-            break;
-        default:
-            break;
-    }
-    
-    //配置请求超时时间
-    self.sessionManager.requestSerializer.timeoutInterval = [self requestTimeoutIntervalByRequest:request];
 
+    [self setupSessionManagerRequestSerializerByRequest:request];
     __block SANetworkRequest *blockRequest = request;
     switch ([self requestMethodByRequest:request]) {
         case SARequestMethodGet:{
@@ -245,15 +270,13 @@
                                                                 [self handleRequestFailure:task error:error];
                                                             }];
             }else{
-                __weak typeof(self)weakSelf = self;
             request.sessionDataTask = [self.sessionManager POST:requestURLString
                                                      parameters:requestParam
                                                        progress:^(NSProgress * _Nonnull uploadProgress) {
                                                            [self handleRequestProgress:uploadProgress request:blockRequest];
                                                        }
                                                         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                                            __strong typeof(weakSelf)strongSelf = weakSelf;
-                                                            [strongSelf handleRequestSuccess:task responseObject:responseObject];
+                                                            [self handleRequestSuccess:task responseObject:responseObject];
                                                         }
                                                         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                                             [self handleRequestFailure:task error:error];
@@ -275,6 +298,39 @@
 #pragma mark-
 #pragma mark-处理请求响应结果
 
+- (void)beforePerformSuccessWithResponse:(SANetworkResponse *)response request:(SANetworkRequest *)request{
+    if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:beforePerformSuccessWithResponse:)]) {
+        [request.interceptorDelegate networkRequest:request beforePerformSuccessWithResponse:response];
+    }
+}
+- (void)afterPerformSuccessWithResponse:(SANetworkResponse *)response request:(SANetworkRequest *)request{
+    if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:afterPerformSuccessWithResponse:)]) {
+        [request.interceptorDelegate networkRequest:request afterPerformSuccessWithResponse:response];
+    }
+}
+
+- (void)beforePerformFailWithResponse:(SANetworkResponse *)response request:(SANetworkRequest *)request{
+    if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:beforePerformFailWithResponse:)]) {
+        [request.interceptorDelegate networkRequest:request beforePerformFailWithResponse:response];
+    }
+}
+- (void)afterPerformFailWithResponse:(SANetworkResponse *)response request:(SANetworkRequest *)request{
+    if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:afterPerformFailWithResponse:)]) {
+        [request.interceptorDelegate networkRequest:request afterPerformFailWithResponse:response];
+    }
+}
+
+
+- (SANetworkResponse *)networkResponseByRequest:(SANetworkRequest *)request responseData:(id)responseData networkResponseStatus:(SANetworkResponseStatus)networkResponseStatus {
+    Class responseClass = Nil;
+    if ([request.configProtocol respondsToSelector:@selector(responseDataModelClass)]) {
+        responseClass = [request.configProtocol responseDataModelClass];
+    }
+    SANetworkResponse *networkResponse = [[SANetworkResponse alloc] initWithResponseData:responseData responseModelClass:responseClass requestTag:request.tag networkResponseStatus:networkResponseStatus];
+    return networkResponse;
+}
+
+
 - (void)handleRequestProgress:(NSProgress *)progress request:(SANetworkRequest *)request {
     if ([request.responseDelegate respondsToSelector:@selector(networkRequest:requestingByProgress:)]) {
         [request.responseDelegate networkRequest:request requestingByProgress:progress];
@@ -284,30 +340,34 @@
 - (void)handleRequestSuccess:(NSURLSessionDataTask *)sessionDataTask responseObject:(id)response {
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest *request = _requestRecordDict[taskKey];
-    [request accessoryWillStop];
-    [self removeRequestObject:request];
     if (request == nil){
-        [request accessoryDidStop];
+        NSLog(@"请求实例被意外释放!");
         return;
     }
+    [request accessoryWillStop];
+    [self removeRequestObject:request];
     
     BOOL isAuthentication = YES;
     if (self.baseAuthenticationBlock) {
         isAuthentication = self.baseAuthenticationBlock(request,response);
     }
-    if(isAuthentication && [request.responseDelegate networkRequest:request isCorrectWithResponse:response]){
+    if(isAuthentication && [request.configProtocol isCorrectWithResponseData:response]){
         if ([self shouldCacheDataByRequest:request]) {
-            [[PINDiskCache sharedCache] setObject:response forKey:[self keyWithURLString:[self urlStringByRequest:request] requestParam:request.requestArgument]];
+            [[PINDiskCache sharedCache] setObject:response forKey:[self keyWithURLString:[self urlStringByRequest:request] requestParam:[self requestParamByRequest:request]]];
         }
         
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:succeedByResponse:)]) {
-            SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponse:response sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:SANetworkStatusSuccess];
+            SANetworkResponse *successResponse = [self networkResponseByRequest:request responseData:response networkResponseStatus:SANetworkResponseSuccessStatus];
+            [self beforePerformSuccessWithResponse:successResponse request:request];
             [request.responseDelegate networkRequest:request succeedByResponse:successResponse];
+            [self afterPerformSuccessWithResponse:successResponse request:request];
         }
     } else {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
-            SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponse:response sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:isAuthentication ? SANetworkStatusResponseDataIncorrect : SANetworkStatusResponseDataFailAuthentication];
+            SANetworkResponse *dataErrorResponse = [self networkResponseByRequest:request responseData:response networkResponseStatus:isAuthentication ? SANetworkResponseIncorrectStatus : SANetworkResponseAuthenticationFailStatus];
+            [self beforePerformFailWithResponse:dataErrorResponse request:request];
             [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
+            [self afterPerformFailWithResponse:dataErrorResponse request:request];
         }
     }
     [request accessoryDidStop];
@@ -323,8 +383,10 @@
         return;
     }
     if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
-        SANetworkResponse *timeoutResponse = [[SANetworkResponse alloc] initWithResponse:nil sessionDataTask:sessionDataTask requestTag:request.tag networkStatus:SANetworkStatusTimeout];
-        [request.responseDelegate networkRequest:request failedByResponse:timeoutResponse];
+        SANetworkResponse *failureResponse = [self networkResponseByRequest:request responseData:nil networkResponseStatus:SANetworkResponseFailureStatus];
+        [self beforePerformFailWithResponse:failureResponse request:request];
+        [request.responseDelegate networkRequest:request failedByResponse:failureResponse];
+        [self afterPerformFailWithResponse:failureResponse request:request];
     }
     [request accessoryDidStop];
 }

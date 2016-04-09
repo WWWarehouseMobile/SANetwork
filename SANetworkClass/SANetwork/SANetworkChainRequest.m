@@ -52,16 +52,13 @@
 #pragma mark-
 #pragma mark-SANetworkResponseProtocol
 
-- (BOOL)networkRequest:(SANetworkRequest *)networkRequest isCorrectWithResponse:(id)responseData {
-    return [self.delegate networkChainRequest:self nextNetworkRequestByNetworkRequest:networkRequest isCorrectWithResponse:responseData];
-}
-
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:nextNetworkRequestByNetworkRequest:finishedByResponse:)]) {
         SANetworkRequest *nextRequest = [self.delegate networkChainRequest:self nextNetworkRequestByNetworkRequest:networkRequest finishedByResponse:response];
         if (nextRequest != nil) {
             nextRequest.responseDelegate = self;
             [nextRequest startRequest];
+            self.currentNetworkRequest = nextRequest;
             return;
         }
     }

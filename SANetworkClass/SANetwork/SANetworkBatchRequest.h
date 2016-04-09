@@ -14,7 +14,6 @@
 @class SANetworkResponse;
 @protocol SANetworkBatchRequestDelegate <NSObject>
 
-- (BOOL)networkBatchRequest:(SANetworkBatchRequest *)batchRequest networkRequest:(SANetworkRequest *)networkRequest isCorrectWithResponse:(id)response;
 @optional
 
 - (void)networkBatchRequest:(SANetworkBatchRequest *)batchRequest completedByResponseArray:(NSArray<SANetworkResponse *> *)responseArray;

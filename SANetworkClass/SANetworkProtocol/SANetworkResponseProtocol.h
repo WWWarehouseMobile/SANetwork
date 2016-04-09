@@ -12,18 +12,6 @@
 @class SANetworkResponse;
 @protocol SANetworkResponseProtocol <NSObject>
 
-@required
-
-/**
- *  @brief 可在这里判断响应的数据是否是预期的格式以及关键数据是否村子，这样将在succeed和failed 直接使用数据。
- *
- *  @param networkRequest 请求对象
- *  @param responseData   响应的原始数据
- *
- *  @return 数据是否正确
- */
-- (BOOL)networkRequest:(SANetworkRequest *)networkRequest isCorrectWithResponse:(id)responseData;
-
 @optional
 
 /**
@@ -50,7 +38,5 @@
  *  @param progress       进度
  */
 - (void)networkRequest:(SANetworkRequest *)networkRequest requestingByProgress:(NSProgress *)progress;
-
-- (Class)responseClassByNetworkRequest:(SANetworkRequest *)networkRequest;
 
 @end

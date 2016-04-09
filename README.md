@@ -47,31 +47,45 @@ return YES;
 
 #####基本的请求配置
 此类库是以离散式方式做的二次封装，也就是说需要针对每个请求创建了一个这个类，这个类需要继承`SANetworkRequest`并必须实现协议`SANetworkConfigProtocol`！  
+对于请求参数的配置，你可以在SANetworkRequest的子类中配置，亦可以在业务中配置，配置需要实现`SANetworkParamSourceProtocol`
+
 就像这样  
 
-	@interface ExpressRequest : SANetworkRequest<SANetworkConfigProtocol>
-
-	- (instancetype)initWithType:(NSString *)expressType postId:(NSString *)postId;
+	@interface ExpressRequest : SANetworkRequest<SANetworkConfigProtocol,SANetworkParamSourceProtocol>
+	@property (nonatomic, copy) NSString *type;
+	@property (nonatomic, copy) NSString *postId;
 	@end			
+
 <pre><code>@implementation ExpressRequest
 
-- (instancetype)initWithType:(NSString *)expressType postId:(NSString *)postId
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.requestArgument = @{
-                                 @"type" : expressType,
-                                 @"postid" : postId
-                                 };
+        self.paramSourceDelegate = self;
     }
     return self;
+}
+
+- (BOOL)isCorrectWithResponseData:(id)responseData {
+    if (responseData) {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSDictionary *)requestParamDictionary {
+    return @{
+             @"type" : self.type,
+             @"postid" : self.postId
+             };
 }
 
 - (SARequestMethod)requestMethod {
     return SARequestMethodPost;
 }
 
-- (NSString *)apiMethodName {
+- (NSString *)requestMethodName {
     return @"query";
 }
 
@@ -80,16 +94,23 @@ return YES;
 </code></pre>
 这两个协议方法，你在创建的请求类中必须实现 
 
-	- (SARequestMethod)requestMethod
-	- (NSString *)apiMethodName
+	- (NSString *)requestMethodName;
+	- (BOOL)isCorrectWithResponseData:(id)responseData;
 创建请求实例，设置请求响应回调，执行请求
 
-	ExpressRequest *expressRequest = [[ExpressRequest alloc] initWithType:self.typeTextField.text postId:self.postidTextField.text];
-	expressRequest.responseDelegate = self;
+	ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
+    expressRequest.type = self.typeTextField.text;
+    expressRequest.postId = self.postidTextField.text;
+    expressRequest.responseDelegate = self;
     [expressRequest startRequest];
     
  实现协议`SANetworkResponseProtocol`中的方法，处理请求的响应结果
+ 
+####贴心功能，随你所想
+你若想在SANetworkResponseProtocol中得到的数据不是字典或是数组，而想要Model类型，你需要显示`SANetworkConfigProtocol`中的
+>- (Class)responseDataModelClass; 		---**Model化**---
 
+SANetworkConfigProtocol中有很多可以配置的东东，自己去尝试使用吧，有问题尽管说。
 
 #####其他
 此类库简单的封装了批量请求和链式请求以及请求的插件，有兴趣或有需要的同学可以看看

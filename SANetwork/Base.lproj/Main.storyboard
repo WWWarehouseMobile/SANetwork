@@ -33,11 +33,25 @@
                                     <segue destination="yz6-5c-r9A" kind="show" id="YrW-uc-SiH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZs-B5-XhH">
+                                <rect key="frame" x="166" y="102" width="88" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2pM-Z3-Q7n"/>
+                                    <constraint firstAttribute="width" constant="88" id="euZ-dE-NID"/>
+                                </constraints>
+                                <state key="normal" title="Sing"/>
+                                <connections>
+                                    <action selector="pressSingButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A3e-lN-tZj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="PZs-B5-XhH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="38" id="1xx-kt-YHT"/>
                             <constraint firstItem="DA6-xL-iAy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="34" id="Ocm-ch-cgM"/>
                             <constraint firstItem="DA6-xL-iAy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="38" id="ial-z0-kMp"/>
+                            <constraint firstItem="PZs-B5-XhH" firstAttribute="leading" secondItem="DA6-xL-iAy" secondAttribute="trailing" constant="30" id="wDN-cH-R05"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rNQ-76-YQY"/>
@@ -58,24 +72,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5uX-MB-voE">
-                                <rect key="frame" x="20" y="40" width="250" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5uX-MB-voE">
+                                <rect key="frame" x="20" y="84" width="250" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0I0-yf-hI9">
-                                <rect key="frame" x="20" y="88" width="320" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0I0-yf-hI9">
+                                <rect key="frame" x="20" y="132" width="320" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rrS-ZV-Myg">
-                                <rect key="frame" x="20" y="137" width="560" height="443"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rrS-ZV-Myg">
+                                <rect key="frame" x="20" y="181" width="560" height="399"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6V0-hV-fkk">
-                                <rect key="frame" x="423" y="88" width="157" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6V0-hV-fkk">
+                                <rect key="frame" x="423" y="132" width="157" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.81812322569999996" blue="0.66502185989999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="hzu-oC-2XG"/>
@@ -113,7 +127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrC-cZ-JMK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1139" y="679"/>
+            <point key="canvasLocation" x="1128" y="1131"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ant-kh-JCT">

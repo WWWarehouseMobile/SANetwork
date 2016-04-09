@@ -27,13 +27,6 @@
     // Do any additional setup after loading the view.
 }
 
-- (BOOL)networkRequest:(SANetworkRequest *)networkRequest isCorrectWithResponse:(id)responseData {
-    /**
-     *  可以写入对返回数据的检测
-     */
-    return YES;
-}
-
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
     NSLog(@"data: %@",response.responseData);
 }
@@ -57,7 +50,9 @@
 */
 
 - (IBAction)pressQueryButtonAction:(id)sender {
-    ExpressRequest *expressRequest = [[ExpressRequest alloc] initWithType:self.typeTextField.text postId:self.postidTextField.text];
+    ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
+    expressRequest.type = self.typeTextField.text;
+    expressRequest.postId = self.postidTextField.text;
     expressRequest.responseDelegate = self;
     [expressRequest startRequest];
 }

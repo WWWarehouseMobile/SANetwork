@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AFNetworking/AFHTTPSessionManager.h>
 
 @class SANetworkRequest;
 
@@ -51,5 +52,8 @@ typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseArgumentBlock
  *  @param request 一个基于SABaseRequest的实例
  */
 - (void)removeRequest:(__kindof SANetworkRequest *)request;
+
+
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field;
 
 @end

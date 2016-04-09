@@ -66,13 +66,6 @@
 #pragma mark-
 #pragma mark-SANetworkResponseProtocol
 
-- (BOOL)networkRequest:(SANetworkRequest *)networkRequest isCorrectWithResponse:(id)responseData {
-    if ([self.delegate respondsToSelector:@selector(networkBatchRequest:networkRequest:isCorrectWithResponse:)]) {
-        return [self.delegate networkBatchRequest:self networkRequest:networkRequest isCorrectWithResponse:responseData];
-    }
-    return  YES;
-}
-
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response{
     self.completedCount++;
     [self.responseArray addObject:response];
@@ -103,9 +96,9 @@
 
 
 - (void)networkBatchRequestCompleted{
-        if ([self.delegate respondsToSelector:@selector(networkBatchRequest:completedByResponseArray:)]) {
-            [self.delegate networkBatchRequest:self completedByResponseArray:self.responseArray];
-        }
+    if ([self.delegate respondsToSelector:@selector(networkBatchRequest:completedByResponseArray:)]) {
+        [self.delegate networkBatchRequest:self completedByResponseArray:self.responseArray];
+    }
     [self accessoryDidStop];
     self.completedCount = 0;
 }

@@ -7,8 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "TestSingRequest.h"
+#import "SANetworkResponse.h"
 
-@interface ViewController ()
+@interface ViewController ()<SANetworkResponseProtocol>
+
+- (IBAction)pressSingButtonAction:(id)sender;
 
 @end
 
@@ -24,4 +28,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)pressSingButtonAction:(id)sender {
+    TestSingRequest *singRequest = [[TestSingRequest alloc] init];
+    singRequest.responseDelegate = self;
+    [singRequest startRequest];
+}
+
+- (BOOL)networkRequest:(SANetworkRequest *)networkRequest isCorrectWithResponse:(id)responseData {
+    if ([responseData[@"code"] integerValue] == 1) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
+    NSLog(@"data = %@",response.contentData);
+}
+- (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
+    NSLog(@"error : %@",response.message);
+}
 @end

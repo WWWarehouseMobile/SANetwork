@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFNetworking.h>
 
 #import "SANetworkConfigProtocol.h"
 #import "SANetworkAccessoryProtocol.h"
 #import "SANetworkResponseProtocol.h"
+#import "SANetworkParamSourceProtocol.h"
+#import "SANetworkInterceptorProtocol.h"
 
 
 @interface SANetworkRequest : NSObject
@@ -20,13 +21,16 @@
 
 @property (nonatomic, strong) NSURLSessionDataTask *sessionDataTask;
 
-@property (nonatomic, strong) NSDictionary<NSString*,id> *requestArgument;
-
 @property (nonatomic, weak) id <SANetworkAccessoryProtocol>accessoryDelegate;
 
 @property (nonatomic, weak) id <SANetworkResponseProtocol>responseDelegate;
 
-@property (nonatomic, weak, readonly) id <SANetworkConfigProtocol> configProtocol;
+@property (nonatomic, weak) id <SANetworkParamSourceProtocol>paramSourceDelegate;
+
+@property (nonatomic, weak) id <SANetworkInterceptorProtocol>interceptorDelegate;
+
+@property (nonatomic, weak, readonly) NSObject<SANetworkConfigProtocol> *configProtocol;
+
 
 /**
  *  @brief 开始网络请求，使用delegate 方式使用这个方法
