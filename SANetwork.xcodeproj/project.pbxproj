@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		195DB0321CB8A953007D1E5F /* SANetworkLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 195DB0311CB8A953007D1E5F /* SANetworkLogger.m */; };
 		1961A6591CA92C1B001C1B96 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1961A6581CA92C1B001C1B96 /* Default-568h@2x.png */; };
 		196D11F51CACEFF40002C9AD /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 196D11F41CACEFF40002C9AD /* TestViewController.m */; };
 		196D11F81CACF4DC0002C9AD /* ExpressRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 196D11F71CACF4DC0002C9AD /* ExpressRequest.m */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		195DB0301CB8A953007D1E5F /* SANetworkLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkLogger.h; sourceTree = "<group>"; };
+		195DB0311CB8A953007D1E5F /* SANetworkLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkLogger.m; sourceTree = "<group>"; };
 		1961A6581CA92C1B001C1B96 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		196D11F31CACEFF40002C9AD /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		196D11F41CACEFF40002C9AD /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
@@ -86,6 +89,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		195DB02F1CB8A942007D1E5F /* SALogger */ = {
+			isa = PBXGroup;
+			children = (
+				195DB0301CB8A953007D1E5F /* SANetworkLogger.h */,
+				195DB0311CB8A953007D1E5F /* SANetworkLogger.m */,
+			);
+			path = SALogger;
+			sourceTree = "<group>";
+		};
 		19ABE1E81CA50FF300258DD2 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				19ABE22B1CA5148100258DD2 /* SANetwork.h */,
+				195DB02F1CB8A942007D1E5F /* SALogger */,
 				19ABE20C1CA513A600258DD2 /* SANetwork */,
 				19ABE20D1CA513A600258DD2 /* SANetworkAccessory */,
 				19ABE20E1CA513A600258DD2 /* SANetworkProtocol */,
@@ -333,6 +346,7 @@
 				19ABE2241CA5143700258DD2 /* SANetworkRefreshAccessory.m in Sources */,
 				19ABE21E1CA513BD00258DD2 /* SANetworkResponse.m in Sources */,
 				19ABE1FC1CA50FF300258DD2 /* ViewController.m in Sources */,
+				195DB0321CB8A953007D1E5F /* SANetworkLogger.m in Sources */,
 				1973447A1CB6540200504968 /* TestSingRequest.m in Sources */,
 				19ABE1F91CA50FF300258DD2 /* AppDelegate.m in Sources */,
 				19ABE21B1CA513BD00258DD2 /* SANetworkBatchRequest.m in Sources */,

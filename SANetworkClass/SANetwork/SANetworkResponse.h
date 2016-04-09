@@ -48,13 +48,10 @@ typedef NS_ENUM(NSInteger, SANetworkResponseStatus) {
 
 @property (nonatomic, assign, readonly) SANetworkResponseStatus networkResponseStatus;
 
-
 - (instancetype)initWithResponseData:(id)responseData
                   responseModelClass:(Class)responseModelClass
                       requestTag:(NSInteger)requestTag
                    networkResponseStatus:(SANetworkResponseStatus)networkResponseStatus;
-
-
 
 - (id)fetchDataWithReformer:(id<SANetworkResponseReformerProtocol>)reformer;
 

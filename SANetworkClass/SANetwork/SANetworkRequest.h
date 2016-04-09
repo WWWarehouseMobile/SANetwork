@@ -31,7 +31,6 @@
 
 @property (nonatomic, weak, readonly) NSObject<SANetworkConfigProtocol> *configProtocol;
 
-
 /**
  *  @brief 开始网络请求，使用delegate 方式使用这个方法
  */

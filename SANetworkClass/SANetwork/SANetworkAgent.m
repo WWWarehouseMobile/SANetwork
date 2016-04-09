@@ -12,6 +12,7 @@
 #import <PINCache/PINCache.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <RealReachability/RealReachability.h>
+#import "SANetworkLogger.h"
 
 @interface SANetworkAgent ()
 
@@ -143,6 +144,9 @@
             [tempDict addEntriesFromDictionary:baseRequestArgument];
         }
     }
+    if (tempDict.count == 0) {
+        return nil;
+    }
     return [NSDictionary dictionaryWithDictionary:tempDict];
 }
 
@@ -203,7 +207,7 @@
     //检查是否存在相同请求方法未完成，并根据协议接口决定是否结束之前的请求
     __block BOOL isContinuePerform = YES;
     [self.requestRecordDict enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, SANetworkRequest * _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([[self urlStringByRequest:obj] isEqualToString:requestURLString] && [requestParam isEqualToDictionary:[self requestParamByRequest:obj]]) {
+        if ([[self urlStringByRequest:obj] isEqualToString:requestURLString]) {
             if ([self shouldCancelPreviousRequestByRequest:request]) {
                 [obj accessoryWillStart];
                 [self removeRequest:obj];
@@ -219,7 +223,9 @@
         [request accessoryDidStop];
         return;
     }
-    
+    if (self.enableDebug) {
+        [SANetworkLogger logDebugRequestInfoWithURL:requestURLString httpMethod:[self requestMethodByRequest:request] methodName:[request.configProtocol requestMethodName] params:requestParam reachabilityStatus:[[RealReachability sharedInstance] currentReachabilityStatus]];
+    }
     //检测请求是否缓存数据，并执行缓存数据回调方法
     if ([self shouldCacheDataByRequest:request]) {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:succeedByResponse:)]) {
@@ -227,6 +233,9 @@
                 if (object) {
                     SANetworkResponse *cacheResponse = [self networkResponseByRequest:request responseData:object networkResponseStatus:SANetworkResponseCacheStatus];
                     [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
+                }
+                if (self.enableDebug) {
+                    [SANetworkLogger logCacheInfoWithResponseData:object];
                 }
             }];
         }
@@ -371,6 +380,9 @@
         }
     }
     [request accessoryDidStop];
+    if (self.enableDebug) {
+        [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:isAuthentication error:nil];
+    }
 }
 
 - (void)handleRequestFailure:(NSURLSessionDataTask *)sessionDataTask error:(NSError *)error {
@@ -389,6 +401,9 @@
         [self afterPerformFailWithResponse:failureResponse request:request];
     }
     [request accessoryDidStop];
+    if (self.enableDebug) {
+        [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:nil authentication:YES error:error];
+    }
 }
 
 #pragma mark-

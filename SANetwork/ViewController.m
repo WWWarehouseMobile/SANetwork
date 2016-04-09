@@ -42,7 +42,7 @@
 }
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
-    NSLog(@"data = %@",response.contentData);
+//    NSLog(@"data = %@",response.contentData);
 }
 - (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
     NSLog(@"error : %@",response.message);

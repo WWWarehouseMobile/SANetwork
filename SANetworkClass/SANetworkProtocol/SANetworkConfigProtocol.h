@@ -104,7 +104,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 
 
 /**
- *  @brief 是否取消存在的在执行的前一个相同方法的请求
+ *  @brief 是否取消存在的在执行的前一个相同方法的请求（参数可能不同）
  *
  *  @return 是否取消前一个请求
  */

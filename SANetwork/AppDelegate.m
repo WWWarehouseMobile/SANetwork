@@ -40,6 +40,7 @@
          */
         return YES;
     }];
+    [SANetworkAgent sharedInstance].enableDebug = YES;
     
     /**
      *  根据自己的接口返回，自定义设置

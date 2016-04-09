@@ -56,4 +56,5 @@ typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseArgumentBlock
 
 - (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field;
 
+@property (nonatomic, assign) BOOL enableDebug;
 @end
