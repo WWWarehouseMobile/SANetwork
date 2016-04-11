@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SANetwork"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "离散式请求二次封装"
   s.license      = 'MIT'
   s.author       = { "阿宝" => "zhanxuebao@outlook.com" }
@@ -11,6 +11,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.public_header_files = 'SANetworkClass/SANetwork.h'
   s.source_files = 'SANetworkClass/SANetwork.h'
+  s.subspec 'SANetworkLogger' do |ss|
+    ss.source_files = 'SANetworkClass/SALogger/*.{h,m}'
+  end
   s.subspec 'SANetworkProtocol' do |ss|
     ss.source_files = 'SANetworkClass/SANetworkProtocol/*.{h,m}'
   end
@@ -23,6 +26,7 @@ Pod::Spec.new do |s|
   s.subspec "SANetwork" do |ss|
     ss.source_files = "SANetworkClass/SANetwork/*.{h,m}"
     ss.dependency 'SANetwork/SANetworkProtocol'
+    ss.dependency 'SANetwork/SANetworkLogger'
     ss.dependency 'PINCache', '~> 2.2.2'
     ss.dependency 'AFNetworking', '~> 3.0'
     ss.dependency 'RealReachability', '~> 1.1.2'
