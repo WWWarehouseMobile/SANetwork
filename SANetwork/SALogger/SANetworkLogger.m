@@ -10,7 +10,11 @@
 
 @implementation SANetworkLogger
 
-+ (void)logDebugRequestInfoWithURL:(NSString *)url httpMethod:(NSInteger)httpMethod methodName:(NSString *)methodName params:(NSDictionary *)params reachabilityStatus:(NSInteger)reachabilityStatus{
++ (void)logDebugRequestInfoWithURL:(NSString *)url
+                        httpMethod:(NSInteger)httpMethod
+                        methodName:(NSString *)methodName
+                            params:(NSDictionary *)params
+                reachabilityStatus:(NSInteger)reachabilityStatus{
 #ifdef DEBUG
     NSMutableString *logString = [NSMutableString stringWithString:@"\n\n**********************************************************************************\n*                                    Request                                     *\n**********************************************************************************\n\n"];
     [logString appendFormat:@"URL:\t\t\t\t\t%@\n",url];
@@ -35,7 +39,10 @@
 #endif
 }
 
-+ (void)logDebugResponseInfoWithSessionDataTask:(NSURLSessionDataTask *)sessionDataTask responseObject:(id)response authentication:(BOOL)authentication error:(NSError *)error {
++ (void)logDebugResponseInfoWithSessionDataTask:(NSURLSessionDataTask *)sessionDataTask
+                                 responseObject:(id)response
+                                 authentication:(BOOL)authentication
+                                          error:(NSError *)error {
 #ifdef DEBUG
     NSMutableString *logString = [NSMutableString stringWithString:@"\n\n==================================================================================\n=                                  Net Response                                  =\n==================================================================================\n\n"];
     BOOL shouldLogError = error ? YES : NO;

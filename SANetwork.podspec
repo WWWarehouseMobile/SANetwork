@@ -9,27 +9,26 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.source       = { :git => "https://github.com/ISCS-iOS/SANetwork.git", :tag => s.version.to_s}
   s.requires_arc = true
-  s.public_header_files = 'SANetworkClass/SANetwork.h'
-  s.source_files = 'SANetworkClass/SANetwork.h'
+  s.public_header_files = 'SANetwork/SANetwork.h'
+  s.source_files = 'SANetwork/*.{h,m}'
+
   s.subspec 'SANetworkLogger' do |ss|
-    ss.source_files = 'SANetworkClass/SALogger/*.{h,m}'
+    ss.source_files = 'SANetwork/SALogger/*.{h,m}'
   end
+
   s.subspec 'SANetworkProtocol' do |ss|
-    ss.source_files = 'SANetworkClass/SANetworkProtocol/*.{h,m}'
+    ss.source_files = 'SANetwork/SANetworkProtocol/*.{h,m}'
   end
+
   s.subspec "SANetworkAccessory" do |ss|
-    ss.source_files = "SANetworkClass/SANetworkAccessory/*.{h,m}"
+    ss.source_files = "SANetwork/SANetworkAccessory/*.{h,m}"
     ss.dependency 'SANetwork/SANetworkProtocol'
     ss.dependency 'MBProgressHUD', '~> 0.9.2'
     ss.dependency 'MJRefresh', '~> 3.1.0'
   end
-  s.subspec "SANetwork" do |ss|
-    ss.source_files = "SANetworkClass/SANetwork/*.{h,m}"
-    ss.dependency 'SANetwork/SANetworkProtocol'
-    ss.dependency 'SANetwork/SANetworkLogger'
+
     ss.dependency 'PINCache', '~> 2.2.2'
     ss.dependency 'AFNetworking', '~> 3.0'
     ss.dependency 'RealReachability', '~> 1.1.2'
     ss.dependency 'YYModel','~> 1.0.2'
-  end
 end

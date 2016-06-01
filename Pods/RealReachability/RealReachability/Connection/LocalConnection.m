@@ -7,11 +7,16 @@
 //
 
 #import "LocalConnection.h"
+#import <netinet/in.h>
+#import <netinet6/in6.h>
+#import <arpa/inet.h>
+#import <ifaddrs.h>
 
 #if (!defined(DEBUG))
 #define NSLog(...)
 #endif
 
+NSString *const kLocalConnectionInitializedNotification = @"kLocalConnectionInitializedNotification";
 NSString *const kLocalConnectionChangedNotification = @"kLocalConnectionChangedNotification";
 
 @interface LocalConnection ()
@@ -55,12 +60,11 @@ static NSString *connectionFlags(SCNetworkReachabilityFlags flags)
 {
     if ((self = [super init]))
     {
-        struct sockaddr zeroAddr;
-        bzero(&zeroAddr, sizeof(zeroAddr));
-        zeroAddr.sa_len = sizeof(zeroAddr);
-        zeroAddr.sa_family = AF_INET;
-        
-        _reachabilityRef = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *) &zeroAddr);
+        struct sockaddr_in address;
+        bzero(&address, sizeof(address));
+        address.sin_len = sizeof(address);
+        address.sin_family = AF_INET;
+        _reachabilityRef = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *) &address);
         
         _reachabilitySerialQueue = dispatch_queue_create("com.dustturtle.realreachability", NULL);
     }
@@ -113,9 +117,14 @@ static NSString *connectionFlags(SCNetworkReachabilityFlags flags)
     {
         NSLog(@"SCNetworkReachabilitySetCallback() failed: %s", SCErrorString(SCError()));
     }
-    
-    // First time we come in, notify the current status.
-    [self localConnectionChanged];
+
+    // First time we come in, notify the initialization of local connection.
+    __weak __typeof(self)weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocalConnectionInitializedNotification
+                                                            object:strongSelf];
+    });
 }
 
 -(void)stopNotifier
@@ -152,9 +161,11 @@ static NSString *connectionFlags(SCNetworkReachabilityFlags flags)
 - (void)localConnectionChanged
 {
     // this makes sure the change notification happens on the MAIN THREAD
+    __weak __typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocalConnectionChangedNotification
-                                                            object:self];
+                                                            object:strongSelf];
     });
 }
 

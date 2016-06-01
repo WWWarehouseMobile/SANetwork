@@ -90,7 +90,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (NSString *)customRequestURLString;
 
 /**
- *  @brief 请求的SerializerType 默认SARequestSerializerTypeHTTP
+ *  @brief 请求的SerializerType 默认SARequestSerializerTypeJSON
  *  @return 服务端接受数据类型
  */
 - (SARequestSerializerType)requestSerializerType;

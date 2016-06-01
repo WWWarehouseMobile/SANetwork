@@ -17,8 +17,12 @@ PODS:
   - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.0)
   - PINCache (2.2.2)
-  - RealReachability (1.1.2)
-  - YYModel (1.0.2)
+  - RealReachability (1.1.7):
+    - RealReachability/Connection (= 1.1.7)
+    - RealReachability/Ping (= 1.1.7)
+  - RealReachability/Connection (1.1.7)
+  - RealReachability/Ping (1.1.7)
+  - YYModel (1.0.3)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
@@ -33,7 +37,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
   PINCache: 078426d356ab95ef875e9e62e5c35a2ea3333c28
-  RealReachability: ad8975d056156cb80ef1ab7f62b3ef2c39fbfc08
-  YYModel: 7a467eff45ae3641c33efb136c262d33b6f48c1a
+  RealReachability: 8b6644c6b3145f7552ed83bffb52c49b0f3b55e3
+  YYModel: 63142c2f07c5c8c9d1c261689cf3827ea6ab2886
 
 COCOAPODS: 0.39.0

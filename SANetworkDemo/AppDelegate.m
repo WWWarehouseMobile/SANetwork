@@ -21,7 +21,7 @@
     /**
      *  设定自己需要请求的URL
      */
-    [SANetworkAgent sharedInstance].mainBaseUrlString = @"http://api.dongting.com";
+    [SANetworkAgent sharedInstance].mainBaseUrlString = @"http://10.10.0.120:8080";
     /**
      *  当使用viceBaseUrlString时，请设定请求的SANetworkConfigProtocol中的viceBaseUrlString为YES
      */
@@ -45,8 +45,8 @@
     /**
      *  根据自己的接口返回，自定义设置
      */
-    [SANetworkResponse setResponseMessageKey:@"msg"];
-    [SANetworkResponse setResponseCodeKey:@"code"];
+    [SANetworkResponse setResponseMessageKey:@"errorMsg"];
+    [SANetworkResponse setResponseCodeKey:@"errorCode"];
     [SANetworkResponse setResponseContentDataKey:@"data"];
     // Override point for customization after application launch.
     return YES;

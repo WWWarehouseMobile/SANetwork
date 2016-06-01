@@ -154,7 +154,7 @@
     if ([request.configProtocol respondsToSelector:@selector(requestSerializerType)]) {
         return [request.configProtocol requestSerializerType];
     }
-    return SARequestSerializerTypeHTTP;
+    return SARequestSerializerTypeJSON;
 }
 
 - (NSTimeInterval)requestTimeoutIntervalByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
