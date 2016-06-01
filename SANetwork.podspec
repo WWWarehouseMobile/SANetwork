@@ -27,8 +27,8 @@ Pod::Spec.new do |s|
     ss.dependency 'MJRefresh', '~> 3.1.0'
   end
 
-    ss.dependency 'PINCache', '~> 2.2.2'
-    ss.dependency 'AFNetworking', '~> 3.0'
-    ss.dependency 'RealReachability', '~> 1.1.2'
-    ss.dependency 'YYModel','~> 1.0.2'
+    s.dependency 'PINCache', '~> 2.2.2'
+    s.dependency 'AFNetworking', '~> 3.0'
+    s.dependency 'RealReachability', '~> 1.1.2'
+    s.dependency 'YYModel','~> 1.0.2'
 end
