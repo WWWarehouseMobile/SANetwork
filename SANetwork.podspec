@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SANetwork"
-  s.version      = "0.0.5"
+  s.version      = "0.0.6"
   s.summary      = "离散式请求二次封装"
   s.license      = 'MIT'
   s.author       = { "阿宝" => "zhanxuebao@outlook.com" }
@@ -9,6 +9,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.source       = { :git => "https://github.com/ISCS-iOS/SANetwork.git", :tag => s.version.to_s, :submodules => true}
   s.requires_arc = true
+  s.public_header_files = 'SANetwork/SANetwork.h'
+  s.source_files = 'SANetwork/*.{h,m}'
 
   s.subspec 'SANetworkLogger' do |ss|
     ss.source_files = 'SANetwork/SALogger/*.{h,m}'
@@ -25,8 +27,6 @@ Pod::Spec.new do |s|
     ss.dependency 'MJRefresh', '~> 3.1.0'
   end
 
-  s.public_header_files = "SANetwork/SANetwork.h"
-  s.source_files = 'SANetwork/*.{h,m}'
   s.dependency 'PINCache', '~> 2.2.2'
   s.dependency 'AFNetworking', '~> 3.0'
   s.dependency 'RealReachability', '~> 1.1.2'
