@@ -43,7 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		195C56071CFF01C400F61FB7 /* SANetworkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SANetworkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		195C56071CFF01C400F61FB7 /* SANetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SANetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		195C560B1CFF01C400F61FB7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		195C560D1CFF01C400F61FB7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		195C560E1CFF01C400F61FB7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 		195C56161CFF01C400F61FB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		195C56191CFF01C400F61FB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		195C561B1CFF01C400F61FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		195C56201CFF01C400F61FB7 /* SANetworkDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SANetworkDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		195C56201CFF01C400F61FB7 /* SANetwork.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SANetwork.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		195C56241CFF01C400F61FB7 /* SANetworkDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SANetworkDemoTests.m; sourceTree = "<group>"; };
 		195C56261CFF01C400F61FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		195C562F1CFF034800F61FB7 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
@@ -141,8 +141,8 @@
 		195C56081CFF01C400F61FB7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				195C56071CFF01C400F61FB7 /* SANetworkDemo.app */,
-				195C56201CFF01C400F61FB7 /* SANetworkDemoTests.xctest */,
+				195C56071CFF01C400F61FB7 /* SANetwork.app */,
+				195C56201CFF01C400F61FB7 /* SANetwork.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,9 +259,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		195C56061CFF01C400F61FB7 /* SANetworkDemo */ = {
+		195C56061CFF01C400F61FB7 /* SANetwork */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 195C56291CFF01C400F61FB7 /* Build configuration list for PBXNativeTarget "SANetworkDemo" */;
+			buildConfigurationList = 195C56291CFF01C400F61FB7 /* Build configuration list for PBXNativeTarget "SANetwork" */;
 			buildPhases = (
 				C90AB009A01B1CDB1EA60B88 /* Check Pods Manifest.lock */,
 				195C56031CFF01C400F61FB7 /* Sources */,
@@ -274,14 +274,14 @@
 			);
 			dependencies = (
 			);
-			name = SANetworkDemo;
+			name = SANetwork;
 			productName = SANetworkDemo;
-			productReference = 195C56071CFF01C400F61FB7 /* SANetworkDemo.app */;
+			productReference = 195C56071CFF01C400F61FB7 /* SANetwork.app */;
 			productType = "com.apple.product-type.application";
 		};
-		195C561F1CFF01C400F61FB7 /* SANetworkDemoTests */ = {
+		195C561F1CFF01C400F61FB7 /* SANetworkTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 195C562C1CFF01C400F61FB7 /* Build configuration list for PBXNativeTarget "SANetworkDemoTests" */;
+			buildConfigurationList = 195C562C1CFF01C400F61FB7 /* Build configuration list for PBXNativeTarget "SANetworkTests" */;
 			buildPhases = (
 				195C561C1CFF01C400F61FB7 /* Sources */,
 				195C561D1CFF01C400F61FB7 /* Frameworks */,
@@ -292,9 +292,9 @@
 			dependencies = (
 				195C56221CFF01C400F61FB7 /* PBXTargetDependency */,
 			);
-			name = SANetworkDemoTests;
+			name = SANetworkTests;
 			productName = SANetworkDemoTests;
-			productReference = 195C56201CFF01C400F61FB7 /* SANetworkDemoTests.xctest */;
+			productReference = 195C56201CFF01C400F61FB7 /* SANetwork.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -315,7 +315,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 195C56021CFF01C400F61FB7 /* Build configuration list for PBXProject "SANetworkDemo" */;
+			buildConfigurationList = 195C56021CFF01C400F61FB7 /* Build configuration list for PBXProject "SANetwork" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -328,8 +328,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				195C56061CFF01C400F61FB7 /* SANetworkDemo */,
-				195C561F1CFF01C400F61FB7 /* SANetworkDemoTests */,
+				195C56061CFF01C400F61FB7 /* SANetwork */,
+				195C561F1CFF01C400F61FB7 /* SANetworkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -441,7 +441,7 @@
 /* Begin PBXTargetDependency section */
 		195C56221CFF01C400F61FB7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 195C56061CFF01C400F61FB7 /* SANetworkDemo */;
+			target = 195C56061CFF01C400F61FB7 /* SANetwork */;
 			targetProxy = 195C56211CFF01C400F61FB7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -557,7 +557,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SANetwork;
 			};
 			name = Debug;
 		};
@@ -570,7 +570,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SANetwork;
 			};
 			name = Release;
 		};
@@ -581,8 +581,8 @@
 				INFOPLIST_FILE = SANetworkDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SANetworkDemo.app/SANetworkDemo";
+				PRODUCT_NAME = SANetwork;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SANetwork.app/SANetwork";
 			};
 			name = Debug;
 		};
@@ -593,15 +593,15 @@
 				INFOPLIST_FILE = SANetworkDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SANetworkDemo.app/SANetworkDemo";
+				PRODUCT_NAME = SANetwork;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SANetwork.app/SANetwork";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		195C56021CFF01C400F61FB7 /* Build configuration list for PBXProject "SANetworkDemo" */ = {
+		195C56021CFF01C400F61FB7 /* Build configuration list for PBXProject "SANetwork" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				195C56271CFF01C400F61FB7 /* Debug */,
@@ -610,7 +610,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		195C56291CFF01C400F61FB7 /* Build configuration list for PBXNativeTarget "SANetworkDemo" */ = {
+		195C56291CFF01C400F61FB7 /* Build configuration list for PBXNativeTarget "SANetwork" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				195C562A1CFF01C400F61FB7 /* Debug */,
@@ -619,7 +619,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		195C562C1CFF01C400F61FB7 /* Build configuration list for PBXNativeTarget "SANetworkDemoTests" */ = {
+		195C562C1CFF01C400F61FB7 /* Build configuration list for PBXNativeTarget "SANetworkTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				195C562D1CFF01C400F61FB7 /* Debug */,

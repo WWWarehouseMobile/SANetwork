@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/ISCS-iOS/SANetwork"
   s.platform     = :ios,'7.0'
   s.ios.deployment_target = '7.0'
-  s.source       = { :git => "https://github.com/ISCS-iOS/SANetwork.git", :tag => s.version.to_s}
+  s.source       = { :git => "https://github.com/ISCS-iOS/SANetwork.git", :tag => s.version.to_s, :submodules => true}
   s.requires_arc = true
   s.public_header_files = 'SANetwork/SANetwork.h'
   s.source_files = 'SANetwork/*.{h,m}'
@@ -27,8 +27,8 @@ Pod::Spec.new do |s|
     ss.dependency 'MJRefresh', '~> 3.1.0'
   end
 
-    s.dependency 'PINCache', '~> 2.2.2'
-    s.dependency 'AFNetworking', '~> 3.0'
-    s.dependency 'RealReachability', '~> 1.1.2'
-    s.dependency 'YYModel','~> 1.0.2'
+  s.dependency 'PINCache', '~> 2.2.2'
+  s.dependency 'AFNetworking', '~> 3.0'
+  s.dependency 'RealReachability', '~> 1.1.2'
+  s.dependency 'YYModel','~> 1.0.2'
 end
