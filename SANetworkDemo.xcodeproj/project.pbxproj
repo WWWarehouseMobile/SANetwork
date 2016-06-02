@@ -24,11 +24,11 @@
 		195C565F1CFF035F00F61FB7 /* SANetworkLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56471CFF035F00F61FB7 /* SANetworkLogger.m */; };
 		195C56601CFF035F00F61FB7 /* SANetworkHUDAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C564B1CFF035F00F61FB7 /* SANetworkHUDAccessory.m */; };
 		195C56611CFF035F00F61FB7 /* SANetworkRefreshAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C564D1CFF035F00F61FB7 /* SANetworkRefreshAccessory.m */; };
-		195C56621CFF035F00F61FB7 /* SANetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C564F1CFF035F00F61FB7 /* SANetworkAgent.m */; };
-		195C56631CFF035F00F61FB7 /* SANetworkBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56511CFF035F00F61FB7 /* SANetworkBatchRequest.m */; };
-		195C56641CFF035F00F61FB7 /* SANetworkChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56531CFF035F00F61FB7 /* SANetworkChainRequest.m */; };
-		195C56651CFF035F00F61FB7 /* SANetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C565C1CFF035F00F61FB7 /* SANetworkRequest.m */; };
-		195C56661CFF035F00F61FB7 /* SANetworkResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C565E1CFF035F00F61FB7 /* SANetworkResponse.m */; };
+		195D90AB1CFFDD7900BF95DA /* SANetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 195D90A11CFFDD7900BF95DA /* SANetworkAgent.m */; };
+		195D90AC1CFFDD7900BF95DA /* SANetworkBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195D90A31CFFDD7900BF95DA /* SANetworkBatchRequest.m */; };
+		195D90AD1CFFDD7900BF95DA /* SANetworkChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195D90A51CFFDD7900BF95DA /* SANetworkChainRequest.m */; };
+		195D90AE1CFFDD7900BF95DA /* SANetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195D90A71CFFDD7900BF95DA /* SANetworkRequest.m */; };
+		195D90AF1CFFDD7900BF95DA /* SANetworkResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 195D90AA1CFFDD7900BF95DA /* SANetworkResponse.m */; };
 		76DDAC71BAD5A7E5829CE336 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C82E66669169FCB23B97F88C /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -77,22 +77,22 @@
 		195C564B1CFF035F00F61FB7 /* SANetworkHUDAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkHUDAccessory.m; sourceTree = "<group>"; };
 		195C564C1CFF035F00F61FB7 /* SANetworkRefreshAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkRefreshAccessory.h; sourceTree = "<group>"; };
 		195C564D1CFF035F00F61FB7 /* SANetworkRefreshAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkRefreshAccessory.m; sourceTree = "<group>"; };
-		195C564E1CFF035F00F61FB7 /* SANetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkAgent.h; sourceTree = "<group>"; };
-		195C564F1CFF035F00F61FB7 /* SANetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkAgent.m; sourceTree = "<group>"; };
-		195C56501CFF035F00F61FB7 /* SANetworkBatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkBatchRequest.h; sourceTree = "<group>"; };
-		195C56511CFF035F00F61FB7 /* SANetworkBatchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkBatchRequest.m; sourceTree = "<group>"; };
-		195C56521CFF035F00F61FB7 /* SANetworkChainRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkChainRequest.h; sourceTree = "<group>"; };
-		195C56531CFF035F00F61FB7 /* SANetworkChainRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkChainRequest.m; sourceTree = "<group>"; };
 		195C56551CFF035F00F61FB7 /* SANetworkAccessoryProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkAccessoryProtocol.h; sourceTree = "<group>"; };
 		195C56561CFF035F00F61FB7 /* SANetworkConfigProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkConfigProtocol.h; sourceTree = "<group>"; };
 		195C56571CFF035F00F61FB7 /* SANetworkInterceptorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkInterceptorProtocol.h; sourceTree = "<group>"; };
 		195C56581CFF035F00F61FB7 /* SANetworkParamSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkParamSourceProtocol.h; sourceTree = "<group>"; };
 		195C56591CFF035F00F61FB7 /* SANetworkResponseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkResponseProtocol.h; sourceTree = "<group>"; };
 		195C565A1CFF035F00F61FB7 /* SANetworkResponseReformerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkResponseReformerProtocol.h; sourceTree = "<group>"; };
-		195C565B1CFF035F00F61FB7 /* SANetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkRequest.h; sourceTree = "<group>"; };
-		195C565C1CFF035F00F61FB7 /* SANetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkRequest.m; sourceTree = "<group>"; };
-		195C565D1CFF035F00F61FB7 /* SANetworkResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkResponse.h; sourceTree = "<group>"; };
-		195C565E1CFF035F00F61FB7 /* SANetworkResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkResponse.m; sourceTree = "<group>"; };
+		195D90A01CFFDD7900BF95DA /* SANetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkAgent.h; sourceTree = "<group>"; };
+		195D90A11CFFDD7900BF95DA /* SANetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkAgent.m; sourceTree = "<group>"; };
+		195D90A21CFFDD7900BF95DA /* SANetworkBatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkBatchRequest.h; sourceTree = "<group>"; };
+		195D90A31CFFDD7900BF95DA /* SANetworkBatchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkBatchRequest.m; sourceTree = "<group>"; };
+		195D90A41CFFDD7900BF95DA /* SANetworkChainRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkChainRequest.h; sourceTree = "<group>"; };
+		195D90A51CFFDD7900BF95DA /* SANetworkChainRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkChainRequest.m; sourceTree = "<group>"; };
+		195D90A61CFFDD7900BF95DA /* SANetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkRequest.h; sourceTree = "<group>"; };
+		195D90A71CFFDD7900BF95DA /* SANetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkRequest.m; sourceTree = "<group>"; };
+		195D90A91CFFDD7900BF95DA /* SANetworkResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkResponse.h; sourceTree = "<group>"; };
+		195D90AA1CFFDD7900BF95DA /* SANetworkResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkResponse.m; sourceTree = "<group>"; };
 		4DF9C7F7701B80D31250BA24 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		69C913C357E2B7A3AC4A87C1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C82E66669169FCB23B97F88C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,16 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				195C56481CFF035F00F61FB7 /* SANetwork.h */,
-				195C564E1CFF035F00F61FB7 /* SANetworkAgent.h */,
-				195C564F1CFF035F00F61FB7 /* SANetworkAgent.m */,
-				195C56501CFF035F00F61FB7 /* SANetworkBatchRequest.h */,
-				195C56511CFF035F00F61FB7 /* SANetworkBatchRequest.m */,
-				195C56521CFF035F00F61FB7 /* SANetworkChainRequest.h */,
-				195C56531CFF035F00F61FB7 /* SANetworkChainRequest.m */,
-				195C565B1CFF035F00F61FB7 /* SANetworkRequest.h */,
-				195C565C1CFF035F00F61FB7 /* SANetworkRequest.m */,
-				195C565D1CFF035F00F61FB7 /* SANetworkResponse.h */,
-				195C565E1CFF035F00F61FB7 /* SANetworkResponse.m */,
+				195D909F1CFFDD7900BF95DA /* SANetworkRequest */,
+				195D90A81CFFDD7900BF95DA /* SANetworkResponse */,
 				195C56491CFF035F00F61FB7 /* SANetworkAccessory */,
 				195C56541CFF035F00F61FB7 /* SANetworkProtocol */,
 				195C56451CFF035F00F61FB7 /* SALogger */,
@@ -246,6 +238,30 @@
 				195C565A1CFF035F00F61FB7 /* SANetworkResponseReformerProtocol.h */,
 			);
 			path = SANetworkProtocol;
+			sourceTree = "<group>";
+		};
+		195D909F1CFFDD7900BF95DA /* SANetworkRequest */ = {
+			isa = PBXGroup;
+			children = (
+				195D90A01CFFDD7900BF95DA /* SANetworkAgent.h */,
+				195D90A11CFFDD7900BF95DA /* SANetworkAgent.m */,
+				195D90A21CFFDD7900BF95DA /* SANetworkBatchRequest.h */,
+				195D90A31CFFDD7900BF95DA /* SANetworkBatchRequest.m */,
+				195D90A41CFFDD7900BF95DA /* SANetworkChainRequest.h */,
+				195D90A51CFFDD7900BF95DA /* SANetworkChainRequest.m */,
+				195D90A61CFFDD7900BF95DA /* SANetworkRequest.h */,
+				195D90A71CFFDD7900BF95DA /* SANetworkRequest.m */,
+			);
+			path = SANetworkRequest;
+			sourceTree = "<group>";
+		};
+		195D90A81CFFDD7900BF95DA /* SANetworkResponse */ = {
+			isa = PBXGroup;
+			children = (
+				195D90A91CFFDD7900BF95DA /* SANetworkResponse.h */,
+				195D90AA1CFFDD7900BF95DA /* SANetworkResponse.m */,
+			);
+			path = SANetworkResponse;
 			sourceTree = "<group>";
 		};
 		1ABCC148E1E89D0BCFFAC74E /* Frameworks */ = {
@@ -407,24 +423,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				195C56651CFF035F00F61FB7 /* SANetworkRequest.m in Sources */,
+				195D90AE1CFFDD7900BF95DA /* SANetworkRequest.m in Sources */,
 				195C56121CFF01C400F61FB7 /* ViewController.m in Sources */,
 				195C560F1CFF01C400F61FB7 /* AppDelegate.m in Sources */,
 				195C565F1CFF035F00F61FB7 /* SANetworkLogger.m in Sources */,
 				195C56331CFF034800F61FB7 /* BaseModel.m in Sources */,
 				195C563F1CFF035500F61FB7 /* TestModel.m in Sources */,
 				195C56601CFF035F00F61FB7 /* SANetworkHUDAccessory.m in Sources */,
-				195C56621CFF035F00F61FB7 /* SANetworkAgent.m in Sources */,
+				195D90AB1CFFDD7900BF95DA /* SANetworkAgent.m in Sources */,
 				195C56431CFF035500F61FB7 /* TestViewController.m in Sources */,
 				195C56611CFF035F00F61FB7 /* SANetworkRefreshAccessory.m in Sources */,
 				195C56421CFF035500F61FB7 /* TestSingRequest.m in Sources */,
 				195C56411CFF035500F61FB7 /* TestSingModel.m in Sources */,
-				195C56631CFF035F00F61FB7 /* SANetworkBatchRequest.m in Sources */,
-				195C56641CFF035F00F61FB7 /* SANetworkChainRequest.m in Sources */,
+				195D90AC1CFFDD7900BF95DA /* SANetworkBatchRequest.m in Sources */,
+				195D90AD1CFFDD7900BF95DA /* SANetworkChainRequest.m in Sources */,
 				195C56341CFF034800F61FB7 /* ExpressRequest.m in Sources */,
 				195C56401CFF035500F61FB7 /* TestRequest.m in Sources */,
 				195C560C1CFF01C400F61FB7 /* main.m in Sources */,
-				195C56661CFF035F00F61FB7 /* SANetworkResponse.m in Sources */,
+				195D90AF1CFFDD7900BF95DA /* SANetworkResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
