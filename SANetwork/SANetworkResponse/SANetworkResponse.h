@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger, SANetworkResponseStatus) {
 
 + (void)setResponseContentDataKey:(NSString *)contentDataKey;
 
-@property (nonatomic, copy, readonly) NSObject *contentData;
+@property (nonatomic, strong, readonly) id contentData;
 
 @property (nonatomic, copy, readonly) NSString *message;
 
