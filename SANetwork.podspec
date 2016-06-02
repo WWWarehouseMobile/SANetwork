@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.source       = { :git => "https://github.com/ISCS-iOS/SANetwork.git", :tag => s.version.to_s, :submodules => true}
   s.requires_arc = true
-  s.public_header_files = 'SANetwork/SANetwork.h'
   s.source_files = 'SANetwork/*.{h,m}'
+  s.public_header_files = 'SANetwork/SANetwork.h'
 
   s.subspec 'SANetworkLogger' do |ss|
     ss.source_files = 'SANetwork/SALogger/*.{h,m}'
