@@ -66,12 +66,26 @@
         default:
             break;
     }
+    
+    [self setupHTTPRequestHeadersByRequest:request];
+    
     //配置请求超时时间
     self.sessionManager.requestSerializer.timeoutInterval = [self requestTimeoutIntervalByRequest:request];
 }
 
-- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field {
-    [self.sessionManager.requestSerializer setValue:value forHTTPHeaderField:field];
+- (void)setupHTTPRequestHeadersByRequest:(SANetworkRequest<SANetworkConfigProtocol> *)request {
+    if (![request.configProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.configProtocol useBaseHTTPRequestHeaders]) {
+        NSDictionary *requestHeaders = self.baseHTTPRequestHeadersBlock();
+        [requestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
+        }];
+    }
+    if ([request.configProtocol respondsToSelector:@selector(customHTTPRequestHeaders)]) {
+        NSDictionary *customRequestHeaders = [request.configProtocol customHTTPRequestHeaders];
+        [customRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
+        }];
+    }
 }
 
 #pragma mark-
@@ -129,6 +143,8 @@
     }
     return YES;
 }
+
+
 
 - (NSDictionary *)requestParamByRequest:(SANetworkRequest *)request {
     NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];

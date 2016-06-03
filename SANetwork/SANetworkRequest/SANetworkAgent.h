@@ -12,6 +12,13 @@
 @class SANetworkRequest;
 
 /**
+ *  @brief 返回需要统一设定的请求头
+ *
+ *  @return 请求头的字典
+ */
+typedef NSDictionary<NSString *, NSString *>* (^SANetworkRequestBaseHTTPRequestHeadersBlock)();
+
+/**
  *  返回数据的基本验证，比如签名
  *
  *  @param response 请求返回的数据
@@ -39,6 +46,8 @@ typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseArgumentBlock
 
 @property (nonatomic, copy) SANetworkRequestBaseArgumentBlock baseArgumentBlock;
 
+@property (nonatomic, copy) SANetworkRequestBaseHTTPRequestHeadersBlock baseHTTPRequestHeadersBlock;
+
 /**
  *  @brief 添加request到请求栈中，并启动
  *
@@ -52,9 +61,6 @@ typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseArgumentBlock
  *  @param request 一个基于SABaseRequest的实例
  */
 - (void)removeRequest:(__kindof SANetworkRequest *)request;
-
-
-- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field;
 
 @property (nonatomic, assign) BOOL enableDebug;
 @end

@@ -118,4 +118,18 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  */
 - (BOOL)useViceURL;
 
+/**
+ *  @brief SANetworkAgent设置过baseHTTPRequestHeadersBlock后，可通过此协议方法决定是否使用baseHTTPRequestHeaders，默认使用（YES）
+ *
+ *  @return 是否使用baseHTTPRequestHeaders
+ */
+- (BOOL)useBaseHTTPRequestHeaders;
+
+/**
+ *  @brief 定制请求头
+ *
+ *  @return 请求头数据
+ */
+- (NSDictionary *)customHTTPRequestHeaders;
+
 @end
