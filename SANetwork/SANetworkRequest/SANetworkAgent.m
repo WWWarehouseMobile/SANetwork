@@ -74,7 +74,7 @@
 }
 
 - (void)setupHTTPRequestHeadersByRequest:(SANetworkRequest<SANetworkConfigProtocol> *)request {
-    if (![request.configProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.configProtocol useBaseHTTPRequestHeaders]) {
+    if ((![request.configProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.configProtocol useBaseHTTPRequestHeaders]) && self.baseHTTPRequestHeadersBlock) {
         NSDictionary *requestHeaders = self.baseHTTPRequestHeadersBlock();
         [requestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
