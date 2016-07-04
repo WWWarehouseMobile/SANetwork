@@ -10,7 +10,6 @@
 #import "SANetworkAccessoryProtocol.h"
 
 @class SANetworkBatchRequest;
-@class SANetworkRequest;
 @class SANetworkResponse;
 @protocol SANetworkBatchRequestDelegate <NSObject>
 

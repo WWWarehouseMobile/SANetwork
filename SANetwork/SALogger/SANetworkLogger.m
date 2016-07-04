@@ -23,14 +23,14 @@
     [logString appendFormat:@"Param:\t\t\t\t%@\n",params.count ? params : @""];
     NSString *netReachability = nil;
     switch (reachabilityStatus) {
-        case 0:
-            netReachability = @"无网络";
+        case 2:
+            netReachability = @"WIFI";
             break;
         case 1:
             netReachability = @"2G/3G/4G";
             break;
         default:
-            netReachability = @"WIFI";
+            netReachability = @"无网络";
             break;
     }
     [logString appendFormat:@"Net:\t\t\t\t\t%@",netReachability];

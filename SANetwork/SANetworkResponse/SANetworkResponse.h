@@ -14,6 +14,14 @@
  */
 typedef NS_ENUM(NSInteger, SANetworkResponseStatus) {
     /**
+     *  @brief 网络不可达
+     */
+    SANetworkNotReachableStatus,
+    /**
+     *  @brief 请求参数错误
+     */
+    SANetworkRequestParamIncorrectStatus,
+    /**
      *  请求失败
      */
     SANetworkResponseFailureStatus,

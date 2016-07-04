@@ -42,11 +42,12 @@ typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseArgumentBlock
 
 @property (nonatomic, strong, readwrite) NSString *viceBaseUrlString;// 副url
 
-@property (nonatomic, copy) SANetworkResponseBaseAuthenticationBlock baseAuthenticationBlock;
+@property (nonatomic, copy) SANetworkRequestBaseHTTPRequestHeadersBlock baseHTTPRequestHeadersBlock;
 
 @property (nonatomic, copy) SANetworkRequestBaseArgumentBlock baseArgumentBlock;
 
-@property (nonatomic, copy) SANetworkRequestBaseHTTPRequestHeadersBlock baseHTTPRequestHeadersBlock;
+@property (nonatomic, copy) SANetworkResponseBaseAuthenticationBlock baseAuthenticationBlock;
+
 
 /**
  *  @brief 添加request到请求栈中，并启动
@@ -63,4 +64,5 @@ typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseArgumentBlock
 - (void)removeRequest:(__kindof SANetworkRequest *)request;
 
 @property (nonatomic, assign) BOOL enableDebug;
+
 @end

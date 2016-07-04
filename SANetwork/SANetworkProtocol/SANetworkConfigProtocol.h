@@ -47,7 +47,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (SARequestMethod)requestMethod;
 
 /**
- *  很多请求都会需要相同的请求参数，可设置SANetworkAgent的baseArgumentBlock，这个block会返回你所设置的基础参数。默认YES
+ *  很多请求都会需要相同的请求参数，可设置SANetworkAgent的baseArgumentBlock，这个block会返回你所设置的基础参数。默认NO
  *
  *  @return 是否使用基础参数
  */
@@ -77,7 +77,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (BOOL)isCorrectWithRequestParams:(NSDictionary *)params;
 
 /**
- *  @brief 请求连接的超时时间。默认30.0秒
+ *  @brief 请求连接的超时时间。默认20.0秒
  *  @return 超时时长
  */
 - (NSTimeInterval)requestTimeoutInterval;

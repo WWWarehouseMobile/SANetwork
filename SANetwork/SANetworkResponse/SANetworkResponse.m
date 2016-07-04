@@ -20,7 +20,7 @@
 
 @property (nonatomic, assign, readwrite) SANetworkResponseStatus networkResponseStatus;
 
-@property (nonatomic, copy, readwrite) NSObject *contentData;
+@property (nonatomic, strong, readwrite) id contentData;
 
 @property (nonatomic, copy, readwrite) NSString *message;
 
@@ -43,13 +43,16 @@ static NSString *kResponseContentDataKey = nil;
         _isCache = networkResponseStatus== SANetworkResponseCacheStatus ? YES:NO;
         _networkResponseStatus = networkResponseStatus;
         
-        if (kResponseCodeKey) {
+        if (kResponseCodeKey && [responseData isKindOfClass:[NSDictionary class]] && responseData[kResponseCodeKey]) {
             _code = [responseData[kResponseCodeKey] integerValue];
         }else{
             _code = NSNotFound;
         }
         if (kResponseMessageKey) {
             switch (networkResponseStatus) {
+                case SANetworkNotReachableStatus:
+                    _message = @"暂无网络连接";
+                    break;
                 case SANetworkResponseSuccessStatus:
                 case SANetworkResponseCacheStatus:
                 case SANetworkResponseIncorrectStatus:
@@ -58,12 +61,15 @@ static NSString *kResponseContentDataKey = nil;
                 case SANetworkResponseAuthenticationFailStatus:
                     _message = @"数据验证失败 !";
                     break;
+                case SANetworkRequestParamIncorrectStatus:
+                    _message = @"请求参数有误";
+                    break;
                 default:
                     _message = @"请求数据失败";
                     break;
             }
         }
-        if ((networkResponseStatus == SANetworkResponseCacheStatus || networkResponseStatus == SANetworkResponseSuccessStatus) && kResponseContentDataKey) {
+        if ((networkResponseStatus == SANetworkResponseCacheStatus || networkResponseStatus == SANetworkResponseSuccessStatus) && kResponseContentDataKey && [responseData isKindOfClass:[NSDictionary class]]) {
             _contentData = responseData[kResponseContentDataKey];
             if (responseModelClass != Nil) {
                 if ([_contentData isKindOfClass:[NSDictionary class]]) {
@@ -95,7 +101,7 @@ static NSString *kResponseContentDataKey = nil;
     if ([reformer respondsToSelector:@selector(networkResponse:reformerDataWithOriginData:)]) {
         return [reformer networkResponse:self reformerDataWithOriginData:self.responseData];
     }
-    return [self.contentData mutableCopy];
+    return [self.responseData mutableCopy];
 }
 
 

@@ -19,7 +19,7 @@
     return self;
 }
 - (NSString *)requestMethodName {
-    return @"http://192.168.200.80:8080/ims/originTrade/list";
+    return @"http://192.168.6.143:8080/originRefund/list";
 }
 
 - (SARequestMethod)requestMethod {
@@ -46,12 +46,12 @@
              };
 }
 
-- (Class)responseDataModelClass {
-    return NSClassFromString(@"BaseModel");
-}
+//- (Class)responseDataModelClass {
+//    return NSClassFromString(@"BaseModel");
+//}
 
 - (BOOL)isCorrectWithResponseData:(id)responseData {
-    return YES;
+    return [responseData[@"code"]  integerValue] == 0 ? YES : NO;
 }
 
 

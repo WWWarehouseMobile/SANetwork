@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <RealReachability/RealReachability.h>
 #import "SANetwork.h"
 
 @interface AppDelegate ()
@@ -40,13 +39,22 @@
          */
         return YES;
     }];
+    [[SANetworkAgent sharedInstance] setBaseHTTPRequestHeadersBlock:^ NSDictionary *(){
+        return @{
+                 @"m" : @"iOS",
+                 @"v" : @"1.0.0",
+                 @"t" : @"2016-06-04 14:18:05",
+                 @"token" : @"8046DB4D7844617E0F9EC72A46CE4317",
+                 @"sign" : @"F91D85521848A876340A1BF603994624"
+                 };
+    }];
     [SANetworkAgent sharedInstance].enableDebug = YES;
     
     /**
      *  根据自己的接口返回，自定义设置
      */
-    [SANetworkResponse setResponseMessageKey:@"errorMsg"];
-    [SANetworkResponse setResponseCodeKey:@"errorCode"];
+    [SANetworkResponse setResponseMessageKey:@"msg"];
+    [SANetworkResponse setResponseCodeKey:@"code"];
     [SANetworkResponse setResponseContentDataKey:@"data"];
     // Override point for customization after application launch.
     return YES;

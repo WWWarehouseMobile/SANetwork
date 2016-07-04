@@ -11,7 +11,6 @@
 #import "SANetworkResponse.h"
 #import <PINCache/PINCache.h>
 #import <CommonCrypto/CommonDigest.h>
-#import <RealReachability/RealReachability.h>
 #import "SANetworkLogger.h"
 
 @interface SANetworkAgent ()
@@ -19,8 +18,6 @@
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 
 @property (nonatomic, strong) NSMutableDictionary <NSString*, SANetworkRequest*>*requestRecordDict;
-
-@property (nonatomic, assign, readonly) BOOL isReachable;
 
 @end
 
@@ -39,7 +36,7 @@
     self = [super init];
     if (self) {
         _requestRecordDict = [NSMutableDictionary dictionary];
-        [[RealReachability sharedInstance] startNotifier];
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     }
     return self;
 }
@@ -56,24 +53,13 @@
 
 - (void)setupSessionManagerRequestSerializerByRequest:(SANetworkRequest<SANetworkConfigProtocol> *)request {
     //配置requestSerializerType
-    switch ([self requestSerializerTypeByRequest:request]) {
-        case SARequestSerializerTypeJSON:
-            self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-            break;
-        case SARequestSerializerTypeHTTP:
-            self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-            break;
-        default:
-            break;
+    if ([request.configProtocol respondsToSelector:@selector(requestSerializerType)] && [request.configProtocol requestSerializerType] == SARequestSerializerTypeHTTP) {
+        self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    }else{
+        self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
     }
     
-    [self setupHTTPRequestHeadersByRequest:request];
-    
-    //配置请求超时时间
-    self.sessionManager.requestSerializer.timeoutInterval = [self requestTimeoutIntervalByRequest:request];
-}
-
-- (void)setupHTTPRequestHeadersByRequest:(SANetworkRequest<SANetworkConfigProtocol> *)request {
+    //配置请求头
     if ((![request.configProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.configProtocol useBaseHTTPRequestHeaders]) && self.baseHTTPRequestHeadersBlock) {
         NSDictionary *requestHeaders = self.baseHTTPRequestHeadersBlock();
         [requestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
@@ -86,17 +72,17 @@
             [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
         }];
     }
+
+    //配置请求超时时间
+    NSTimeInterval timeoutInterval = 20.0f;
+    if ([request.configProtocol respondsToSelector:@selector(requestTimeoutInterval)]) {
+        timeoutInterval = [request.configProtocol requestTimeoutInterval];
+    }
+    self.sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
 }
 
 #pragma mark-
 #pragma mark-Getter
-
-- (BOOL)isReachable {
-    if ([[RealReachability sharedInstance] currentReachabilityStatus] == RealStatusNotReachable) {
-        return NO;
-    }
-    return YES;
-}
 
 - (NSString *)urlStringByRequest:(SANetworkRequest*)request {
     if ([request.configProtocol respondsToSelector:@selector(customRequestURLString)]) {
@@ -144,8 +130,6 @@
     return YES;
 }
 
-
-
 - (NSDictionary *)requestParamByRequest:(SANetworkRequest *)request {
     NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
     if (request.paramSourceDelegate) {
@@ -154,7 +138,7 @@
             [tempDict addEntriesFromDictionary:paramDict];
         }
     }
-    if ([request.configProtocol respondsToSelector:@selector(useBaseRequestArgument)] && [request.configProtocol useBaseRequestArgument] && self.baseArgumentBlock) {
+    if (self.baseArgumentBlock && [request.configProtocol respondsToSelector:@selector(useBaseRequestArgument)] && [request.configProtocol useBaseRequestArgument] ) {
         NSDictionary *baseRequestArgument = self.baseArgumentBlock();
         if (baseRequestArgument != nil) {
             [tempDict addEntriesFromDictionary:baseRequestArgument];
@@ -164,20 +148,6 @@
         return nil;
     }
     return [NSDictionary dictionaryWithDictionary:tempDict];
-}
-
-- (SARequestSerializerType)requestSerializerTypeByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
-    if ([request.configProtocol respondsToSelector:@selector(requestSerializerType)]) {
-        return [request.configProtocol requestSerializerType];
-    }
-    return SARequestSerializerTypeJSON;
-}
-
-- (NSTimeInterval)requestTimeoutIntervalByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
-    if ([request.configProtocol respondsToSelector:@selector(requestTimeoutInterval)]) {
-        return [request.configProtocol requestTimeoutInterval];
-    }
-    return 20.0f;
 }
 
 - (SARequestMethod)requestMethodByRequest:(SANetworkRequest<SANetworkConfigProtocol>*)request {
@@ -216,31 +186,36 @@
     //检查参数配置
     if (![self isCorrectByRequestParams:requestParam request:request]) {
         NSLog(@"参数配置有误！请查看isCorrectWithRequestParams: !");
+        SANetworkResponse *paramIncorrectResponse = [[SANetworkResponse alloc] initWithResponseData:nil responseModelClass:Nil requestTag:request.tag networkResponseStatus:SANetworkRequestParamIncorrectStatus];
+        if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
+            [request.responseDelegate networkRequest:request failedByResponse:paramIncorrectResponse];
+        }
         [request accessoryDidStop];
         return;
     }
     
     //检查是否存在相同请求方法未完成，并根据协议接口决定是否结束之前的请求
-    __block BOOL isContinuePerform = YES;
-    [self.requestRecordDict enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, SANetworkRequest * _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([[self urlStringByRequest:obj] isEqualToString:requestURLString]) {
+    BOOL isContinuePerform = YES;
+    for (SANetworkRequest *requestingObj in self.requestRecordDict.allValues) {
+        if ([[self urlStringByRequest:requestingObj] isEqualToString:requestURLString]) {
             if ([self shouldCancelPreviousRequestByRequest:request]) {
-                [obj accessoryWillStart];
-                [self removeRequest:obj];
-                [obj accessoryDidStop];
+                [requestingObj accessoryWillStart];
+                [self removeRequest:requestingObj];
+                [requestingObj accessoryDidStop];
             }else{
                 isContinuePerform = NO;
             }
-            *stop = YES;
+            break;
         }
-    }];
+    }
+
     if (isContinuePerform == NO){
         NSLog(@"有个请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
         [request accessoryDidStop];
         return;
     }
     if (self.enableDebug) {
-        [SANetworkLogger logDebugRequestInfoWithURL:requestURLString httpMethod:[self requestMethodByRequest:request] methodName:[request.configProtocol requestMethodName] params:requestParam reachabilityStatus:[[RealReachability sharedInstance] currentReachabilityStatus]];
+        [SANetworkLogger logDebugRequestInfoWithURL:requestURLString httpMethod:[self requestMethodByRequest:request] methodName:[request.configProtocol requestMethodName] params:requestParam reachabilityStatus:[[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]];
     }
     //检测请求是否缓存数据，并执行缓存数据回调方法
     if ([self shouldCacheDataByRequest:request]) {
@@ -257,7 +232,11 @@
         }
     }
     
-    if (self.isReachable == NO) {
+    if (![AFNetworkReachabilityManager sharedManager].isReachable) {
+        if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
+            SANetworkResponse *notReachableResponse = [[SANetworkResponse alloc] initWithResponseData:nil responseModelClass:Nil requestTag:request.tag networkResponseStatus:SANetworkNotReachableStatus];
+            [request.responseDelegate networkRequest:request failedByResponse:notReachableResponse];
+        }
         [request accessoryDidStop];
         return;
     }
@@ -365,11 +344,12 @@
 - (void)handleRequestSuccess:(NSURLSessionDataTask *)sessionDataTask responseObject:(id)response {
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest *request = _requestRecordDict[taskKey];
+    [request accessoryWillStop];
     if (request == nil){
         NSLog(@"请求实例被意外释放!");
+        [request accessoryDidStop];
         return;
     }
-    [request accessoryWillStop];
     [self removeRequestObject:request];
     
     BOOL isAuthentication = YES;

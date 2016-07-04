@@ -40,7 +40,7 @@
     SANetworkHUDAccessory *hudAcc   = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Loading..."];
     TestRequest *testRequest        = [[TestRequest alloc] init];
     [testRequest addNetworkAccessoryObject:hudAcc];
-    testRequest.paramSourceDelegate = self;
+//    testRequest.paramSourceDelegate = self;
     testRequest.responseDelegate    = self;
     [testRequest startRequest];
 }
@@ -62,6 +62,7 @@
 }
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
+    NSLog(@"data = %@",response.contentData);
     if ([response.contentData isKindOfClass:[BaseModel class]]) {
         BaseModel *baseMode = (BaseModel *)response.contentData;
         baseMode.detailModelName = @"TestModel";
