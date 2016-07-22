@@ -8,6 +8,6 @@
 
 #import "SANetworkRequest.h"
 
-@interface TestSingRequest : SANetworkRequest<SANetworkConfigProtocol>
+@interface TestSingRequest : SANetworkRequest<SANetworkRequestConfigProtocol>
 
 @end

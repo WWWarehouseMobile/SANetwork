@@ -9,12 +9,10 @@
 #ifndef SANetwork_h
 #define SANetwork_h
 
-#import "SANetworkAgent.h"
+#import "SANetworkConfig.h"
 #import "SANetworkRequest.h"
 #import "SANetworkBatchRequest.h"
 #import "SANetworkChainRequest.h"
 #import "SANetworkResponse.h"
-#import "SANetworkRefreshAccessory.h"
-#import "SANetworkHUDAccessory.h"
 
 #endif /* SANetwork_h */

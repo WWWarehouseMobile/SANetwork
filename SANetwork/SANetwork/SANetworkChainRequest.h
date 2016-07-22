@@ -7,25 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SANetworkAccessoryProtocol.h"
-
 @class SANetworkChainRequest;
 @class SANetworkRequest;
 @class SANetworkResponse;
-@protocol SANetworkChainRequestDelegate <NSObject>
+@protocol SANetworkChainRequestResponseDelegate <NSObject>
 
 @optional
 
-- (SANetworkRequest *)networkChainRequest:(SANetworkChainRequest *)chainRequest nextNetworkRequestByNetworkRequest:(SANetworkRequest *)request finishedByResponse:(SANetworkResponse *)response;
+- (__kindof SANetworkRequest *)networkChainRequest:(SANetworkChainRequest *)chainRequest nextNetworkRequestByNetworkRequest:(__kindof SANetworkRequest *)request finishedByResponse:(SANetworkResponse *)response;
 
-- (void)networkChainRequest:(SANetworkChainRequest *)chainRequest networkRequest:(SANetworkRequest *)request failedByResponse:(SANetworkResponse *)response;
+- (void)networkChainRequest:(SANetworkChainRequest *)chainRequest networkRequest:(__kindof SANetworkRequest *)request failedByResponse:(SANetworkResponse *)response;
 
 @end
 
+@protocol  SANetworkAccessoryProtocol;
 
 @interface SANetworkChainRequest : NSObject
 
-@property (nonatomic, weak) id<SANetworkChainRequestDelegate> delegate;
+@property (nonatomic, weak) id<SANetworkChainRequestResponseDelegate> delegate;
 
 /**
  *  @brief 初始化链式请求，需要配置一个根请求
@@ -34,7 +33,7 @@
  *
  *  @return 链式请求对象
  */
-- (instancetype)initWithRootNetworkRequest:(SANetworkRequest *)networkRequest;
+- (instancetype)initWithRootNetworkRequest:(__kindof SANetworkRequest *)networkRequest;
 
 
 /**

@@ -20,7 +20,7 @@
     /**
      *  设定自己需要请求的URL
      */
-    [SANetworkAgent sharedInstance].mainBaseUrlString = @"http://10.10.0.120:8080";
+    [SANetworkConfig sharedInstance].mainBaseUrlString = @"http://10.10.0.120:8080";
     /**
      *  当使用viceBaseUrlString时，请设定请求的SANetworkConfigProtocol中的viceBaseUrlString为YES
      */
@@ -33,13 +33,13 @@
 //        return @{@"username" : @"001",
 //                 @"password" : @"123"};
 //    }];
-    [[SANetworkAgent sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
+    [[SANetworkConfig sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
         /**
          *  可根据networkRequest、response进行验证
          */
         return YES;
     }];
-    [[SANetworkAgent sharedInstance] setBaseHTTPRequestHeadersBlock:^ NSDictionary *(){
+    [[SANetworkConfig sharedInstance] setBaseHTTPRequestHeadersBlock:^ NSDictionary *(){
         return @{
                  @"m" : @"iOS",
                  @"v" : @"1.0.0",
@@ -48,14 +48,14 @@
                  @"sign" : @"F91D85521848A876340A1BF603994624"
                  };
     }];
-    [SANetworkAgent sharedInstance].enableDebug = YES;
+    [SANetworkConfig sharedInstance].enableDebug = YES;
     
     /**
      *  根据自己的接口返回，自定义设置
      */
-    [SANetworkResponse setResponseMessageKey:@"msg"];
-    [SANetworkResponse setResponseCodeKey:@"code"];
-    [SANetworkResponse setResponseContentDataKey:@"data"];
+    [SANetworkConfig sharedInstance].responseMessageKey = @"msg";
+    [SANetworkConfig sharedInstance].responseCodeKey = @"code";
+    [SANetworkConfig sharedInstance].responseContentDataKey = @"data";
     // Override point for customization after application launch.
     return YES;
 }

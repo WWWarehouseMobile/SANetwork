@@ -12,8 +12,9 @@
 #import "TestRequest.h"
 #import "BaseModel.h"
 #import "TestModel.h"
+#import "SANetworkHUDAccessory.h"
 
-@interface ViewController ()<SANetworkResponseProtocol,SANetworkParamSourceProtocol>
+@interface ViewController ()<SANetworkResponseProtocol,SANetworkRequestParamSourceProtocol>
 
 - (IBAction)pressSingButtonAction:(id)sender;
 
@@ -62,18 +63,9 @@
 }
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
-    NSLog(@"data = %@",response.contentData);
-    if ([response.contentData isKindOfClass:[BaseModel class]]) {
-        BaseModel *baseMode = (BaseModel *)response.contentData;
-        baseMode.detailModelName = @"TestModel";
-        [baseMode.contentList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(@"objclass %@---%@",[obj class],[(TestModel *)obj receiverState]);
-        }];
-        NSLog(@"data = %@----array %@",response.contentData,baseMode.contentList);
-
-    }
+    NSLog(@"data = %@",response.responseData);
 }
 - (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
-    NSLog(@"error : %@",response.message);
+    NSLog(@"error : %@",response.responseMessage);
 }
 @end

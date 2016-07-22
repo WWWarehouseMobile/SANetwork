@@ -13,32 +13,24 @@
 @interface SANetworkBatchRequest ()<SANetworkResponseProtocol>
 
 @property (nonatomic) NSInteger completedCount;
-
 @property (nonatomic, strong) NSArray<SANetworkRequest *> *requestArray;
-
 @property (nonatomic, strong) NSMutableArray *accessoryArray;
-
 @property (nonatomic, strong) NSMutableArray<SANetworkResponse *> *responseArray;
-
-- (void)accessoryWillStart;
-- (void)accessoryWillStop;
-- (void)accessoryDidStop;
 
 @end
 
 @implementation SANetworkBatchRequest
 
-- (instancetype)initWithRequestArray:(NSArray<SANetworkRequest *> *)requestArray{
+- (instancetype)initWithRequestArray:(NSArray<SANetworkRequest *> *)requestArray {
     self = [super init];
     if (self) {
-        _requestArray = [requestArray copy];
+        _requestArray = requestArray;
         _responseArray = [NSMutableArray array];
         _completedCount = 0;
         _isContinueByFailResponse = YES;
     }
     return self;
 }
-
 - (void)startBatchRequest {
     if (self.completedCount > 0 ) {
         NSLog(@"批量请求正在进行，请勿重复启动  !");
@@ -77,7 +69,7 @@
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
     [self.responseArray addObject:response];
-
+    
     if (self.isContinueByFailResponse) {
         self.completedCount++;
         if (self.completedCount == self.requestArray.count) {
@@ -138,5 +130,4 @@
             [accessory networkRequestAccessoryDidStop];
         }
     }
-}
-@end
+}@end

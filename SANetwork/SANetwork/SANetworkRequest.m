@@ -1,16 +1,16 @@
 //
 //  SANetworkRequest.m
-//  ECM
+//  SANetworkDemo
 //
-//  Created by 学宝 on 16/1/16.
-//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
+//  Created by 阿宝 on 16/7/22.
+//  Copyright © 2016年 学宝工作室. All rights reserved.
 //
 
 #import "SANetworkRequest.h"
 #import "SANetworkAgent.h"
 
 @interface SANetworkRequest ()
-@property (nonatomic, weak) id <SANetworkConfigProtocol> configProtocol;
+@property (nonatomic, weak) id <SANetworkRequestConfigProtocol> requestConfigProtocol;
 
 @property (nonatomic, strong) NSMutableArray *accessoryArray;
 
@@ -22,8 +22,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        if ([self conformsToProtocol:@protocol(SANetworkConfigProtocol)]) {
-            _configProtocol = (id <SANetworkConfigProtocol>)self;
+        if ([self conformsToProtocol:@protocol(SANetworkRequestConfigProtocol)]) {
+            _requestConfigProtocol = (id <SANetworkRequestConfigProtocol>)self;
         }else{
             NSAssert(NO, @"子类必须实现SANetworkConfigProtocol协议");
         }
@@ -46,7 +46,6 @@
 - (void)dealloc {
     [self stopRequest];
 }
-
 
 #pragma mark-
 #pragma mark-Accessory
@@ -81,4 +80,5 @@
         }
     }
 }
+
 @end

@@ -11,18 +11,18 @@
 
 @class SANetworkBatchRequest;
 @class SANetworkResponse;
-@protocol SANetworkBatchRequestDelegate <NSObject>
+@protocol SANetworkBatchRequestResponseDelegate <NSObject>
 
 @optional
-
 - (void)networkBatchRequest:(SANetworkBatchRequest *)batchRequest completedByResponseArray:(NSArray<SANetworkResponse *> *)responseArray;
 
 @end
 
 @class SANetworkRequest;
+@protocol  SANetworkAccessoryProtocol;
 @interface SANetworkBatchRequest : NSObject
 
-@property (nonatomic, weak) id<SANetworkBatchRequestDelegate>delegate;
+@property (nonatomic, weak) id<SANetworkBatchRequestResponseDelegate>delegate;
 
 /**
  *  @brief 当某一个请求错误时，其他请求是否继续，默认YES继续

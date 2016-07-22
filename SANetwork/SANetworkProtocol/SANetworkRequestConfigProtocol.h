@@ -1,17 +1,17 @@
 //
-//  SARequestConfigProtocol.h
-//  ECM
+//  SANetworkRequestConfigProtocol.h
+//  SANetworkDemo
 //
-//  Created by 学宝 on 16/1/15.
-//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
+//  Created by 阿宝 on 16/7/21.
+//  Copyright © 2016年 学宝工作室. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFURLRequestSerialization.h>
 
 typedef NS_ENUM(NSInteger , SARequestMethod) {
-    SARequestMethodGet = 0,
-    SARequestMethodPost,
+    SARequestMethodPost = 0,
+    SARequestMethodGet,
 };
 
 typedef NS_ENUM(NSInteger , SARequestSerializerType) {
@@ -21,19 +21,19 @@ typedef NS_ENUM(NSInteger , SARequestSerializerType) {
 
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 
-@protocol SANetworkConfigProtocol <NSObject>
+@protocol SANetworkRequestConfigProtocol <NSObject>
 
 @required
 
 /**
- *  @brief 接口地址
+ *  @brief 接口地址。若设置带有http的请求地址，将会忽略SANetworkAgent设置的url
  */
 - (NSString *)requestMethodName;
 
 /**
  *  @brief 检查返回数据是否正确，这样将在response里的succeed和failed 直接使用数据。
  *
- *  @param responseData 将返回的数据
+ *  @param responseData 返回的完整数据
  *
  *  @return 是否正确
  */
@@ -42,16 +42,9 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 @optional
 
 /**
- *  @brief 请求方式
+ *  @brief 请求方式，默认为 SARequestMethodPost
  */
 - (SARequestMethod)requestMethod;
-
-/**
- *  很多请求都会需要相同的请求参数，可设置SANetworkAgent的baseArgumentBlock，这个block会返回你所设置的基础参数。默认NO
- *
- *  @return 是否使用基础参数
- */
-- (BOOL)useBaseRequestArgument;
 
 /**
  *  @brief 是否缓存数据 response。  默认NO
@@ -61,11 +54,10 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (BOOL)shouldCacheResponse;
 
 /**
- *  数据Model化，指定请求结果数据的对象类
- *
- *  @return 类
+ *  @brief 请求连接的超时时间。默认20.0秒
+ *  @return 超时时长
  */
-- (Class)responseDataModelClass;
+- (NSTimeInterval)requestTimeoutInterval;
 
 /**
  *  @brief 检查请求参数
@@ -77,20 +69,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (BOOL)isCorrectWithRequestParams:(NSDictionary *)params;
 
 /**
- *  @brief 请求连接的超时时间。默认20.0秒
- *  @return 超时时长
- */
-- (NSTimeInterval)requestTimeoutInterval;
-
-/**
- *  @brief 构建自定义的请求URL字符串
- *
- *  @return url字符串
- */
-- (NSString *)customRequestURLString;
-
-/**
- *  @brief 请求的SerializerType 默认SARequestSerializerTypeJSON
+ *  @brief 请求的SerializerType 默认SARequestSerializerTypeJSON, 可通过SANetworkAgent设置默认值
  *  @return 服务端接受数据类型
  */
 - (SARequestSerializerType)requestSerializerType;
@@ -102,14 +81,12 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  */
 - (AFConstructingBlock)constructingBodyBlock;
 
-
 /**
- *  @brief 是否取消存在的在执行的前一个相同方法的请求（参数可能不同）
+ *  @brief 是否取消正在执行的前一个相同方法的请求（参数可能不同）
  *
  *  @return 是否取消前一个请求
  */
 - (BOOL)shouldCancelPreviousRequest;
-
 
 /**
  *  @brief 可以使用两个根地址，比如可能会用到 CDN 地址、https之类的。默认NO
@@ -119,7 +96,14 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (BOOL)useViceURL;
 
 /**
- *  @brief SANetworkAgent设置过baseHTTPRequestHeadersBlock后，可通过此协议方法决定是否使用baseHTTPRequestHeaders，默认使用（YES）
+ *  很多请求都会需要相同的请求参数，可设置SANetworkConfig的baseParamSourceBlock，这个block会返回你所设置的基础参数。默认NO
+ *
+ *  @return 是否使用基础参数
+ */
+- (BOOL)useBaseRequestParamSource;
+
+/**
+ *  @brief SANetworkConfig设置过baseHTTPRequestHeadersBlock后，可通过此协议方法决定是否使用baseHTTPRequestHeaders，默认使用（YES）
  *
  *  @return 是否使用baseHTTPRequestHeaders
  */
@@ -131,5 +115,4 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  *  @return 请求头数据
  */
 - (NSDictionary *)customHTTPRequestHeaders;
-
 @end

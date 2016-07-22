@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        self.paramSourceDelegate = self;
+        self.requestParamSourceDelegate = self;
     }
     return self;
 }

@@ -7,25 +7,19 @@
 //
 
 #import "SANetworkChainRequest.h"
-#import "SANetworkResponseProtocol.h"
 #import "SANetworkRequest.h"
-
+#import "SANetworkResponseProtocol.h"
 
 @interface SANetworkChainRequest ()<SANetworkResponseProtocol>
 
 @property (nonatomic, strong) NSMutableArray *accessoryArray;
-
 @property (nonatomic, strong) SANetworkRequest *currentNetworkRequest;
-
-- (void)accessoryWillStart;
-- (void)accessoryWillStop;
-- (void)accessoryDidStop;
 
 @end
 
 @implementation SANetworkChainRequest
 
-- (instancetype)initWithRootNetworkRequest:(SANetworkRequest *)networkRequest {
+- (instancetype)initWithRootNetworkRequest:(__kindof SANetworkRequest *)networkRequest {
     self = [super init];
     if (self) {
         _currentNetworkRequest = networkRequest;
@@ -49,10 +43,11 @@
     [self stopChainRequest];
 }
 
+
 #pragma mark-
 #pragma mark-SANetworkResponseProtocol
 
-- (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
+- (void)networkRequest:(__kindof SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:nextNetworkRequestByNetworkRequest:finishedByResponse:)]) {
         SANetworkRequest *nextRequest = [self.delegate networkChainRequest:self nextNetworkRequestByNetworkRequest:networkRequest finishedByResponse:response];
         if (nextRequest != nil) {
@@ -65,7 +60,7 @@
     [self accessoryDidStop];
 }
 
-- (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
+- (void)networkRequest:(__kindof SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
     [self accessoryWillStop];
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:networkRequest:failedByResponse:)]) {
         [self.delegate networkChainRequest:self networkRequest:networkRequest failedByResponse:response];
