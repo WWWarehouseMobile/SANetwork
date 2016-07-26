@@ -9,6 +9,7 @@
 #import "SANetworkChainRequest.h"
 #import "SANetworkRequest.h"
 #import "SANetworkResponseProtocol.h"
+#import "SANetworkAgent.h"
 
 @interface SANetworkChainRequest ()<SANetworkResponseProtocol>
 
@@ -30,12 +31,11 @@
 - (void)startChainRequest {
     [self accessoryWillStart];
     _currentNetworkRequest.responseDelegate = self;
-    [self.currentNetworkRequest startRequest];
+    [[SANetworkAgent sharedInstance] addRequest:self.currentNetworkRequest];
 }
 
 - (void)stopChainRequest {
-    [self accessoryWillStop];
-    [self.currentNetworkRequest stopRequest];
+    [[SANetworkAgent sharedInstance] removeRequest:self.currentNetworkRequest];
     [self accessoryDidStop];
 }
 
@@ -61,7 +61,6 @@
 }
 
 - (void)networkRequest:(__kindof SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
-    [self accessoryWillStop];
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:networkRequest:failedByResponse:)]) {
         [self.delegate networkChainRequest:self networkRequest:networkRequest failedByResponse:response];
     }
@@ -82,14 +81,6 @@
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryWillStart)]) {
             [accessory networkRequestAccessoryWillStart];
-        }
-    }
-}
-
-- (void)accessoryWillStop {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryWillStop)]) {
-            [accessory networkRequestAccessoryWillStop];
         }
     }
 }

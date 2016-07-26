@@ -51,7 +51,12 @@ typedef BOOL (^SANetworkResponseBaseAuthenticationBlock)(SANetworkRequest *netwo
 @property (nonatomic, assign) SARequestSerializerType requestSerializerType;
 
 /**
- *  @brief 默认：[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil]
+ *  @brief 默认SAResponseSerializerTypeJSON (即：[AFJSONResponseSerializer serializer])
+ */
+@property (nonatomic, assign) SAResponseSerializerType responseSerializerType;
+
+/**
+ *  @brief 默认：[NSSet setWithObjects:@"application/json", @"text/json", @"text/html",nil]
  */
 @property (nonatomic, copy) NSSet<NSString *> *acceptableContentTypes;
 
@@ -61,17 +66,15 @@ typedef BOOL (^SANetworkResponseBaseAuthenticationBlock)(SANetworkRequest *netwo
 @property (nonatomic, assign) NSTimeInterval requestTimeoutInterval;
 
 /**
- *  @brief 是否打开debug日志，默认打开
+ *  @brief 是否打开debug日志，默认关闭
  */
 @property (nonatomic, assign) BOOL enableDebug;
 
 
 /*******以下属性的设定用于服务端返回数据的第一层格式统一，设定后，便于更深一层的取到数据 *********/
 
-@property (nonatomic, strong) NSString *responseCodeKey;
-
 @property (nonatomic, strong) NSString *responseMessageKey;
-
+@property (nonatomic, strong) NSString *responseCodeKey;
 @property (nonatomic, strong) NSString *responseContentDataKey;
 
 @end

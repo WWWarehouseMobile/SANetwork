@@ -21,11 +21,6 @@
 - (void)networkRequestAccessoryWillStart;
 
 /**
- *  @brief 请求将要停止
- */
-- (void)networkRequestAccessoryWillStop;
-
-/**
  *  @brief 请求已经停止
  */
 - (void)networkRequestAccessoryDidStop;

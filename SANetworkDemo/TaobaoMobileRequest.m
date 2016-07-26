@@ -1,15 +1,14 @@
 //
-//  ExpressRequest.m
-//  SANetwork
+//  TaobaoMobileRequest.m
+//  SANetworkDemo
 //
-//  Created by ISCS01 on 16/3/31.
-//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
+//  Created by 阿宝 on 16/7/25.
+//  Copyright © 2016年 学宝工作室. All rights reserved.
 //
 
-#import "ExpressRequest.h"
+#import "TaobaoMobileRequest.h"
 
-@implementation ExpressRequest
-
+@implementation TaobaoMobileRequest
 - (instancetype)init
 {
     self = [super init];
@@ -20,14 +19,7 @@
 }
 
 - (NSString *)requestMethodName {
-    return @"query";
-}
-
-- (BOOL)isCorrectWithResponseData:(id)responseData {
-    if (responseData) {
-        return YES;
-    }
-    return NO;
+    return @"http://tcc.taobao.com/cc/json/mobile_tel_segment.htm";
 }
 
 - (SARequestMethod)requestMethod {
@@ -38,11 +30,13 @@
     return SAResponseSerializerTypeHTTP;
 }
 
-- (NSDictionary *)requestParamDictionary {
-    return @{
-             @"type" : self.type,
-             @"postid" : self.postId
-             };
+- (BOOL)isCorrectWithResponseData:(id)responseData {
+    return responseData ? YES : NO;
 }
 
+- (NSDictionary *)requestParamDictionary {
+    return @{
+             @"tel" : self.mobile
+             };
+}
 @end

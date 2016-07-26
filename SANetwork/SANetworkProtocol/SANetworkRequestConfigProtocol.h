@@ -19,6 +19,11 @@ typedef NS_ENUM(NSInteger , SARequestSerializerType) {
     SARequestSerializerTypeJSON,
 };
 
+typedef NS_ENUM(NSInteger , SAResponseSerializerType) {
+    SAResponseSerializerTypeJSON = 0,
+    SAResponseSerializerTypeHTTP,
+};
+
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 
 @protocol SANetworkRequestConfigProtocol <NSObject>
@@ -26,7 +31,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 @required
 
 /**
- *  @brief 接口地址。若设置带有http的请求地址，将会忽略SANetworkAgent设置的url
+ *  @brief 接口地址。若设置带有http的请求地址，将会忽略SANetworkConfig设置的url
  */
 - (NSString *)requestMethodName;
 
@@ -69,10 +74,17 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (BOOL)isCorrectWithRequestParams:(NSDictionary *)params;
 
 /**
- *  @brief 请求的SerializerType 默认SARequestSerializerTypeJSON, 可通过SANetworkAgent设置默认值
+ *  @brief 请求的SerializerType 默认SARequestSerializerTypeJSON, 可通过SANetworkConfig设置默认值
  *  @return 服务端接受数据类型
  */
 - (SARequestSerializerType)requestSerializerType;
+
+/**
+ *  @brief 响应数据的responseSerializerType，默认SAResponseSerializerTypeJSON，可通过SANetworkConfig设置默认值
+ *
+ *  @return 服务端返回的数据类型
+ */
+- (SAResponseSerializerType)responseSerializerType;
 
 /**
  *  @brief 当POST的内容带有文件等富文本时使用
@@ -96,7 +108,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (BOOL)useViceURL;
 
 /**
- *  很多请求都会需要相同的请求参数，可设置SANetworkConfig的baseParamSourceBlock，这个block会返回你所设置的基础参数。默认NO
+ *  很多请求都会需要相同的请求参数，可设置SANetworkConfig的baseParamSourceBlock，这个block会返回你所设置的基础参数。默认YES
  *
  *  @return 是否使用基础参数
  */
@@ -115,4 +127,11 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  *  @return 请求头数据
  */
 - (NSDictionary *)customHTTPRequestHeaders;
+
+/**
+ *  @brief 是否启用SANetworkConfig设定的请求验证，若设定了验证的Block，默认使用YES
+ *
+ *  @return 是否使用基础的请求验证
+ */
+- (BOOL)useBaseAuthentication;
 @end

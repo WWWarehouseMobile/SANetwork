@@ -58,10 +58,11 @@ typedef NS_ENUM(NSInteger, SANetworkStatus) {
 
 - (id)fetchDataWithReformer:(id<SANetworkResponseReformerProtocol>)reformer;
 
+@property (nonatomic, copy, readonly) NSString *responseMessage; //请求无网、失败、参数错误、验证失败的情况，此属性都有值
+
 /***  以下属性取决于你服务端返回的数据格式，以及SANetworkConfig是否设定了对应属性值的key值***/
 
 @property (nonatomic, copy, readonly) id responseContentData;
-@property (nonatomic, copy, readonly) NSString *responseMessage; //请求无网、失败、参数错误、验证失败的情况，此属性都有值
 @property (nonatomic, assign, readonly) NSInteger responseCode;
 @end
 

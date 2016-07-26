@@ -47,9 +47,3 @@
 
 
 @end
-
-@interface SANetworkRequest (Accessory)
-- (void)accessoryWillStart;
-- (void)accessoryWillStop;
-- (void)accessoryDidStop;
-@end

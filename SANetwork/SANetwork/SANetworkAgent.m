@@ -88,7 +88,7 @@
         }
     }
     
-    if ([SANetworkConfig sharedInstance].baseParamSourceBlock && [request.requestConfigProtocol respondsToSelector:@selector(useBaseRequestParamSource)] && [request.requestConfigProtocol useBaseRequestParamSource] ) {
+    if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseRequestParamSource)] || [request.requestConfigProtocol useBaseRequestParamSource]) && [SANetworkConfig sharedInstance].baseParamSourceBlock) {
         NSDictionary *baseRequestParamSource = [SANetworkConfig sharedInstance].baseParamSourceBlock();
         if (baseRequestParamSource != nil) {
             [tempDict addEntriesFromDictionary:baseRequestParamSource];
@@ -141,6 +141,13 @@
         self.sessionManager.requestSerializer = [SANetworkConfig sharedInstance].requestSerializerType == SARequestSerializerTypeHTTP ? [AFHTTPRequestSerializer serializer] : [AFJSONRequestSerializer serializer];
     }
     
+    //配置responseSerializerType
+    if ([request.requestConfigProtocol respondsToSelector:@selector(responseSerializerType)]) {
+        self.sessionManager.responseSerializer = [request.requestConfigProtocol responseSerializerType] == SAResponseSerializerTypeJSON ? [AFJSONResponseSerializer serializer] : [AFHTTPResponseSerializer serializer];
+    }else{
+        self.sessionManager.responseSerializer = [SANetworkConfig sharedInstance].responseSerializerType == SAResponseSerializerTypeJSON ? [AFJSONResponseSerializer serializer] : [AFHTTPResponseSerializer serializer];
+    }
+    
     //配置请求头
     if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.requestConfigProtocol useBaseHTTPRequestHeaders]) && [SANetworkConfig sharedInstance].baseHTTPRequestHeadersBlock) {
         NSDictionary *requestHeaders = [SANetworkConfig sharedInstance].baseHTTPRequestHeadersBlock();
@@ -188,7 +195,7 @@
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             [request.responseDelegate networkRequest:request failedByResponse:paramIncorrectResponse];
         }
-        [request accessoryDidStop];
+        [request stopRequest];
         return;
     }
     
@@ -197,9 +204,7 @@
     for (SANetworkRequest<SANetworkRequestConfigProtocol> *requestingObj in self.requestRecordDict.allValues) {
         if ([[self urlStringByRequest:requestingObj] isEqualToString:requestURLString]) {
             if ([self shouldCancelPreviousRequestByRequest:request]) {
-                [requestingObj accessoryWillStart];
-                [self removeRequest:requestingObj];
-                [requestingObj accessoryDidStop];
+                [requestingObj stopRequest];
             }else{
                 isContinuePerform = NO;
             }
@@ -209,7 +214,7 @@
     
     if (isContinuePerform == NO){
         NSLog(@"有个请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
-        [request accessoryDidStop];
+        [request stopRequest];
         return;
     }
     
@@ -233,29 +238,30 @@
     }
     
     
-    if (![AFNetworkReachabilityManager sharedManager].isReachable) {
+    if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             SANetworkResponse *notReachableResponse = [[SANetworkResponse alloc] initWithResponseData:nil requestTag:request.tag networkStatus:SANetworkNotReachableStatus];
             [request.responseDelegate networkRequest:request failedByResponse:notReachableResponse];
         }
-        [request accessoryDidStop];
+        [request stopRequest];
         return;
     }
     
     [self setupSessionManagerRequestSerializerByRequest:request];
     __block SANetworkRequest<SANetworkRequestConfigProtocol> *blockRequest = request;
+    __weak typeof(self)weakSelf = self;
     switch ([self requestMethodByRequest:request]) {
         case SARequestMethodGet:{
             request.sessionDataTask = [self.sessionManager GET:requestURLString
                                                     parameters:requestParam
                                                       progress:^(NSProgress * _Nonnull downloadProgress) {
-                                                          [self handleRequestProgress:downloadProgress request:blockRequest];
+                                                          [weakSelf handleRequestProgress:downloadProgress request:blockRequest];
                                                       }
                                                        success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                                           [self handleRequestSuccess:task responseObject:responseObject];
+                                                           [weakSelf handleRequestSuccess:task responseObject:responseObject];
                                                        }
                                                        failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                                           [self handleRequestFailure:task error:error];
+                                                           [weakSelf handleRequestFailure:task error:error];
                                                        }];
         }
             break;
@@ -266,25 +272,25 @@
                                                          parameters:requestParam
                                           constructingBodyWithBlock:constructingBlock
                                                            progress:^(NSProgress * _Nonnull uploadProgress) {
-                                                               [self handleRequestProgress:uploadProgress request:blockRequest];
+                                                               [weakSelf handleRequestProgress:uploadProgress request:blockRequest];
                                                            }
                                                             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                                                [self handleRequestSuccess:task responseObject:responseObject];
+                                                                [weakSelf handleRequestSuccess:task responseObject:responseObject];
                                                             }
                                                             failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                                                [self handleRequestFailure:task error:error];
+                                                                [weakSelf handleRequestFailure:task error:error];
                                                             }];
             }else{
                 request.sessionDataTask = [self.sessionManager POST:requestURLString
                                                          parameters:requestParam
                                                            progress:^(NSProgress * _Nonnull uploadProgress) {
-                                                               [self handleRequestProgress:uploadProgress request:blockRequest];
+                                                               [weakSelf handleRequestProgress:uploadProgress request:blockRequest];
                                                            }
                                                             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                                                [self handleRequestSuccess:task responseObject:responseObject];
+                                                                [weakSelf handleRequestSuccess:task responseObject:responseObject];
                                                             }
                                                             failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                                                [self handleRequestFailure:task error:error];
+                                                                [weakSelf handleRequestFailure:task error:error];
                                                             }];
             }
         }
@@ -297,8 +303,13 @@
 }
 
 - (void)removeRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
+    if(request.sessionDataTask == nil)  return;
+    
     [request.sessionDataTask cancel];
-    [self removeRequestObject:request];
+    NSString *taskKey = [self keyForSessionDataTask:request.sessionDataTask];
+    @synchronized(self) {
+        [_requestRecordDict removeObjectForKey:taskKey];
+    }
 }
 
 #pragma mark-
@@ -324,16 +335,13 @@
 - (void)handleRequestSuccess:(NSURLSessionDataTask *)sessionDataTask responseObject:(id)response {
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest<SANetworkRequestConfigProtocol> *request = _requestRecordDict[taskKey];
-    [request accessoryWillStop];
     if (request == nil){
         NSLog(@"请求实例被意外释放!");
-        [request accessoryDidStop];
+        [request stopRequest];
         return;
     }
-    [self removeRequestObject:request];
-    
     BOOL isAuthentication = YES;
-    if ([SANetworkConfig sharedInstance].baseAuthenticationBlock) {
+    if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseAuthentication)] || [request.requestConfigProtocol useBaseAuthentication]) && [SANetworkConfig sharedInstance].baseAuthenticationBlock) {
         isAuthentication = [SANetworkConfig sharedInstance].baseAuthenticationBlock(request,response);
     }
     if(isAuthentication && [request.requestConfigProtocol isCorrectWithResponseData:response]){
@@ -359,7 +367,8 @@
         }
         [self afterPerformFailWithResponse:dataErrorResponse request:request];
     }
-    [request accessoryDidStop];
+    [request stopRequest];
+    
     if ([SANetworkConfig sharedInstance].enableDebug) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:isAuthentication error:nil];
     }
@@ -368,21 +377,18 @@
 - (void)handleRequestFailure:(NSURLSessionDataTask *)sessionDataTask error:(NSError *)error {
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest<SANetworkRequestConfigProtocol> *request = _requestRecordDict[taskKey];
-    [request accessoryWillStop];
-    [self removeRequestObject:request];
     if (request == nil) {
         NSLog(@"请求实例被意外释放!");
-        [request accessoryDidStop];
+        [request stopRequest];
         return;
     }
-    
     SANetworkResponse *failureResponse = [[SANetworkResponse alloc] initWithResponseData:nil requestTag:request.tag networkStatus:SANetworkResponseFailureStatus];
     [self beforePerformFailWithResponse:failureResponse request:request];
     if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
         [request.responseDelegate networkRequest:request failedByResponse:failureResponse];
     }
     [self afterPerformFailWithResponse:failureResponse request:request];
-    [request accessoryDidStop];
+    [request stopRequest];
     if ([SANetworkConfig sharedInstance].enableDebug) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:nil authentication:NO error:error];
     }
@@ -403,14 +409,6 @@
     }
 }
 
-- (void)removeRequestObject:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
-    if(request.sessionDataTask == nil)  return;
-    
-    NSString *taskKey = [self keyForSessionDataTask:request.sessionDataTask];
-    @synchronized(self) {
-        [_requestRecordDict removeObjectForKey:taskKey];
-    }
-}
 
 #pragma mark-
 #pragma mark-Other

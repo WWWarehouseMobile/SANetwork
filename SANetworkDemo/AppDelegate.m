@@ -20,39 +20,41 @@
     /**
      *  设定自己需要请求的URL
      */
-    [SANetworkConfig sharedInstance].mainBaseUrlString = @"http://10.10.0.120:8080";
+    [SANetworkConfig sharedInstance].mainBaseUrlString = @"http://www.kuaidi100.com";
     /**
      *  当使用viceBaseUrlString时，请设定请求的SANetworkConfigProtocol中的viceBaseUrlString为YES
      */
 //    [SANetworkAgent sharedInstance].viceBaseUrlString = @"http://www.kuaidi100.com";
     
-//    [[SANetworkAgent sharedInstance] setBaseArgumentBlock:^NSDictionary *(){
-//        /**
-//         *  根据自己的接口中大部分接口所必须的参数，进行统一设定
-//         */
-//        return @{@"username" : @"001",
-//                 @"password" : @"123"};
-//    }];
-    [[SANetworkConfig sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
+    [[SANetworkConfig sharedInstance] setBaseParamSourceBlock:^NSDictionary *(){
         /**
-         *  可根据networkRequest、response进行验证
+         *  根据自己的接口中大部分接口所必须的参数，进行统一设定
          */
+        return @{
+                 @"username" : @"001",
+                 @"password" : @"123"
+                 };
+    }];
+    [[SANetworkConfig sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
+        //可根据networkRequest、response进行验证。这里书写你的验证逻辑标准。
+        if(response[@"sign"] == nil) {
+            return NO;
+        }
         return YES;
     }];
     [[SANetworkConfig sharedInstance] setBaseHTTPRequestHeadersBlock:^ NSDictionary *(){
         return @{
-                 @"m" : @"iOS",
-                 @"v" : @"1.0.0",
-                 @"t" : @"2016-06-04 14:18:05",
+                 @"system" : @"iOS 9.0",
+                 @"version" : @"1.0.0",
+                 @"time" : @"2016-06-04 14:18:05",
                  @"token" : @"8046DB4D7844617E0F9EC72A46CE4317",
-                 @"sign" : @"F91D85521848A876340A1BF603994624"
                  };
     }];
-    [SANetworkConfig sharedInstance].enableDebug = YES;
-    
-    /**
-     *  根据自己的接口返回，自定义设置
-     */
+    [SANetworkConfig sharedInstance].enableDebug = YES;  //允许后台打印输出
+//
+//    /**
+//     *  根据自己的接口返回，自定义设置
+//     */
     [SANetworkConfig sharedInstance].responseMessageKey = @"msg";
     [SANetworkConfig sharedInstance].responseCodeKey = @"code";
     [SANetworkConfig sharedInstance].responseContentDataKey = @"data";

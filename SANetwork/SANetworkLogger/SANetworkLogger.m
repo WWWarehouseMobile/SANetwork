@@ -18,7 +18,7 @@
 #ifdef DEBUG
     NSMutableString *logString = [NSMutableString stringWithString:@"\n\n**********************************************************************************\n*                                    Request                                     *\n**********************************************************************************\n\n"];
     [logString appendFormat:@"URL:\t\t\t\t\t%@\n",url];
-    [logString appendFormat:@"Method:\t\t\t%@\n",httpMethod == 0 ? @"Get" : @"Post"];
+    [logString appendFormat:@"Method:\t\t\t%@\n",httpMethod == 0 ? @"Post" : @"Get"];
     [logString appendFormat:@"MethodName:\t%@\n",methodName];
     [logString appendFormat:@"Param:\t\t\t\t%@\n",params.count ? params : @""];
     NSString *netReachability = nil;
@@ -29,8 +29,11 @@
         case 1:
             netReachability = @"2G/3G/4G";
             break;
-        default:
+        case 0:
             netReachability = @"无网络";
+            break;
+        default:
+            netReachability = @"网络情况未知";
             break;
     }
     [logString appendFormat:@"Net:\t\t\t\t\t%@",netReachability];

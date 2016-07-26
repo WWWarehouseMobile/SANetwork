@@ -14,13 +14,9 @@
 		195C56171CFF01C400F61FB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 195C56161CFF01C400F61FB7 /* Assets.xcassets */; };
 		195C561A1CFF01C400F61FB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 195C56181CFF01C400F61FB7 /* LaunchScreen.storyboard */; };
 		195C56251CFF01C400F61FB7 /* SANetworkDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56241CFF01C400F61FB7 /* SANetworkDemoTests.m */; };
-		195C56331CFF034800F61FB7 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56301CFF034800F61FB7 /* BaseModel.m */; };
 		195C56341CFF034800F61FB7 /* ExpressRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56321CFF034800F61FB7 /* ExpressRequest.m */; };
-		195C563F1CFF035500F61FB7 /* TestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56361CFF035500F61FB7 /* TestModel.m */; };
-		195C56401CFF035500F61FB7 /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56381CFF035500F61FB7 /* TestRequest.m */; };
-		195C56411CFF035500F61FB7 /* TestSingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C563A1CFF035500F61FB7 /* TestSingModel.m */; };
-		195C56421CFF035500F61FB7 /* TestSingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C563C1CFF035500F61FB7 /* TestSingRequest.m */; };
-		195C56431CFF035500F61FB7 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C563E1CFF035500F61FB7 /* TestViewController.m */; };
+		197B21A41D45C32E00A6E3E2 /* SATestRequestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 197B21A31D45C32E00A6E3E2 /* SATestRequestCase.m */; };
+		197B21AD1D462A2F00A6E3E2 /* TaobaoMobileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 197B21AC1D462A2F00A6E3E2 /* TaobaoMobileRequest.m */; };
 		19C9BE031D40C2690063D506 /* SANetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BDFE1D40C2690063D506 /* SANetworkAgent.m */; };
 		19C9BE041D40C2690063D506 /* SANetworkBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE001D40C2690063D506 /* SANetworkBatchRequest.m */; };
 		19C9BE051D40C2690063D506 /* SANetworkChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE021D40C2690063D506 /* SANetworkChainRequest.m */; };
@@ -30,6 +26,7 @@
 		19C9BE211D40CB4F0063D506 /* SANetworkRefreshAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE1F1D40CB4F0063D506 /* SANetworkRefreshAccessory.m */; };
 		19C9BE241D41A3750063D506 /* SANetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE231D41A3750063D506 /* SANetworkRequest.m */; };
 		19C9BE281D41C78F0063D506 /* SANetworkLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE271D41C78F0063D506 /* SANetworkLogger.m */; };
+		19C9BE2B1D41CE290063D506 /* SANetworkTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE2A1D41CE290063D506 /* SANetworkTestCase.m */; };
 		5B6497926399097DB7F086A6 /* libPods-SANetworkDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2528E5815BC4F78DBC14B0 /* libPods-SANetworkDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -57,24 +54,15 @@
 		195C56201CFF01C400F61FB7 /* SANetworkDemo.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SANetworkDemo.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		195C56241CFF01C400F61FB7 /* SANetworkDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SANetworkDemoTests.m; sourceTree = "<group>"; };
 		195C56261CFF01C400F61FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		195C562F1CFF034800F61FB7 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
-		195C56301CFF034800F61FB7 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		195C56311CFF034800F61FB7 /* ExpressRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressRequest.h; sourceTree = "<group>"; };
 		195C56321CFF034800F61FB7 /* ExpressRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressRequest.m; sourceTree = "<group>"; };
-		195C56351CFF035500F61FB7 /* TestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestModel.h; sourceTree = "<group>"; };
-		195C56361CFF035500F61FB7 /* TestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestModel.m; sourceTree = "<group>"; };
-		195C56371CFF035500F61FB7 /* TestRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestRequest.h; sourceTree = "<group>"; };
-		195C56381CFF035500F61FB7 /* TestRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequest.m; sourceTree = "<group>"; };
-		195C56391CFF035500F61FB7 /* TestSingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSingModel.h; sourceTree = "<group>"; };
-		195C563A1CFF035500F61FB7 /* TestSingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSingModel.m; sourceTree = "<group>"; };
-		195C563B1CFF035500F61FB7 /* TestSingRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSingRequest.h; sourceTree = "<group>"; };
-		195C563C1CFF035500F61FB7 /* TestSingRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSingRequest.m; sourceTree = "<group>"; };
-		195C563D1CFF035500F61FB7 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		195C563E1CFF035500F61FB7 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		195C56481CFF035F00F61FB7 /* SANetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetwork.h; sourceTree = "<group>"; };
 		195C56551CFF035F00F61FB7 /* SANetworkAccessoryProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkAccessoryProtocol.h; sourceTree = "<group>"; };
 		195C56571CFF035F00F61FB7 /* SANetworkInterceptorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkInterceptorProtocol.h; sourceTree = "<group>"; };
 		195C56591CFF035F00F61FB7 /* SANetworkResponseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkResponseProtocol.h; sourceTree = "<group>"; };
+		197B21A31D45C32E00A6E3E2 /* SATestRequestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATestRequestCase.m; sourceTree = "<group>"; };
+		197B21AB1D462A2F00A6E3E2 /* TaobaoMobileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaobaoMobileRequest.h; sourceTree = "<group>"; };
+		197B21AC1D462A2F00A6E3E2 /* TaobaoMobileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaobaoMobileRequest.m; sourceTree = "<group>"; };
 		19C9BDFD1D40C2690063D506 /* SANetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkAgent.h; sourceTree = "<group>"; };
 		19C9BDFE1D40C2690063D506 /* SANetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkAgent.m; sourceTree = "<group>"; };
 		19C9BDFF1D40C2690063D506 /* SANetworkBatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkBatchRequest.h; sourceTree = "<group>"; };
@@ -95,6 +83,9 @@
 		19C9BE231D41A3750063D506 /* SANetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkRequest.m; sourceTree = "<group>"; };
 		19C9BE261D41C78F0063D506 /* SANetworkLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkLogger.h; sourceTree = "<group>"; };
 		19C9BE271D41C78F0063D506 /* SANetworkLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkLogger.m; sourceTree = "<group>"; };
+		19C9BE291D41CE290063D506 /* SANetworkTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkTestCase.h; sourceTree = "<group>"; };
+		19C9BE2A1D41CE290063D506 /* SANetworkTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkTestCase.m; sourceTree = "<group>"; };
+		19C9BE331D4207D90063D506 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
 		1CEAA5CB08944AF4CEEE257D /* Pods-SANetworkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SANetworkDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SANetworkDemo/Pods-SANetworkDemo.release.xcconfig"; sourceTree = "<group>"; };
 		6487FEB2D5B0102F200327B2 /* Pods-SANetworkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SANetworkDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SANetworkDemo/Pods-SANetworkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		AB2528E5815BC4F78DBC14B0 /* libPods-SANetworkDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SANetworkDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +113,7 @@
 		12F65058974E7240CCEC274F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19C9BE331D4207D90063D506 /* libAFNetworking.a */,
 				AB2528E5815BC4F78DBC14B0 /* libPods-SANetworkDemo.a */,
 			);
 			name = Frameworks;
@@ -156,20 +148,10 @@
 				195C56101CFF01C400F61FB7 /* ViewController.h */,
 				195C56111CFF01C400F61FB7 /* ViewController.m */,
 				195C56131CFF01C400F61FB7 /* Main.storyboard */,
-				195C562F1CFF034800F61FB7 /* BaseModel.h */,
-				195C56301CFF034800F61FB7 /* BaseModel.m */,
 				195C56311CFF034800F61FB7 /* ExpressRequest.h */,
 				195C56321CFF034800F61FB7 /* ExpressRequest.m */,
-				195C56351CFF035500F61FB7 /* TestModel.h */,
-				195C56361CFF035500F61FB7 /* TestModel.m */,
-				195C56371CFF035500F61FB7 /* TestRequest.h */,
-				195C56381CFF035500F61FB7 /* TestRequest.m */,
-				195C56391CFF035500F61FB7 /* TestSingModel.h */,
-				195C563A1CFF035500F61FB7 /* TestSingModel.m */,
-				195C563B1CFF035500F61FB7 /* TestSingRequest.h */,
-				195C563C1CFF035500F61FB7 /* TestSingRequest.m */,
-				195C563D1CFF035500F61FB7 /* TestViewController.h */,
-				195C563E1CFF035500F61FB7 /* TestViewController.m */,
+				197B21AB1D462A2F00A6E3E2 /* TaobaoMobileRequest.h */,
+				197B21AC1D462A2F00A6E3E2 /* TaobaoMobileRequest.m */,
 				195C56161CFF01C400F61FB7 /* Assets.xcassets */,
 				195C56181CFF01C400F61FB7 /* LaunchScreen.storyboard */,
 				195C561B1CFF01C400F61FB7 /* Info.plist */,
@@ -191,6 +173,9 @@
 			children = (
 				195C56241CFF01C400F61FB7 /* SANetworkDemoTests.m */,
 				195C56261CFF01C400F61FB7 /* Info.plist */,
+				19C9BE291D41CE290063D506 /* SANetworkTestCase.h */,
+				19C9BE2A1D41CE290063D506 /* SANetworkTestCase.m */,
+				197B21A31D45C32E00A6E3E2 /* SATestRequestCase.m */,
 			);
 			path = SANetworkDemoTests;
 			sourceTree = "<group>";
@@ -423,17 +408,12 @@
 				195C560F1CFF01C400F61FB7 /* AppDelegate.m in Sources */,
 				19C9BE241D41A3750063D506 /* SANetworkRequest.m in Sources */,
 				19C9BE0B1D40C2B60063D506 /* SANetworkConfig.m in Sources */,
-				195C56331CFF034800F61FB7 /* BaseModel.m in Sources */,
-				195C563F1CFF035500F61FB7 /* TestModel.m in Sources */,
-				195C56431CFF035500F61FB7 /* TestViewController.m in Sources */,
-				195C56421CFF035500F61FB7 /* TestSingRequest.m in Sources */,
 				19C9BE281D41C78F0063D506 /* SANetworkLogger.m in Sources */,
 				19C9BE041D40C2690063D506 /* SANetworkBatchRequest.m in Sources */,
-				195C56411CFF035500F61FB7 /* TestSingModel.m in Sources */,
 				19C9BE051D40C2690063D506 /* SANetworkChainRequest.m in Sources */,
+				197B21AD1D462A2F00A6E3E2 /* TaobaoMobileRequest.m in Sources */,
 				19C9BE031D40C2690063D506 /* SANetworkAgent.m in Sources */,
 				195C56341CFF034800F61FB7 /* ExpressRequest.m in Sources */,
-				195C56401CFF035500F61FB7 /* TestRequest.m in Sources */,
 				19C9BE201D40CB4F0063D506 /* SANetworkHUDAccessory.m in Sources */,
 				195C560C1CFF01C400F61FB7 /* main.m in Sources */,
 				19C9BE131D40C56A0063D506 /* SANetworkResponse.m in Sources */,
@@ -444,7 +424,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19C9BE2B1D41CE290063D506 /* SANetworkTestCase.m in Sources */,
 				195C56251CFF01C400F61FB7 /* SANetworkDemoTests.m in Sources */,
+				197B21A41D45C32E00A6E3E2 /* SATestRequestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,11 +547,14 @@
 			baseConfigurationReference = 6487FEB2D5B0102F200327B2 /* Pods-SANetworkDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SANetworkDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemo;
 				PRODUCT_NAME = SANetworkDemo;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -578,11 +563,14 @@
 			baseConfigurationReference = 1CEAA5CB08944AF4CEEE257D /* Pods-SANetworkDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SANetworkDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemo;
 				PRODUCT_NAME = SANetworkDemo;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -590,8 +578,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/PINCache\"",
+					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
+				);
 				INFOPLIST_FILE = SANetworkDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/AFNetworking",
+				);
+				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemoTests;
 				PRODUCT_NAME = SANetworkDemo;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SANetworkDemo.app/SANetworkDemo";
@@ -602,8 +604,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/PINCache\"",
+					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
+				);
 				INFOPLIST_FILE = SANetworkDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/AFNetworking",
+				);
+				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemoTests;
 				PRODUCT_NAME = SANetworkDemo;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SANetworkDemo.app/SANetworkDemo";

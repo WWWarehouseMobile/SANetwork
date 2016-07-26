@@ -16,8 +16,9 @@
 @property (nonatomic, assign, readwrite) NSInteger requestTag;
 @property (nonatomic, assign, readwrite) BOOL isCache;
 
-@property (nonatomic, copy, readwrite) id responseContentData;
 @property (nonatomic, copy, readwrite) NSString *responseMessage;
+
+@property (nonatomic, copy, readwrite) id responseContentData;
 @property (nonatomic, assign, readwrite) NSInteger responseCode;
 
 

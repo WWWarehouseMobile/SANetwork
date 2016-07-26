@@ -9,6 +9,7 @@
 #import "SANetworkBatchRequest.h"
 #import "SANetworkResponseProtocol.h"
 #import "SANetworkRequest.h"
+#import "SANetworkAgent.h"
 
 @interface SANetworkBatchRequest ()<SANetworkResponseProtocol>
 
@@ -40,15 +41,14 @@
     [self accessoryWillStart];
     for (SANetworkRequest *networkRequest in self.requestArray) {
         networkRequest.responseDelegate = self;
-        [networkRequest startRequest];
+        [[SANetworkAgent sharedInstance] addRequest:networkRequest];
     }
 }
 
 - (void)stopBatchRequest {
-    [self accessoryWillStop];
     _delegate = nil;
     for (SANetworkRequest *networkRequest in self.requestArray) {
-        [networkRequest stopRequest];
+        [[SANetworkAgent sharedInstance] removeRequest:networkRequest];
     }
     [self accessoryDidStop];
 }
@@ -62,7 +62,6 @@
     self.completedCount++;
     [self.responseArray addObject:response];
     if (self.completedCount == self.requestArray.count) {
-        [self accessoryWillStop];
         [self networkBatchRequestCompleted];
     }
 }
@@ -73,11 +72,9 @@
     if (self.isContinueByFailResponse) {
         self.completedCount++;
         if (self.completedCount == self.requestArray.count) {
-            [self accessoryWillStop];
             [self networkBatchRequestCompleted];
         }
     }else{
-        [self accessoryWillStop];
         for (SANetworkRequest *networkRequest in self.requestArray) {
             [networkRequest stopRequest];
         }
@@ -116,13 +113,6 @@
     }
 }
 
-- (void)accessoryWillStop {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryWillStop)]) {
-            [accessory networkRequestAccessoryWillStop];
-        }
-    }
-}
 
 - (void)accessoryDidStop {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {

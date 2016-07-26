@@ -38,7 +38,6 @@
 
 
 - (void)stopRequest {
-    [self accessoryWillStop];
     [[SANetworkAgent sharedInstance] removeRequest:self];
     [self accessoryDidStop];
 }
@@ -65,13 +64,6 @@
     }
 }
 
-- (void)accessoryWillStop {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryWillStop)]) {
-            [accessory networkRequestAccessoryWillStop];
-        }
-    }
-}
 
 - (void)accessoryDidStop {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {

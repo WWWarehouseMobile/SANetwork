@@ -10,8 +10,8 @@
 
 @interface ExpressRequest : SANetworkRequest<SANetworkRequestConfigProtocol,SANetworkRequestParamSourceProtocol>
 
-@property (nonatomic, copy) NSString *type;
+@property (nonnull, nonatomic, copy) NSString *type;
 
-@property (nonatomic, copy) NSString *postId;
+@property (nonnull, nonatomic, copy) NSString *postId;
 
 @end
