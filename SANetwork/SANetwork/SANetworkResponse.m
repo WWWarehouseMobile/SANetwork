@@ -34,12 +34,8 @@
         _isCache = networkStatus == SANetworkResponseDataCacheStatus ? YES:NO;
         _networkStatus = networkStatus;
         
-        
         _responseCode = NSNotFound;
         switch (networkStatus) {
-            case SANetworkNotReachableStatus:
-                _responseMessage = @"暂无网络连接";
-                break;
             case SANetworkResponseDataSuccessStatus:
             case SANetworkResponseDataCacheStatus:
             case SANetworkResponseDataIncorrectStatus:{
@@ -56,14 +52,8 @@
                 }
             }
                 break;
-            case SANetworkResponseDataAuthenticationFailStatus:
-                _responseMessage = @"数据验证失败";
-                break;
-            case SANetworkRequestParamIncorrectStatus:
-                _responseMessage = @"请求参数有误";
-                break;
             default:
-                _responseMessage = @"请求数据失败";
+                _responseMessage = [self responseMsgByNetworkStatus:networkStatus];
                 break;
         }
         
@@ -77,6 +67,50 @@
         return [reformer networkResponse:self reformerDataWithOriginData:self.responseData];
     }
     return [self.responseData mutableCopy];
+}
+
+- (NSString *)responseMsgByNetworkStatus:(SANetworkStatus)networkStatus {
+    NSString *currentLanguage = [NSLocale preferredLanguages].firstObject;
+    if ([currentLanguage hasPrefix:@"zh"]) {
+        switch (networkStatus) {
+            case SANetworkNotReachableStatus:
+                return @"暂无网络连接";
+            case SANetworkResponseDataAuthenticationFailStatus:
+                return @"数据验证失败";
+            case SANetworkRequestParamIncorrectStatus:
+                return @"请求参数有误";
+            case SANetworkResponseFailureStatus:
+                return @"请求数据失败";
+            default:
+                return nil;
+        }
+    }else if ([currentLanguage isEqualToString:@"en"]) {
+        switch (networkStatus) {
+            case SANetworkNotReachableStatus:
+                return @"No network connection";
+            case SANetworkResponseDataAuthenticationFailStatus:
+                return @"Data validation failure";
+            case SANetworkRequestParamIncorrectStatus:
+                return @"Request parameter error";
+            case SANetworkResponseFailureStatus:
+                return @"The request failure";
+            default:
+                return nil;
+        }
+    } else {
+        switch (networkStatus) {
+            case SANetworkNotReachableStatus:
+                return @"No network connection";
+            case SANetworkResponseDataAuthenticationFailStatus:
+                return @"Data validation failure";
+            case SANetworkRequestParamIncorrectStatus:
+                return @"Request parameter error";
+            case SANetworkResponseFailureStatus:
+                return @"The request failure";
+            default:
+                return nil;
+        }
+    }
 }
 
 @end
