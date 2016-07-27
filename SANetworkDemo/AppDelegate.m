@@ -26,30 +26,30 @@
      */
 //    [SANetworkAgent sharedInstance].viceBaseUrlString = @"http://www.kuaidi100.com";
     
-    [[SANetworkConfig sharedInstance] setBaseParamSourceBlock:^NSDictionary *(){
-        /**
-         *  根据自己的接口中大部分接口所必须的参数，进行统一设定
-         */
-        return @{
-                 @"username" : @"001",
-                 @"password" : @"123"
-                 };
-    }];
-    [[SANetworkConfig sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
-        //可根据networkRequest、response进行验证。这里书写你的验证逻辑标准。
-        if(response[@"sign"] == nil) {
-            return NO;
-        }
-        return YES;
-    }];
-    [[SANetworkConfig sharedInstance] setBaseHTTPRequestHeadersBlock:^ NSDictionary *(){
-        return @{
-                 @"system" : @"iOS 9.0",
-                 @"version" : @"1.0.0",
-                 @"time" : @"2016-06-04 14:18:05",
-                 @"token" : @"8046DB4D7844617E0F9EC72A46CE4317",
-                 };
-    }];
+//    [[SANetworkConfig sharedInstance] setBaseParamSourceBlock:^NSDictionary *(){
+//        /**
+//         *  根据自己的接口中大部分接口所必须的参数，进行统一设定
+//         */
+//        return @{
+//                 @"username" : @"001",
+//                 @"password" : @"123"
+//                 };
+//    }];
+//    [[SANetworkConfig sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
+//        //可根据networkRequest、response进行验证。这里书写你的验证逻辑标准。
+//        if(response[@"sign"] == nil) {
+//            return NO;
+//        }
+//        return YES;
+//    }];
+//    [[SANetworkConfig sharedInstance] setBaseHTTPRequestHeadersBlock:^ NSDictionary *(){
+//        return @{
+//                 @"system" : @"iOS 9.0",
+//                 @"version" : @"1.0.0",
+//                 @"time" : @"2016-06-04 14:18:05",
+//                 @"token" : @"8046DB4D7844617E0F9EC72A46CE4317",
+//                 };
+//    }];
     [SANetworkConfig sharedInstance].enableDebug = YES;  //允许后台打印输出
 //
 //    /**
@@ -83,5 +83,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 @end

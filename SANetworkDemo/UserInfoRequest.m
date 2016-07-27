@@ -1,14 +1,14 @@
 //
-//  ExpressRequest.m
-//  SANetwork
+//  UserInfoRequest.m
+//  SANetworkDemo
 //
-//  Created by ISCS01 on 16/3/31.
-//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
+//  Created by 阿宝 on 16/7/27.
+//  Copyright © 2016年 学宝工作室. All rights reserved.
 //
 
-#import "ExpressRequest.h"
+#import "UserInfoRequest.h"
 
-@implementation ExpressRequest
+@implementation UserInfoRequest
 
 - (instancetype)init
 {
@@ -20,7 +20,7 @@
 }
 
 - (NSString *)requestMethodName {
-    return @"query";
+    return @"http://chengdu.fbbfc.com/api/getUserInfo";
 }
 
 - (BOOL)isCorrectWithResponseData:(id)responseData {
@@ -36,8 +36,7 @@
 
 - (NSDictionary *)requestParamDictionary {
     return @{
-             @"type" : self.type,
-             @"postid" : self.postId
+             @"mobile" : self.mobile,
              };
 }
 

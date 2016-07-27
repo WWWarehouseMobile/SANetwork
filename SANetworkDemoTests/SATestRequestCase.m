@@ -8,7 +8,7 @@
 
 #import "SANetworkTestCase.h"
 #import "ExpressRequest.h"
-#import "TaobaoMobileRequest.h"
+#import "UserInfoRequest.h"
 
 @interface SATestRequestCase : SANetworkTestCase
 
@@ -54,7 +54,7 @@
             XCTAssert(NO, @"快递查询请求失败");
             break;
         case 102:
-            XCTAssert(NO, @"淘宝手机信息查询请求失败");
+            XCTAssert(NO, @"用户信息查询请求失败");
             break;
         default:
             break;
@@ -68,7 +68,7 @@
             XCTAssertNotNil(response.responseData,@"快递查询无数据");
             break;
         case 102:
-            XCTAssertNotNil(response.responseData,@"淘宝手机信息查询无数据");
+            XCTAssertNotNil(response.responseData,@"用户信息查询无数据");
             break;
         default:
             break;
@@ -77,11 +77,11 @@
 }
 
 - (void)testTaobaoKeyRequest {
-    TaobaoMobileRequest *mobileRequest = [[TaobaoMobileRequest alloc] init];
-    mobileRequest.tag = 102;
-    mobileRequest.responseDelegate = self;
-    mobileRequest.mobile = @"13173610819";
-    [mobileRequest startRequest];
+    UserInfoRequest *userInfoRequest = [[UserInfoRequest alloc] init];
+    userInfoRequest.tag = 102;
+    userInfoRequest.responseDelegate = self;
+    userInfoRequest.mobile = @"13173610819";
+    [userInfoRequest startRequest];
     [self wait];
 }
 

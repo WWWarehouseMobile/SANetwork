@@ -16,7 +16,7 @@
 		195C56251CFF01C400F61FB7 /* SANetworkDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56241CFF01C400F61FB7 /* SANetworkDemoTests.m */; };
 		195C56341CFF034800F61FB7 /* ExpressRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56321CFF034800F61FB7 /* ExpressRequest.m */; };
 		197B21A41D45C32E00A6E3E2 /* SATestRequestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 197B21A31D45C32E00A6E3E2 /* SATestRequestCase.m */; };
-		197B21AD1D462A2F00A6E3E2 /* TaobaoMobileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 197B21AC1D462A2F00A6E3E2 /* TaobaoMobileRequest.m */; };
+		197B21B01D488D5200A6E3E2 /* UserInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 197B21AF1D488D5200A6E3E2 /* UserInfoRequest.m */; };
 		19C9BE031D40C2690063D506 /* SANetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BDFE1D40C2690063D506 /* SANetworkAgent.m */; };
 		19C9BE041D40C2690063D506 /* SANetworkBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE001D40C2690063D506 /* SANetworkBatchRequest.m */; };
 		19C9BE051D40C2690063D506 /* SANetworkChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE021D40C2690063D506 /* SANetworkChainRequest.m */; };
@@ -61,8 +61,8 @@
 		195C56571CFF035F00F61FB7 /* SANetworkInterceptorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkInterceptorProtocol.h; sourceTree = "<group>"; };
 		195C56591CFF035F00F61FB7 /* SANetworkResponseProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkResponseProtocol.h; sourceTree = "<group>"; };
 		197B21A31D45C32E00A6E3E2 /* SATestRequestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATestRequestCase.m; sourceTree = "<group>"; };
-		197B21AB1D462A2F00A6E3E2 /* TaobaoMobileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaobaoMobileRequest.h; sourceTree = "<group>"; };
-		197B21AC1D462A2F00A6E3E2 /* TaobaoMobileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaobaoMobileRequest.m; sourceTree = "<group>"; };
+		197B21AE1D488D5200A6E3E2 /* UserInfoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoRequest.h; sourceTree = "<group>"; };
+		197B21AF1D488D5200A6E3E2 /* UserInfoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoRequest.m; sourceTree = "<group>"; };
 		19C9BDFD1D40C2690063D506 /* SANetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkAgent.h; sourceTree = "<group>"; };
 		19C9BDFE1D40C2690063D506 /* SANetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkAgent.m; sourceTree = "<group>"; };
 		19C9BDFF1D40C2690063D506 /* SANetworkBatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkBatchRequest.h; sourceTree = "<group>"; };
@@ -150,8 +150,8 @@
 				195C56131CFF01C400F61FB7 /* Main.storyboard */,
 				195C56311CFF034800F61FB7 /* ExpressRequest.h */,
 				195C56321CFF034800F61FB7 /* ExpressRequest.m */,
-				197B21AB1D462A2F00A6E3E2 /* TaobaoMobileRequest.h */,
-				197B21AC1D462A2F00A6E3E2 /* TaobaoMobileRequest.m */,
+				197B21AE1D488D5200A6E3E2 /* UserInfoRequest.h */,
+				197B21AF1D488D5200A6E3E2 /* UserInfoRequest.m */,
 				195C56161CFF01C400F61FB7 /* Assets.xcassets */,
 				195C56181CFF01C400F61FB7 /* LaunchScreen.storyboard */,
 				195C561B1CFF01C400F61FB7 /* Info.plist */,
@@ -411,7 +411,7 @@
 				19C9BE281D41C78F0063D506 /* SANetworkLogger.m in Sources */,
 				19C9BE041D40C2690063D506 /* SANetworkBatchRequest.m in Sources */,
 				19C9BE051D40C2690063D506 /* SANetworkChainRequest.m in Sources */,
-				197B21AD1D462A2F00A6E3E2 /* TaobaoMobileRequest.m in Sources */,
+				197B21B01D488D5200A6E3E2 /* UserInfoRequest.m in Sources */,
 				19C9BE031D40C2690063D506 /* SANetworkAgent.m in Sources */,
 				195C56341CFF034800F61FB7 /* ExpressRequest.m in Sources */,
 				19C9BE201D40CB4F0063D506 /* SANetworkHUDAccessory.m in Sources */,

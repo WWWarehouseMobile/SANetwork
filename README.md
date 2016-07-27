@@ -248,11 +248,13 @@ pod 'SANetwork'
 	
 淘宝手机号信息的查询：
 
-	@interface TaobaoMobileRequest : SANetworkRequest<SANetworkRequestConfigProtocol,SANetworkRequestParamSourceProtocol>
+	@interface UserInfoRequest : SANetworkRequest<SANetworkRequestConfigProtocol,SANetworkRequestParamSourceProtocol>
 	@property (nonnull, nonatomic, strong) NSString *mobile;
 	@end
+
 	
-	@implementation TaobaoMobileRequest
+	@implementation UserInfoRequest
+	
 	- (instancetype)init
 	{
 	    self = [super init];
@@ -263,26 +265,26 @@ pod 'SANetwork'
 	}
 	
 	- (NSString *)requestMethodName {
-	    return @"http://tcc.taobao.com/cc/json/mobile_tel_segment.htm";
+	    return @"http://chengdu.fbbfc.com/api/getUserInfo";
+	}
+	
+	- (BOOL)isCorrectWithResponseData:(id)responseData {
+	    if (responseData) {
+	        return YES;
+	    }
+	    return NO;
 	}
 	
 	- (SARequestMethod)requestMethod {
 	    return SARequestMethodPost;
 	}
 	
-	- (SAResponseSerializerType)responseSerializerType {
-	    return SAResponseSerializerTypeHTTP;
-	}
-	
-	- (BOOL)isCorrectWithResponseData:(id)responseData {
-	    return responseData ? YES : NO;
-	}
-	
 	- (NSDictionary *)requestParamDictionary {
 	    return @{
-	             @"tel" : self.mobile
+	             @"mobile" : self.mobile,
 	             };
 	}
+	
 	@end
 
 	
@@ -302,14 +304,16 @@ pod 'SANetwork'
 ##### 发起批量请求
 批量请求的对象，请务必将批量请求对象创建为类的一个属性，并将创建的批量请求对象赋给定义的属性。
 
-    TaobaoMobileRequest *mobileRequest = [[TaobaoMobileRequest alloc] init];
-    mobileRequest.mobile = @"13173610819";
+    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Batch Loading..."];
+    UserInfoRequest *userInfoRequest = [[UserInfoRequest alloc] init];
+    userInfoRequest.mobile = @"13173610819";
     
     ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
     expressRequest.type = @"yuantong";
     expressRequest.postId = @"881443775034378914";
     
-    SANetworkBatchRequest *batchRequest = [[SANetworkBatchRequest alloc] initWithRequestArray:@[mobileRequest,expressRequest]];
+    SANetworkBatchRequest *batchRequest = [[SANetworkBatchRequest alloc] initWithRequestArray:@[userInfoRequest,expressRequest]];
+    [batchRequest addNetworkAccessoryObject:hudAccessory];
     [batchRequest startBatchRequest];
     _batchRequest = batchRequest;
 
@@ -319,10 +323,12 @@ pod 'SANetwork'
 与批量一样，链式请求的对象，请务必将链式请求对象创建为类的一个属性，并将创建的链式请求对象赋给定义的属性。
 对于链式请求，说一个场景便于大家理解：用户登录，登录成功之后获取用户关联的信息。若在登录成功之后就想获取到用户关联的信息，就可以使用链式请求。
 
-    TaobaoMobileRequest *mobileRequest = [[TaobaoMobileRequest alloc] init];
-    mobileRequest.mobile = @"13173610819";
-    SANetworkChainRequest *chainRequest = [[SANetworkChainRequest alloc] initWithRootNetworkRequest:mobileRequest];
+    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Chain Loading..."];
+    UserInfoRequest *userInfoRequest = [[UserInfoRequest alloc] init];
+    userInfoRequest.mobile = @"13173610819";
+    SANetworkChainRequest *chainRequest = [[SANetworkChainRequest alloc] initWithRootNetworkRequest:userInfoRequest];
     chainRequest.delegate = self;
+    [chainRequest addNetworkAccessoryObject:hudAccessory];
     [chainRequest startChainRequest];
     _chainRequest = chainRequest;
   
@@ -330,7 +336,7 @@ pod 'SANetwork'
     
 	- (__kindof SANetworkRequest *)networkChainRequest:(SANetworkChainRequest *)chainRequest nextNetworkRequestByNetworkRequest:(__kindof SANetworkRequest *)request finishedByResponse:(SANetworkResponse *)response {
 	    //这里的判断逻辑请求根据自己的业务逻辑灵活处理
-	    if (response != nil && [request isKindOfClass:[TaobaoMobileRequest class]]) {
+	    if (response != nil && [request isKindOfClass:[UserInfoRequest class]]) {
 	        ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
 	        expressRequest.type = @"yuantong";
 	        expressRequest.postId = @"881443775034378914";
