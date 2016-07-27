@@ -33,9 +33,11 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)pressSingleRequest:(id)sender {
+    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Loading..."];
     TaobaoMobileRequest *mobileRequest = [[TaobaoMobileRequest alloc] init];
     mobileRequest.responseDelegate = self;
     mobileRequest.mobile = @"13173610819";
+    [mobileRequest addNetworkAccessoryObject:hudAccessory]; //添加hud插件
     [mobileRequest startRequest];
 }
 

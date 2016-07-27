@@ -289,10 +289,12 @@ pod 'SANetwork'
 ##### 发起单个请求
 **创建请求实例**，设置请求响应回调，执行请求
 
+    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Loading..."];
 	ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
     expressRequest.type = @“yuantong”;
     expressRequest.postId = @"881443********8914";
     expressRequest.responseDelegate = self;
+    [expressRequest addNetworkAccessoryObject:hudAccessory]; //添加hud插件
     [expressRequest startRequest];
     
  实现协议`SANetworkResponseProtocol`中的方法，处理请求的响应结果
