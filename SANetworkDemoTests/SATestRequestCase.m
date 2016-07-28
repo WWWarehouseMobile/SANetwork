@@ -76,7 +76,7 @@
     [self notify];
 }
 
-- (void)testTaobaoKeyRequest {
+- (void)testUserInfoRequest {
     UserInfoRequest *userInfoRequest = [[UserInfoRequest alloc] init];
     userInfoRequest.tag = 102;
     userInfoRequest.responseDelegate = self;

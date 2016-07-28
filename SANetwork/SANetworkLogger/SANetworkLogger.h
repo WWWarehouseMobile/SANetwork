@@ -12,7 +12,6 @@
 
 + (void)logDebugRequestInfoWithURL:(NSString *)url
                         httpMethod:(NSInteger)httpMethod
-                        methodName:(NSString *)methodName
                             params:(NSDictionary *)params reachabilityStatus:(NSInteger)reachabilityStatus;
 
 + (void)logDebugResponseInfoWithSessionDataTask:(NSURLSessionDataTask *)sessionDataTask

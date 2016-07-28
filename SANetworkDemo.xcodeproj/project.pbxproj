@@ -12,11 +12,11 @@
 		195C56121CFF01C400F61FB7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56111CFF01C400F61FB7 /* ViewController.m */; };
 		195C56151CFF01C400F61FB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 195C56131CFF01C400F61FB7 /* Main.storyboard */; };
 		195C56171CFF01C400F61FB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 195C56161CFF01C400F61FB7 /* Assets.xcassets */; };
-		195C561A1CFF01C400F61FB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 195C56181CFF01C400F61FB7 /* LaunchScreen.storyboard */; };
 		195C56251CFF01C400F61FB7 /* SANetworkDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56241CFF01C400F61FB7 /* SANetworkDemoTests.m */; };
 		195C56341CFF034800F61FB7 /* ExpressRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C56321CFF034800F61FB7 /* ExpressRequest.m */; };
 		197B21A41D45C32E00A6E3E2 /* SATestRequestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 197B21A31D45C32E00A6E3E2 /* SATestRequestCase.m */; };
 		197B21B01D488D5200A6E3E2 /* UserInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 197B21AF1D488D5200A6E3E2 /* UserInfoRequest.m */; };
+		197B21D41D49A12400A6E3E2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 197B21D31D49A12400A6E3E2 /* Default-568h@2x.png */; };
 		19C9BE031D40C2690063D506 /* SANetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BDFE1D40C2690063D506 /* SANetworkAgent.m */; };
 		19C9BE041D40C2690063D506 /* SANetworkBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE001D40C2690063D506 /* SANetworkBatchRequest.m */; };
 		19C9BE051D40C2690063D506 /* SANetworkChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE021D40C2690063D506 /* SANetworkChainRequest.m */; };
@@ -49,7 +49,6 @@
 		195C56111CFF01C400F61FB7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		195C56141CFF01C400F61FB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		195C56161CFF01C400F61FB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		195C56191CFF01C400F61FB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		195C561B1CFF01C400F61FB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		195C56201CFF01C400F61FB7 /* SANetworkDemo.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SANetworkDemo.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		195C56241CFF01C400F61FB7 /* SANetworkDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SANetworkDemoTests.m; sourceTree = "<group>"; };
@@ -63,6 +62,7 @@
 		197B21A31D45C32E00A6E3E2 /* SATestRequestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SATestRequestCase.m; sourceTree = "<group>"; };
 		197B21AE1D488D5200A6E3E2 /* UserInfoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoRequest.h; sourceTree = "<group>"; };
 		197B21AF1D488D5200A6E3E2 /* UserInfoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoRequest.m; sourceTree = "<group>"; };
+		197B21D31D49A12400A6E3E2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		19C9BDFD1D40C2690063D506 /* SANetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkAgent.h; sourceTree = "<group>"; };
 		19C9BDFE1D40C2690063D506 /* SANetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SANetworkAgent.m; sourceTree = "<group>"; };
 		19C9BDFF1D40C2690063D506 /* SANetworkBatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SANetworkBatchRequest.h; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 				197B21AE1D488D5200A6E3E2 /* UserInfoRequest.h */,
 				197B21AF1D488D5200A6E3E2 /* UserInfoRequest.m */,
 				195C56161CFF01C400F61FB7 /* Assets.xcassets */,
-				195C56181CFF01C400F61FB7 /* LaunchScreen.storyboard */,
 				195C561B1CFF01C400F61FB7 /* Info.plist */,
 				195C560A1CFF01C400F61FB7 /* Supporting Files */,
 			);
@@ -163,6 +162,7 @@
 		195C560A1CFF01C400F61FB7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				197B21D31D49A12400A6E3E2 /* Default-568h@2x.png */,
 				195C560B1CFF01C400F61FB7 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -335,7 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				195C561A1CFF01C400F61FB7 /* LaunchScreen.storyboard in Resources */,
+				197B21D41D49A12400A6E3E2 /* Default-568h@2x.png in Resources */,
 				195C56171CFF01C400F61FB7 /* Assets.xcassets in Resources */,
 				195C56151CFF01C400F61FB7 /* Main.storyboard in Resources */,
 			);
@@ -447,14 +447,6 @@
 				195C56141CFF01C400F61FB7 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		195C56181CFF01C400F61FB7 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				195C56191CFF01C400F61FB7 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

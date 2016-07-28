@@ -235,7 +235,7 @@
     }
     
     if ([SANetworkConfig sharedInstance].enableDebug) {
-        [SANetworkLogger logDebugRequestInfoWithURL:requestURLString httpMethod:[self requestMethodByRequest:request] methodName:[request.requestConfigProtocol requestMethodName] params:requestParam reachabilityStatus:[[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]];
+        [SANetworkLogger logDebugRequestInfoWithURL:requestURLString httpMethod:[self requestMethodByRequest:request] params:requestParam reachabilityStatus:[[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]];
     }
     
     //检测请求是否缓存数据，并执行缓存数据回调方法

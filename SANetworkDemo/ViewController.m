@@ -10,7 +10,6 @@
 #import "SANetwork.h"
 #import "SANetworkHUDAccessory.h"
 #import "ExpressRequest.h"
-#import <JSONKit-NoWarning/JSONKit.h>
 #import <AFNetworking/AFNetworking.h>
 #import "UserInfoRequest.h"
 
@@ -72,10 +71,10 @@
 #pragma mark-
 #pragma mark- SANetworkResponseProtocol
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response {
-    NSLog(@"data = %@  \n",response.responseData);
+//    NSLog(@"data = %@  \n",response.responseData);
 }
 - (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
-    NSLog(@"error : %@",response.responseMessage);
+//    NSLog(@"error : %@",response.responseMessage);
 }
 
 #pragma mark-
@@ -92,13 +91,13 @@
 }
 
 - (void)networkChainRequest:(SANetworkChainRequest *)chainRequest networkRequest:(__kindof SANetworkRequest *)request failedByResponse:(SANetworkResponse *)response {
-    NSLog(@"%@ error : %@",NSStringFromClass(request.class), response.responseMessage);
+//    NSLog(@"%@ error : %@",NSStringFromClass(request.class), response.responseMessage);
 }
 
 #pragma mark-
 #pragma mark- SANetworkBatchRequestResponseDelegate
 
 - (void)networkBatchRequest:(SANetworkBatchRequest *)batchRequest completedByResponseArray:(NSArray<SANetworkResponse *> *)responseArray {
-    NSLog(@"responseArray: %@",responseArray);
+//    NSLog(@"responseArray: %@",responseArray);
 }
 @end

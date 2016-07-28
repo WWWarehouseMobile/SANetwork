@@ -70,46 +70,20 @@
 }
 
 - (NSString *)responseMsgByNetworkStatus:(SANetworkStatus)networkStatus {
-    NSString *currentLanguage = [NSLocale preferredLanguages].firstObject;
-    if ([currentLanguage hasPrefix:@"zh"]) {
-        switch (networkStatus) {
-            case SANetworkNotReachableStatus:
-                return @"暂无网络连接";
-            case SANetworkResponseDataAuthenticationFailStatus:
-                return @"数据验证失败";
-            case SANetworkRequestParamIncorrectStatus:
-                return @"请求参数有误";
-            case SANetworkResponseFailureStatus:
-                return @"请求数据失败";
-            default:
-                return nil;
-        }
-    }else if ([currentLanguage isEqualToString:@"en"]) {
-        switch (networkStatus) {
-            case SANetworkNotReachableStatus:
-                return @"No network connection";
-            case SANetworkResponseDataAuthenticationFailStatus:
-                return @"Data validation failure";
-            case SANetworkRequestParamIncorrectStatus:
-                return @"Request parameter error";
-            case SANetworkResponseFailureStatus:
-                return @"The request failure";
-            default:
-                return nil;
-        }
-    } else {
-        switch (networkStatus) {
-            case SANetworkNotReachableStatus:
-                return @"No network connection";
-            case SANetworkResponseDataAuthenticationFailStatus:
-                return @"Data validation failure";
-            case SANetworkRequestParamIncorrectStatus:
-                return @"Request parameter error";
-            case SANetworkResponseFailureStatus:
-                return @"The request failure";
-            default:
-                return nil;
-        }
+    /**
+     *  @brief     若做国际化的话，因为AFNetworking的国际化文件使用的是AFNetworking.strings，这个类库又是依赖AFNetworking的。为了少创建一个 .strings 文件。这里就复用“AFNetworking”了。
+     */
+    switch (networkStatus) {
+        case SANetworkNotReachableStatus:
+            return NSLocalizedStringFromTable(@"暂无网络连接", @"AFNetworking", nil);
+        case SANetworkResponseDataAuthenticationFailStatus:
+            return NSLocalizedStringFromTable(@"数据验证失败", @"AFNetworking", nil);
+        case SANetworkRequestParamIncorrectStatus:
+            return NSLocalizedStringFromTable(@"请求参数有误", @"AFNetworking", nil);
+        case SANetworkResponseFailureStatus:
+            return NSLocalizedStringFromTable(@"请求数据失败", @"AFNetworking", nil);
+        default:
+            return nil;
     }
 }
 
