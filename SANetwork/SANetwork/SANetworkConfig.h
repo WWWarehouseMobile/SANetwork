@@ -46,6 +46,11 @@ typedef BOOL (^SANetworkResponseBaseAuthenticationBlock)(SANetworkRequest *netwo
 @property (nonatomic, copy) SANetworkResponseBaseAuthenticationBlock baseAuthenticationBlock;
 
 /**
+ *  @brief 设置请求的服务列表(针对后台配置定制，简单的话，就不需要)
+ */
+@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *urlSeriveDictionary;
+
+/**
  *  @brief 默认SARequestSerializerTypeHTTP（即：[AFHTTPRequestSerializer serializer]）
  */
 @property (nonatomic, assign) SARequestSerializerType requestSerializerType;

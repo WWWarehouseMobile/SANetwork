@@ -47,11 +47,11 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 @optional
 
 /**
- *  属于哪个服务，看具体服务端怎么写，简单的话，不用使用
- *
- *  @return 服务的name （string）
+ *  属于哪个服务，看具体服务端怎么写，简单的话，不用使用。
+ *  @warning 需要注意的是若想取到这个key对应的服务，要配置SANetworkConfig的urlSeriveDictionary。若取到值以http开头，将忽略SANetworkConfig的mainBaseUrlString及viceBaseUrlString。
+ *  @return 服务的key （string）
  */
-- (NSString *)serviceName;
+- (NSString *)serviceKey;
 
 /**
  *  @brief 请求方式，默认为 SARequestMethodPost

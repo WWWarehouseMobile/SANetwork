@@ -66,6 +66,16 @@
     if ([detailUrl hasPrefix:@"http"]) {
         return detailUrl;
     }
+    
+    NSString *serviceURLString = nil;
+    if ([SANetworkConfig sharedInstance].urlSeriveDictionary && [request.requestConfigProtocol respondsToSelector:@selector(serviceKey)]) {
+        NSString *serviceKey = [request.requestConfigProtocol serviceKey];
+        serviceURLString = [SANetworkConfig sharedInstance].urlSeriveDictionary[serviceKey];
+        if ([serviceURLString hasPrefix:@"http"]) {
+            return [serviceURLString stringByAppendingPathComponent:detailUrl];
+        }
+    }
+    
     NSString *baseUrlString = nil;
     if ([request.requestConfigProtocol respondsToSelector:@selector(useViceURL)] && [request.requestConfigProtocol useViceURL]) {
         baseUrlString = [SANetworkConfig sharedInstance].viceBaseUrlString;
@@ -73,16 +83,11 @@
         baseUrlString = [SANetworkConfig sharedInstance].mainBaseUrlString;
     }
     
-    if (baseUrlString == nil){
-        NSLog(@"\n\n\n请设置请求的URL\n\n\n");
+    if (baseUrlString == nil || ![baseUrlString hasPrefix:@"http"]){
+        NSLog(@"\n\n\n请设置正确的URL\n\n\n");
         return nil;
-    }
-    
-    if ([request.requestConfigProtocol respondsToSelector:@selector(serviceName)]) {
-        NSString *serviceName = [request.requestConfigProtocol serviceName];
-        if (serviceName.length) {
-            baseUrlString = [baseUrlString stringByAppendingString:serviceName];
-        }
+    }else if (serviceURLString.length) {
+        baseUrlString = [baseUrlString stringByAppendingString:serviceURLString];
     }
     return [baseUrlString stringByAppendingPathComponent:detailUrl];
 }
