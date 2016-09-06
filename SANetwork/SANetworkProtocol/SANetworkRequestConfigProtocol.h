@@ -47,9 +47,17 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 @optional
 
 /**
+ *  属于哪个服务，看具体服务端怎么写，简单的话，不用使用
+ *
+ *  @return 服务的name （string）
+ */
+- (NSString *)serviceName;
+
+/**
  *  @brief 请求方式，默认为 SARequestMethodPost
  */
 - (SARequestMethod)requestMethod;
+
 
 /**
  *  @brief 是否缓存数据 response。  默认NO

@@ -72,11 +72,19 @@
     }else{
         baseUrlString = [SANetworkConfig sharedInstance].mainBaseUrlString;
     }
-    if (baseUrlString) {
-        return [baseUrlString stringByAppendingPathComponent:detailUrl];
+    
+    if (baseUrlString == nil){
+        NSLog(@"\n\n\n请设置请求的URL\n\n\n");
+        return nil;
     }
-    NSLog(@"\n\n\n请设置请求的URL\n\n\n");
-    return nil;
+    
+    if ([request.requestConfigProtocol respondsToSelector:@selector(serviceName)]) {
+        NSString *serviceName = [request.requestConfigProtocol serviceName];
+        if (serviceName.length) {
+            baseUrlString = [baseUrlString stringByAppendingString:serviceName];
+        }
+    }
+    return [baseUrlString stringByAppendingPathComponent:detailUrl];
 }
 
 - (NSDictionary *)requestParamByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
