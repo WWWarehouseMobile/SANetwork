@@ -19,6 +19,7 @@
     self = [super init];
     if (self) {
         _hud = [[MBProgressHUD alloc] initWithView:view];
+        _hud.removeFromSuperViewOnHide = YES;
         [view addSubview:_hud];
         if (text) {
             _hud.labelText = text;
