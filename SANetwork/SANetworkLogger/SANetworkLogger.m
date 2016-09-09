@@ -14,11 +14,10 @@
                         httpMethod:(NSInteger)httpMethod
                             params:(NSDictionary *)params
                 reachabilityStatus:(NSInteger)reachabilityStatus{
-#ifdef DEBUG
     NSMutableString *logString = [NSMutableString stringWithString:@"\n\n**********************************************************************************\n*                                    Request                                     *\n**********************************************************************************\n"];
-    [logString appendFormat:@"URL:\t\t\t\t\t%@\n",url];
+    [logString appendFormat:@"URL:\t\t\t\t%@\n",url];
     [logString appendFormat:@"Method:\t\t\t%@\n",httpMethod == 0 ? @"Post" : @"Get"];
-    [logString appendFormat:@"Param:\t\t\t\t%@\n",params.count ? params : @""];
+    [logString appendFormat:@"Param:\t\t\t%@\n",params.count ? params : @""];
     NSString *netReachability = nil;
     switch (reachabilityStatus) {
         case 2:
@@ -37,16 +36,14 @@
     [logString appendFormat:@"Net:\t\t\t\t\t%@",netReachability];
     [logString appendFormat:@"\n**********************************************************************************\n*                                  Request End                                   *\n**********************************************************************************\n\n\n\n"];
     NSLog(@"%@", logString);
-#endif
 }
 
 + (void)logDebugResponseInfoWithSessionDataTask:(NSURLSessionDataTask *)sessionDataTask
                                  responseObject:(id)response
                                  authentication:(BOOL)authentication
                                           error:(NSError *)error {
-#ifdef DEBUG
     NSMutableString *logString = [NSMutableString stringWithString:@"\n\n==================================================================================\n=                                  Net Response                                  =\n==================================================================================\n"];
-    [logString appendFormat:@"Request URL:\t\t\t%@", sessionDataTask.currentRequest.URL];
+    [logString appendFormat:@"Request URL:\t\t%@\n", sessionDataTask.currentRequest.URL];
     if ([sessionDataTask.response isKindOfClass:[NSHTTPURLResponse class]]) {
         [logString appendFormat:@"Status:\t\t\t\t\t%ld\n", (long)[(NSHTTPURLResponse *)sessionDataTask.response statusCode]];
     }
@@ -70,15 +67,12 @@
     }
     [logString appendFormat:@"\n==================================================================================\n=                               Net Response End                                 =\n==================================================================================\n\n\n\n"];
     NSLog(@"%@", logString);
-#endif
 }
 
 + (void)logCacheInfoWithResponseData:(id)responseData {
-#ifdef DEBUG
     NSMutableString *logString = [NSMutableString stringWithString:@"\n\n==================================================================================\n=                                Cached Response                                 =\n==================================================================================\n"];
     [logString appendFormat:@"Response:\n\t%@\n\n", responseData];
     [logString appendFormat:@"\n==================================================================================\n=                              Cached Response End                               =\n==================================================================================\n\n\n\n"];
     NSLog(@"%@", logString);
-#endif
 }
 @end
