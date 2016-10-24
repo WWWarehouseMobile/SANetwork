@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'SANetworkAccessory' do |ss|
     ss.source_files = 'SANetwork/SANetworkAccessory/*.{h,m}'
-    ss.dependency ' /SANetworkProtocol'
+    ss.dependency 'SANetwork/SANetworkProtocol'
     ss.dependency 'MBProgressHUD', '~> 0.9.2'
     ss.dependency 'MJRefresh', '~> 3.1.0'
   end
