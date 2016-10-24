@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SANetwork"
-  s.version      = "0.0.8"
+  s.version      = "0.0.9"
   s.summary      = "离散式请求，对AFNetworking的二次封装"
   s.license      = 'MIT'
   s.author       = { "阿宝" => "zhanxuebao@outlook.com" }
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'SANetworkAccessory' do |ss|
     ss.source_files = 'SANetwork/SANetworkAccessory/*.{h,m}'
-    ss.dependency 'SANetwork/SANetworkProtocol'
+    ss.dependency ' /SANetworkProtocol'
     ss.dependency 'MBProgressHUD', '~> 0.9.2'
     ss.dependency 'MJRefresh', '~> 3.1.0'
   end
