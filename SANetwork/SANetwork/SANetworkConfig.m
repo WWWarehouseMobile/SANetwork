@@ -22,6 +22,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/html",nil];
         _requestSerializerType = SARequestSerializerTypeHTTP;
         _responseSerializerType = SAResponseSerializerTypeJSON;
         _requestTimeoutInterval = 20.0f;
