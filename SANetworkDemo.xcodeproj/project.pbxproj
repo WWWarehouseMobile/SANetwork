@@ -28,6 +28,7 @@
 		19C9BE281D41C78F0063D506 /* SANetworkLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE271D41C78F0063D506 /* SANetworkLogger.m */; };
 		19C9BE2B1D41CE290063D506 /* SANetworkTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C9BE2A1D41CE290063D506 /* SANetworkTestCase.m */; };
 		5B6497926399097DB7F086A6 /* libPods-SANetworkDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2528E5815BC4F78DBC14B0 /* libPods-SANetworkDemo.a */; };
+		DA30F9B81DCA00C500705FFE /* SALoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DA30F9B71DCA00C500705FFE /* SALoginRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		1CEAA5CB08944AF4CEEE257D /* Pods-SANetworkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SANetworkDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SANetworkDemo/Pods-SANetworkDemo.release.xcconfig"; sourceTree = "<group>"; };
 		6487FEB2D5B0102F200327B2 /* Pods-SANetworkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SANetworkDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SANetworkDemo/Pods-SANetworkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		AB2528E5815BC4F78DBC14B0 /* libPods-SANetworkDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SANetworkDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA30F9B61DCA00C500705FFE /* SALoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALoginRequest.h; sourceTree = "<group>"; };
+		DA30F9B71DCA00C500705FFE /* SALoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALoginRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +153,8 @@
 				195C56131CFF01C400F61FB7 /* Main.storyboard */,
 				195C56311CFF034800F61FB7 /* ExpressRequest.h */,
 				195C56321CFF034800F61FB7 /* ExpressRequest.m */,
+				DA30F9B61DCA00C500705FFE /* SALoginRequest.h */,
+				DA30F9B71DCA00C500705FFE /* SALoginRequest.m */,
 				197B21AE1D488D5200A6E3E2 /* UserInfoRequest.h */,
 				197B21AF1D488D5200A6E3E2 /* UserInfoRequest.m */,
 				195C56161CFF01C400F61FB7 /* Assets.xcassets */,
@@ -407,6 +412,7 @@
 				19C9BE211D40CB4F0063D506 /* SANetworkRefreshAccessory.m in Sources */,
 				195C560F1CFF01C400F61FB7 /* AppDelegate.m in Sources */,
 				19C9BE241D41A3750063D506 /* SANetworkRequest.m in Sources */,
+				DA30F9B81DCA00C500705FFE /* SALoginRequest.m in Sources */,
 				19C9BE0B1D40C2B60063D506 /* SANetworkConfig.m in Sources */,
 				19C9BE281D41C78F0063D506 /* SANetworkLogger.m in Sources */,
 				19C9BE041D40C2690063D506 /* SANetworkBatchRequest.m in Sources */,

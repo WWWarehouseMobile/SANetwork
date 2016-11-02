@@ -9,6 +9,7 @@
 #import "SANetworkTestCase.h"
 #import "ExpressRequest.h"
 #import "UserInfoRequest.h"
+#import "SALoginRequest.h"
 
 @interface SATestRequestCase : SANetworkTestCase
 
@@ -36,6 +37,16 @@
     [self wait];
 }
 
+- (void)testSALoginRequest {
+    SALoginRequest *loginRequest = [[SALoginRequest alloc] init];
+    loginRequest.userId = @"1000294";
+    loginRequest.password = @"1";
+    loginRequest.tag = 103;
+    loginRequest.responseDelegate = self;
+    [loginRequest startRequest];
+    [self wait];
+}
+
 - (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
     switch (networkRequest.tag) {
         case 101:
@@ -45,6 +56,7 @@
             XCTAssert(NO, @"用户信息查询请求失败");
             break;
         default:
+            XCTAssert(NO, @"用户登录请求失败");
             break;
     }
     [self notify];
@@ -57,6 +69,10 @@
             break;
         case 102:
             XCTAssertNotNil(response.responseData,@"用户信息查询无数据");
+            break;
+        case 103:
+            XCTAssertNotNil(response.responseData,@"用户登录无数据");
+
             break;
         default:
             break;

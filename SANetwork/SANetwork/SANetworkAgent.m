@@ -50,10 +50,10 @@
         _sessionManager = [AFHTTPSessionManager manager];
         _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
         _sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        if ([SANetworkConfig sharedInstance].acceptableContentTypes) {
-            _sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
-        }
-        [self setSessionManagerResponseSerializerByResponseSerializerType:[SANetworkConfig sharedInstance].responseSerializerType];
+//        if ([SANetworkConfig sharedInstance].acceptableContentTypes) {
+//            _sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
+//        }
+//        [self setSessionManagerResponseSerializerByResponseSerializerType:[SANetworkConfig sharedInstance].responseSerializerType];
     }
     return _sessionManager;
 }
@@ -155,43 +155,45 @@
 - (void)setSessionManagerRequestSerializerByRequestSerializerType:(SARequestSerializerType)requestSerializerType {
     switch (requestSerializerType) {
         case SARequestSerializerTypeHTTP:
-            _sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
             break;
         case SARequestSerializerTypeJSON:
-            _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+            self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
             break;
         case SARequestSerializerTypePropertyList:
-            _sessionManager.requestSerializer = [AFPropertyListRequestSerializer serializer];
+            self.sessionManager.requestSerializer = [AFPropertyListRequestSerializer serializer];
             break;
         default:
             break;
     }
-    _sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+    self.sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 }
 
 - (void)setSessionManagerResponseSerializerByResponseSerializerType:(SAResponseSerializerType)responseSerializerType {
     switch (responseSerializerType) {
         case SAResponseSerializerTypeHTTP:
-            _sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            self.sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            self.sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
             break;
         case SAResponseSerializerTypeJSON:
-            if (![_sessionManager.responseSerializer isKindOfClass:[AFJSONResponseSerializer class]]) {
-                _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+            if (![self.sessionManager.responseSerializer isKindOfClass:[AFJSONResponseSerializer class]]) {
+                self.sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+                self.sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
             }
             break;
         case SAResponseSerializerTypeImage:
-            if (![_sessionManager.responseSerializer isKindOfClass:[AFImageResponseSerializer class]]) {
-                _sessionManager.responseSerializer = [AFImageResponseSerializer serializer];
+            if (![self.sessionManager.responseSerializer isKindOfClass:[AFImageResponseSerializer class]]) {
+                self.sessionManager.responseSerializer = [AFImageResponseSerializer serializer];
             }
             break;
         case SAResponseSerializerTypeXMLParser:
-            if (![_sessionManager.responseSerializer isKindOfClass:[AFXMLParserResponseSerializer class]]) {
-                _sessionManager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+            if (![self.sessionManager.responseSerializer isKindOfClass:[AFXMLParserResponseSerializer class]]) {
+                self.sessionManager.responseSerializer = [AFXMLParserResponseSerializer serializer];
             }
             break;
         case SAResponseSerializerTypePropertyList:
-            if (![_sessionManager.responseSerializer isKindOfClass:[AFPropertyListResponseSerializer class]]) {
-                _sessionManager.responseSerializer = [AFPropertyListResponseSerializer serializer];
+            if (![self.sessionManager.responseSerializer isKindOfClass:[AFPropertyListResponseSerializer class]]) {
+                self.sessionManager.responseSerializer = [AFPropertyListResponseSerializer serializer];
             }
             break;
         default:

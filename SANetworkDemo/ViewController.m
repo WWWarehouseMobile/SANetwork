@@ -12,6 +12,7 @@
 #import "ExpressRequest.h"
 #import <AFNetworking/AFNetworking.h>
 #import "UserInfoRequest.h"
+#import "SALoginRequest.h"
 
 @interface ViewController ()<SANetworkResponseProtocol,SANetworkBatchRequestResponseDelegate,SANetworkChainRequestResponseDelegate>
 
@@ -33,12 +34,19 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)pressSingleRequest:(id)sender {
-    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Single Loading..."];
-    UserInfoRequest *userInfoRequest = [[UserInfoRequest alloc] init];
-    userInfoRequest.mobile = @"13173610819";
-    userInfoRequest.responseDelegate = self;
-    [userInfoRequest addNetworkAccessoryObject:hudAccessory]; //添加hud插件
-    [userInfoRequest startRequest];
+    SALoginRequest *loginRequest = [[SALoginRequest alloc] init];
+    loginRequest.userId = @"1000294";
+    loginRequest.password = @"1";
+    loginRequest.tag = 103;
+    loginRequest.responseDelegate = self;
+    [loginRequest startRequest];
+    
+//    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Single Loading..."];
+//    UserInfoRequest *userInfoRequest = [[UserInfoRequest alloc] init];
+//    userInfoRequest.mobile = @"13173610819";
+//    userInfoRequest.responseDelegate = self;
+//    [userInfoRequest addNetworkAccessoryObject:hudAccessory]; //添加hud插件
+//    [userInfoRequest startRequest];
 }
 
 - (IBAction)pressChainRequest:(id)sender {

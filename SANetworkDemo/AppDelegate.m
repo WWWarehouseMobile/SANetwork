@@ -50,6 +50,7 @@
 //                 @"token" : @"8046DB4D7844617E0F9EC72A46CE4317",
 //                 };
 //    }];
+    [[SANetworkConfig sharedInstance] setRequestSerializerType:SARequestSerializerTypeJSON];
     [SANetworkConfig sharedInstance].enableDebug = YES;  //允许后台打印输出
 //
 //    /**

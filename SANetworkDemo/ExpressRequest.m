@@ -34,6 +34,9 @@
     return SARequestMethodPost;
 }
 
+- (SARequestSerializerType)requestSerializerType {
+    return SARequestSerializerTypeHTTP;
+}
 - (SAResponseSerializerType)responseSerializerType {
     return SAResponseSerializerTypeImage;
 }
