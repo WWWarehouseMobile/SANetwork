@@ -60,10 +60,10 @@ typedef BOOL (^SANetworkResponseBaseAuthenticationBlock)(SANetworkRequest *netwo
  */
 @property (nonatomic, assign) SAResponseSerializerType responseSerializerType;
 
-/**
- *  @brief 默认：[NSSet setWithObjects:@"application/json", @"text/json", @"text/html",nil]
- */
-@property (nonatomic, copy) NSSet<NSString *> *acceptableContentTypes;
+
+- (void)setAcceptableContentTypes:(NSSet<NSString *> *)acceptableContentTypes forResponseSerializerType:(SAResponseSerializerType)responseSerializerType;
+
+- (NSSet<NSString *> *)acceptableContentTypesForResponseSerializerType:(SAResponseSerializerType)responseSerializerType;
 
 /**
  *  @brief 请求超时时间，默认20秒

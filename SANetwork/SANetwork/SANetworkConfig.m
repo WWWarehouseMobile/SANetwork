@@ -8,7 +8,15 @@
 
 #import "SANetworkConfig.h"
 
-@implementation SANetworkConfig
+static inline NSString *kAcceptableContentTypesKey(SAResponseSerializerType responseSerializerType) {
+    return [NSString stringWithFormat:@"com.sanetwork.responseSerializerType-%li",responseSerializerType];
+}
+
+@interface SANetworkConfig ()
+@property (nonatomic, strong) NSMutableDictionary *acceptableContentTypesDict;
+@end
+@implementation SANetworkConfig {
+}
 
 + (SANetworkConfig *)sharedInstance {
     static SANetworkConfig *networkConfigInstance = nil;
@@ -22,13 +30,22 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/html",nil];
         _requestSerializerType = SARequestSerializerTypeHTTP;
         _responseSerializerType = SAResponseSerializerTypeJSON;
         _requestTimeoutInterval = 20.0f;
         _enableDebug = NO;
+        _acceptableContentTypesDict = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
+- (void)setAcceptableContentTypes:(NSSet<NSString *> *)acceptableContentTypes forResponseSerializerType:(SAResponseSerializerType)responseSerializerType {
+    if ([acceptableContentTypes count]) {
+        [self.acceptableContentTypesDict setObject:acceptableContentTypes forKey:kAcceptableContentTypesKey(responseSerializerType)];
+    }
+}
+
+- (NSSet<NSString *> *)acceptableContentTypesForResponseSerializerType:(SAResponseSerializerType)responseSerializerType {
+    return self.acceptableContentTypesDict[kAcceptableContentTypesKey(responseSerializerType)];
+}
 @end

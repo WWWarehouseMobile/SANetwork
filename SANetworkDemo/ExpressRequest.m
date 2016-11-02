@@ -37,9 +37,11 @@
 - (SARequestSerializerType)requestSerializerType {
     return SARequestSerializerTypeHTTP;
 }
+
 - (SAResponseSerializerType)responseSerializerType {
     return SAResponseSerializerTypeImage;
 }
+
 //- (NSDictionary *)requestParamDictionary {
 //    return @{
 //             @"type" : self.type,

@@ -52,6 +52,7 @@
 //    }];
     [[SANetworkConfig sharedInstance] setRequestSerializerType:SARequestSerializerTypeJSON];
     [SANetworkConfig sharedInstance].enableDebug = YES;  //允许后台打印输出
+    [[SANetworkConfig sharedInstance] setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"text/html", nil] forResponseSerializerType:SAResponseSerializerTypeJSON];
 //
 //    /**
 //     *  根据自己的接口返回，自定义设置

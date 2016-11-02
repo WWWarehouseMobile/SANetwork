@@ -50,6 +50,11 @@
         _sessionManager = [AFHTTPSessionManager manager];
         _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
         _sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+        _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+        if ([[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:SAResponseSerializerTypeJSON]) {
+            _sessionManager.responseSerializer.acceptableContentTypes = [[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:SAResponseSerializerTypeJSON];
+        }
+
 //        if ([SANetworkConfig sharedInstance].acceptableContentTypes) {
 //            _sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
 //        }
@@ -158,10 +163,14 @@
             self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
             break;
         case SARequestSerializerTypeJSON:
-            self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+            if (![self.sessionManager.requestSerializer isKindOfClass:[AFJSONRequestSerializer class]]) {
+                self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+            }
             break;
         case SARequestSerializerTypePropertyList:
-            self.sessionManager.requestSerializer = [AFPropertyListRequestSerializer serializer];
+            if (![self.sessionManager.requestSerializer isKindOfClass:[AFPropertyListRequestSerializer class]]) {
+                self.sessionManager.requestSerializer = [AFPropertyListRequestSerializer serializer];
+            }
             break;
         default:
             break;
@@ -173,12 +182,10 @@
     switch (responseSerializerType) {
         case SAResponseSerializerTypeHTTP:
             self.sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-            self.sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
             break;
         case SAResponseSerializerTypeJSON:
             if (![self.sessionManager.responseSerializer isKindOfClass:[AFJSONResponseSerializer class]]) {
                 self.sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
-                self.sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
             }
             break;
         case SAResponseSerializerTypeImage:
@@ -198,6 +205,9 @@
             break;
         default:
             break;
+    }
+    if ([[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:responseSerializerType]) {
+        self.sessionManager.responseSerializer.acceptableContentTypes = [[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:responseSerializerType];
     }
 }
 
