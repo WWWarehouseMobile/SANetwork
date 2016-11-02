@@ -364,9 +364,9 @@
 - (void)handleRequestSuccess:(NSURLSessionDataTask *)sessionDataTask responseObject:(id)response {
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest<SANetworkRequestConfigProtocol> *request = _requestRecordDict[taskKey];
+    [request stopRequest];
     if (request == nil){
         NSLog(@"请求实例被意外释放!");
-        [request stopRequest];
         return;
     }
     BOOL isAuthentication = YES;
@@ -396,7 +396,7 @@
         }
         [self afterPerformFailWithResponse:dataErrorResponse request:request];
     }
-    [request stopRequest];
+//    [request stopRequest];
     
     if ([SANetworkConfig sharedInstance].enableDebug) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:isAuthentication error:nil];
@@ -406,9 +406,9 @@
 - (void)handleRequestFailure:(NSURLSessionDataTask *)sessionDataTask error:(NSError *)error {
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest<SANetworkRequestConfigProtocol> *request = _requestRecordDict[taskKey];
+    [request stopRequest];
     if (request == nil) {
         NSLog(@"请求实例被意外释放!");
-        [request stopRequest];
         return;
     }
     SANetworkResponse *failureResponse = [[SANetworkResponse alloc] initWithResponseData:nil requestTag:request.tag networkStatus:SANetworkResponseFailureStatus];
@@ -417,7 +417,7 @@
         [request.responseDelegate networkRequest:request failedByResponse:failureResponse];
     }
     [self afterPerformFailWithResponse:failureResponse request:request];
-    [request stopRequest];
+//    [request stopRequest];
     if ([SANetworkConfig sharedInstance].enableDebug) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:nil authentication:NO error:error];
     }
