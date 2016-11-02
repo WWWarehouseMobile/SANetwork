@@ -8,7 +8,8 @@
 
 #import "SANetworkRequest.h"
 
-@interface ExpressRequest : SANetworkRequest<SANetworkRequestConfigProtocol,SANetworkRequestParamSourceProtocol>
+@interface ExpressRequest : SANetworkRequest<SANetworkRequestConfigProtocol>
+//SANetworkRequestParamSourceProtocol
 
 @property (nonnull, nonatomic, copy) NSString *type;
 

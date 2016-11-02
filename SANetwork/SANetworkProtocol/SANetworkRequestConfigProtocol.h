@@ -17,11 +17,15 @@ typedef NS_ENUM(NSInteger , SARequestMethod) {
 typedef NS_ENUM(NSInteger , SARequestSerializerType) {
     SARequestSerializerTypeHTTP = 0,
     SARequestSerializerTypeJSON,
+    SARequestSerializerTypePropertyList,
 };
 
 typedef NS_ENUM(NSInteger , SAResponseSerializerType) {
     SAResponseSerializerTypeJSON = 0,
     SAResponseSerializerTypeHTTP,
+    SAResponseSerializerTypeXMLParser,
+    SAResponseSerializerTypePropertyList,
+    SAResponseSerializerTypeImage,
 };
 
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
@@ -93,6 +97,9 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  *  @return 服务端返回的数据类型
  */
 - (SAResponseSerializerType)responseSerializerType;
+
+
+- (NSSet <NSString *> *)responseAcceptableContentTypes;
 
 /**
  *  @brief 当POST的内容带有文件等富文本时使用

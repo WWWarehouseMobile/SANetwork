@@ -50,7 +50,10 @@
         _sessionManager = [AFHTTPSessionManager manager];
         _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
         _sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        _sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
+        if ([SANetworkConfig sharedInstance].acceptableContentTypes) {
+            _sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
+        }
+        [self setSessionManagerResponseSerializerByResponseSerializerType:[SANetworkConfig sharedInstance].responseSerializerType];
     }
     return _sessionManager;
 }
@@ -146,6 +149,56 @@
     return [self stringByMd5String:cacheKey];
 }
 
+#pragma mark-
+#pragma mark-Setter
+
+- (void)setSessionManagerRequestSerializerByRequestSerializerType:(SARequestSerializerType)requestSerializerType {
+    switch (requestSerializerType) {
+        case SARequestSerializerTypeHTTP:
+            _sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+            break;
+        case SARequestSerializerTypeJSON:
+            _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+            break;
+        case SARequestSerializerTypePropertyList:
+            _sessionManager.requestSerializer = [AFPropertyListRequestSerializer serializer];
+            break;
+        default:
+            break;
+    }
+    _sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+}
+
+- (void)setSessionManagerResponseSerializerByResponseSerializerType:(SAResponseSerializerType)responseSerializerType {
+    switch (responseSerializerType) {
+        case SAResponseSerializerTypeHTTP:
+            _sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            break;
+        case SAResponseSerializerTypeJSON:
+            if (![_sessionManager.responseSerializer isKindOfClass:[AFJSONResponseSerializer class]]) {
+                _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+            }
+            break;
+        case SAResponseSerializerTypeImage:
+            if (![_sessionManager.responseSerializer isKindOfClass:[AFImageResponseSerializer class]]) {
+                _sessionManager.responseSerializer = [AFImageResponseSerializer serializer];
+            }
+            break;
+        case SAResponseSerializerTypeXMLParser:
+            if (![_sessionManager.responseSerializer isKindOfClass:[AFXMLParserResponseSerializer class]]) {
+                _sessionManager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+            }
+            break;
+        case SAResponseSerializerTypePropertyList:
+            if (![_sessionManager.responseSerializer isKindOfClass:[AFPropertyListResponseSerializer class]]) {
+                _sessionManager.responseSerializer = [AFPropertyListResponseSerializer serializer];
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)setupSessionManagerRequestSerializerByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     //配置requestSerializerType
     SARequestSerializerType requestSerializerType;
@@ -154,29 +207,8 @@
     }else{
         requestSerializerType = [SANetworkConfig sharedInstance].requestSerializerType;
     }
-    if (requestSerializerType == SARequestSerializerTypeHTTP && [self.sessionManager.requestSerializer isKindOfClass:[AFJSONRequestSerializer class]]) {
-        self.sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        self.sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    }else if (requestSerializerType == SARequestSerializerTypeJSON && ![self.sessionManager.requestSerializer isKindOfClass:[AFJSONRequestSerializer class]]){
-        self.sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
-        self.sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    }
+    [self setSessionManagerRequestSerializerByRequestSerializerType:requestSerializerType];
 
-    //配置responseSerializerType
-    SAResponseSerializerType responseSerializerType;
-    if ([request.requestConfigProtocol respondsToSelector:@selector(responseSerializerType)]) {
-        responseSerializerType = [request.requestConfigProtocol responseSerializerType];
-    }else{
-        responseSerializerType = [SANetworkConfig sharedInstance].responseSerializerType;
-    }
-    if (responseSerializerType == SAResponseSerializerTypeHTTP && [self.sessionManager.responseSerializer isKindOfClass:[AFJSONResponseSerializer class]]) {
-        self.sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        self.sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
-    }else if (responseSerializerType == SAResponseSerializerTypeJSON && ![self.sessionManager.responseSerializer isKindOfClass:[AFJSONResponseSerializer class]]){
-        self.sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
-    }
-    
     //配置请求头
     if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.requestConfigProtocol useBaseHTTPRequestHeaders]) && [SANetworkConfig sharedInstance].baseHTTPRequestHeadersBlock) {
         NSDictionary *requestHeaders = [SANetworkConfig sharedInstance].baseHTTPRequestHeadersBlock();
@@ -197,6 +229,19 @@
         timeoutInterval = [request.requestConfigProtocol requestTimeoutInterval];
     }
     self.sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
+    
+    //配置responseSerializerType
+    SAResponseSerializerType responseSerializerType;
+    if ([request.requestConfigProtocol respondsToSelector:@selector(responseSerializerType)]) {
+        responseSerializerType = [request.requestConfigProtocol responseSerializerType];
+    }else{
+        responseSerializerType = [SANetworkConfig sharedInstance].responseSerializerType;
+    }
+    [self setSessionManagerResponseSerializerByResponseSerializerType:responseSerializerType];
+    
+    if ([request.requestConfigProtocol respondsToSelector:@selector(responseAcceptableContentTypes)] && [request.requestConfigProtocol responseAcceptableContentTypes]) {
+        self.sessionManager.responseSerializer.acceptableContentTypes = [request.requestConfigProtocol responseAcceptableContentTypes];
+    }
 }
 
 - (AFConstructingBlock)constructingBlockByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {

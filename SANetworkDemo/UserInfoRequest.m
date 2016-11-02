@@ -34,10 +34,18 @@
     return SARequestMethodPost;
 }
 
+- (NSSet<NSString *> *)responseAcceptableContentTypes {
+    return [NSSet setWithObject:@"text/html"];
+}
+
 - (NSDictionary *)requestParamDictionary {
     return @{
              @"mobile" : self.mobile,
              };
 }
+
+//- (SAResponseSerializerType)responseSerializerType {
+//    return SAResponseSerializerTypeXMLParser;
+//}
 
 @end

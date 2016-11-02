@@ -14,13 +14,13 @@
 {
     self = [super init];
     if (self) {
-        self.requestParamSourceDelegate = self;
+//        self.requestParamSourceDelegate = self;
     }
     return self;
 }
 
 - (NSString *)requestMethodName {
-    return @"query";
+    return @"http://192.168.6.24:8080/base/getCaptcha";
 }
 
 - (BOOL)isCorrectWithResponseData:(id)responseData {
@@ -34,11 +34,14 @@
     return SARequestMethodPost;
 }
 
-- (NSDictionary *)requestParamDictionary {
-    return @{
-             @"type" : self.type,
-             @"postid" : self.postId
-             };
+- (SAResponseSerializerType)responseSerializerType {
+    return SAResponseSerializerTypeImage;
 }
+//- (NSDictionary *)requestParamDictionary {
+//    return @{
+//             @"type" : self.type,
+//             @"postid" : self.postId
+//             };
+//}
 
 @end

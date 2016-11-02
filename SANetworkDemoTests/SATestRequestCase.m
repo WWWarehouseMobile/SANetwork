@@ -30,8 +30,8 @@
     ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
     expressRequest.tag = 101;
     expressRequest.responseDelegate = self;
-    expressRequest.type = @"yuantong";
-    expressRequest.postId = @"881443775034378914";
+//    expressRequest.type = @"yuantong";
+//    expressRequest.postId = @"881443775034378914";
     [expressRequest startRequest];
     [self wait];
 }
