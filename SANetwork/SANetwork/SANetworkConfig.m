@@ -9,7 +9,7 @@
 #import "SANetworkConfig.h"
 
 static inline NSString *kAcceptableContentTypesKey(SAResponseSerializerType responseSerializerType) {
-    return [NSString stringWithFormat:@"com.sanetwork.responseSerializerType-%li",responseSerializerType];
+    return [NSString stringWithFormat:@"com.sanetwork.responseSerializerType-%ld",(long)responseSerializerType];
 }
 
 @interface SANetworkConfig ()
