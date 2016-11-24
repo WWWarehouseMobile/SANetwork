@@ -54,11 +54,6 @@
         if ([[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:SAResponseSerializerTypeJSON]) {
             _sessionManager.responseSerializer.acceptableContentTypes = [[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:SAResponseSerializerTypeJSON];
         }
-
-//        if ([SANetworkConfig sharedInstance].acceptableContentTypes) {
-//            _sessionManager.responseSerializer.acceptableContentTypes = [SANetworkConfig sharedInstance].acceptableContentTypes;
-//        }
-//        [self setSessionManagerResponseSerializerByResponseSerializerType:[SANetworkConfig sharedInstance].responseSerializerType];
     }
     return _sessionManager;
 }
@@ -282,6 +277,7 @@
             [request.responseDelegate networkRequest:request failedByResponse:paramIncorrectResponse];
         }
         [request stopRequest];
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
         return;
     }
     
@@ -291,6 +287,7 @@
         if ([[self urlStringByRequest:requestingObj] isEqualToString:requestURLString]) {
             if ([self shouldCancelPreviousRequestByRequest:request]) {
                 [requestingObj stopRequest];
+                [requestingObj accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
             }else{
                 isContinuePerform = NO;
             }
@@ -301,6 +298,7 @@
     if (isContinuePerform == NO){
         NSLog(@"有个请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
         [request stopRequest];
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
         return;
     }
     
@@ -315,6 +313,7 @@
                 if (object) {
                     SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponseData:object requestTag:request.tag networkStatus:SANetworkResponseDataCacheStatus];
                     [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
+                    [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
                 }
                 if ([SANetworkConfig sharedInstance].enableDebug) {
                     [SANetworkLogger logCacheInfoWithResponseData:object];
@@ -330,6 +329,7 @@
             [request.responseDelegate networkRequest:request failedByResponse:notReachableResponse];
         }
         [request stopRequest];
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusNotReachable];
         return;
     }
     
@@ -445,6 +445,7 @@
         if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:afterPerformSuccessWithResponse:)]) {
             [request.interceptorDelegate networkRequest:request afterPerformSuccessWithResponse:response];
         }
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
     } else {
         SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponseData:response requestTag:request.tag networkStatus:isAuthentication ? SANetworkResponseDataIncorrectStatus : SANetworkResponseDataAuthenticationFailStatus];
         [self beforePerformFailWithResponse:dataErrorResponse request:request];
@@ -452,8 +453,8 @@
             [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
         }
         [self afterPerformFailWithResponse:dataErrorResponse request:request];
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
     }
-//    [request stopRequest];
     
     if ([SANetworkConfig sharedInstance].enableDebug) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:isAuthentication error:nil];
@@ -474,7 +475,8 @@
         [request.responseDelegate networkRequest:request failedByResponse:failureResponse];
     }
     [self afterPerformFailWithResponse:failureResponse request:request];
-//    [request stopRequest];
+    [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
+    
     if ([SANetworkConfig sharedInstance].enableDebug) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:nil authentication:NO error:error];
     }

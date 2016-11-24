@@ -73,4 +73,12 @@
     }
 }
 
+- (void)accessoryFinishByStatus:(SANetworkAccessoryFinishStatus)finishStatus {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
+            [accessory networkRequestAccessoryByStatus:finishStatus];
+        }
+    }
+}
+
 @end

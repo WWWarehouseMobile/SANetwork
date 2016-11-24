@@ -20,6 +20,12 @@
 
 @class SANetworkRequest;
 @protocol  SANetworkAccessoryProtocol;
+
+/**
+ *  @author 学宝工作室, 16-11-24 09:11:26
+ *
+ *  @brief 批量请求，批量请求的返回数据将会忽略缓存
+ */
 @interface SANetworkBatchRequest : NSObject
 
 @property (nonatomic, weak) id<SANetworkBatchRequestResponseDelegate>delegate;

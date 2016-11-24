@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, SANetworkAccessoryFinishStatus) {
+    SANetworkAccessoryFinishStatusSuccess,
+    SANetworkAccessoryFinishStatusFailure,
+    SANetworkAccessoryFinishStatusCancel,
+    SANetworkAccessoryFinishStatusNotReachable,
+};
+
 /**
  *  @brief 请求插件协议
  */
@@ -25,4 +32,5 @@
  */
 - (void)networkRequestAccessoryDidStop;
 
+- (void)networkRequestAccessoryByStatus:(SANetworkAccessoryFinishStatus)accessoryStatus;
 @end

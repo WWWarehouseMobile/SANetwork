@@ -45,5 +45,5 @@
  */
 - (void)addNetworkAccessoryObject:(id<SANetworkAccessoryProtocol>)accessoryDelegate;
 
-
+- (void)accessoryFinishByStatus:(SANetworkAccessoryFinishStatus)status;
 @end

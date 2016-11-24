@@ -10,6 +10,7 @@
 #import "SANetworkResponseProtocol.h"
 #import "SANetworkRequest.h"
 #import "SANetworkAgent.h"
+#import "SANetworkResponse.h"
 
 @interface SANetworkBatchRequest ()<SANetworkResponseProtocol>
 
@@ -59,26 +60,35 @@
 #pragma mark-SANetworkResponseProtocol
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response{
+    if (response.networkStatus == SANetworkResponseDataCacheStatus) {
+        return;
+    }
     self.completedCount++;
     [self.responseArray addObject:response];
     if (self.completedCount == self.requestArray.count) {
         [self networkBatchRequestCompleted];
+        [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
     }
 }
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
+    if (response.networkStatus == SANetworkResponseDataCacheStatus) {
+        return;
+    }
     [self.responseArray addObject:response];
     
     if (self.isContinueByFailResponse) {
         self.completedCount++;
         if (self.completedCount == self.requestArray.count) {
             [self networkBatchRequestCompleted];
+            [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
         }
     }else{
         for (SANetworkRequest *networkRequest in self.requestArray) {
             [networkRequest stopRequest];
         }
         [self networkBatchRequestCompleted];
+        [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
     }
 }
 
@@ -120,4 +130,14 @@
             [accessory networkRequestAccessoryDidStop];
         }
     }
-}@end
+}
+
+- (void)accessoryFinishByStatus:(SANetworkAccessoryFinishStatus)finishStatus {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
+            [accessory networkRequestAccessoryByStatus:finishStatus];
+        }
+    }
+}
+
+@end

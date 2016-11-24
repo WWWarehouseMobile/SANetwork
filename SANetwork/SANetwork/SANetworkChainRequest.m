@@ -58,6 +58,7 @@
         }
     }
     [self accessoryDidStop];
+    [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
 }
 
 - (void)networkRequest:(__kindof SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
@@ -65,6 +66,7 @@
         [self.delegate networkChainRequest:self networkRequest:networkRequest failedByResponse:response];
     }
     [self accessoryDidStop];
+    [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
 }
 
 #pragma mark-
@@ -93,5 +95,12 @@
     }
 }
 
+- (void)accessoryFinishByStatus:(SANetworkAccessoryFinishStatus)finishStatus {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
+            [accessory networkRequestAccessoryByStatus:finishStatus];
+        }
+    }
+}
 
 @end
