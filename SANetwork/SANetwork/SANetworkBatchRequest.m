@@ -66,8 +66,8 @@
     self.completedCount++;
     [self.responseArray addObject:response];
     if (self.completedCount == self.requestArray.count) {
-        [self networkBatchRequestCompleted];
         [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
+        [self networkBatchRequestCompleted];
     }
 }
 
@@ -80,25 +80,25 @@
     if (self.isContinueByFailResponse) {
         self.completedCount++;
         if (self.completedCount == self.requestArray.count) {
-            [self networkBatchRequestCompleted];
             [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
+            [self networkBatchRequestCompleted];
         }
     }else{
         for (SANetworkRequest *networkRequest in self.requestArray) {
             [networkRequest stopRequest];
         }
-        [self networkBatchRequestCompleted];
         [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
+        [self networkBatchRequestCompleted];
     }
 }
 
 
 
 - (void)networkBatchRequestCompleted{
+    [self accessoryDidStop];
     if ([self.delegate respondsToSelector:@selector(networkBatchRequest:completedByResponseArray:)]) {
         [self.delegate networkBatchRequest:self completedByResponseArray:self.responseArray];
     }
-    [self accessoryDidStop];
     self.completedCount = 0;
 }
 

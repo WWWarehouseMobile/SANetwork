@@ -309,6 +309,8 @@
 				TargetAttributes = {
 					195C56061CFF01C400F61FB7 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = XDK267KQ83;
+						ProvisioningStyle = Manual;
 					};
 					195C561F1CFF01C400F61FB7 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -547,12 +549,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = XDK267KQ83;
 				INFOPLIST_FILE = SANetworkDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemo;
 				PRODUCT_NAME = SANetworkDemo;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f84ff13c-64f7-4503-a07b-674e4a7e1667";
+				PROVISIONING_PROFILE_SPECIFIER = "Xcode iOS Wildcard App ID *";
 			};
 			name = Debug;
 		};
@@ -563,6 +567,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SANetworkDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

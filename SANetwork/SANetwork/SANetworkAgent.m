@@ -272,12 +272,12 @@
     //检查参数配置
     if (![self isCorrectByRequestParams:requestParam request:request]) {
         NSLog(@"参数配置有误！请查看isCorrectWithRequestParams: !");
+        [request stopRequest];
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
         SANetworkResponse *paramIncorrectResponse = [[SANetworkResponse alloc] initWithResponseData:nil requestTag:request.tag networkStatus:SANetworkRequestParamIncorrectStatus];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             [request.responseDelegate networkRequest:request failedByResponse:paramIncorrectResponse];
         }
-        [request stopRequest];
-        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
         return;
     }
     
@@ -296,7 +296,7 @@
     }
     
     if (isContinuePerform == NO){
-        NSLog(@"有个请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
+        NSLog(@"有个相同URL请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
         [request stopRequest];
         [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
         return;
@@ -311,9 +311,9 @@
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:succeedByResponse:)]) {
             [[PINDiskCache sharedCache] objectForKey:[self keyWithURLString:requestURLString requestParam:requestParam] block:^(PINDiskCache * _Nonnull cache, NSString * _Nonnull key, id<NSCoding>  _Nullable object, NSURL * _Nullable fileURL) {
                 if (object) {
+                    [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
                     SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponseData:object requestTag:request.tag networkStatus:SANetworkResponseDataCacheStatus];
                     [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
-                    [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
                 }
                 if ([SANetworkConfig sharedInstance].enableDebug) {
                     [SANetworkLogger logCacheInfoWithResponseData:object];
@@ -324,12 +324,12 @@
     
     
     if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
+        [request stopRequest];
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusNotReachable];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             SANetworkResponse *notReachableResponse = [[SANetworkResponse alloc] initWithResponseData:nil requestTag:request.tag networkStatus:SANetworkNotReachableStatus];
             [request.responseDelegate networkRequest:request failedByResponse:notReachableResponse];
         }
-        [request stopRequest];
-        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusNotReachable];
         return;
     }
     
@@ -435,6 +435,7 @@
             [[PINDiskCache sharedCache] setObject:response forKey:[self keyWithURLString:[self urlStringByRequest:request] requestParam:[self requestParamByRequest:request]]];
         }
         
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
         SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponseData:response requestTag:request.tag networkStatus:SANetworkResponseDataSuccessStatus];
         if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:beforePerformSuccessWithResponse:)]) {
             [request.interceptorDelegate networkRequest:request beforePerformSuccessWithResponse:response];
@@ -445,15 +446,14 @@
         if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:afterPerformSuccessWithResponse:)]) {
             [request.interceptorDelegate networkRequest:request afterPerformSuccessWithResponse:response];
         }
-        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
     } else {
+        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
         SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponseData:response requestTag:request.tag networkStatus:isAuthentication ? SANetworkResponseDataIncorrectStatus : SANetworkResponseDataAuthenticationFailStatus];
         [self beforePerformFailWithResponse:dataErrorResponse request:request];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
         }
         [self afterPerformFailWithResponse:dataErrorResponse request:request];
-        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
     }
     
     if ([SANetworkConfig sharedInstance].enableDebug) {
@@ -465,6 +465,7 @@
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest<SANetworkRequestConfigProtocol> *request = _requestRecordDict[taskKey];
     [request stopRequest];
+    [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
     if (request == nil) {
         NSLog(@"请求实例被意外释放!");
         return;
@@ -475,7 +476,6 @@
         [request.responseDelegate networkRequest:request failedByResponse:failureResponse];
     }
     [self afterPerformFailWithResponse:failureResponse request:request];
-    [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
     
     if ([SANetworkConfig sharedInstance].enableDebug) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:nil authentication:NO error:error];

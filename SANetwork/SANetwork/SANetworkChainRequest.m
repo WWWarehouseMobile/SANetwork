@@ -62,11 +62,11 @@
 }
 
 - (void)networkRequest:(__kindof SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
+    [self accessoryDidStop];
+    [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:networkRequest:failedByResponse:)]) {
         [self.delegate networkChainRequest:self networkRequest:networkRequest failedByResponse:response];
     }
-    [self accessoryDidStop];
-    [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
 }
 
 #pragma mark-
