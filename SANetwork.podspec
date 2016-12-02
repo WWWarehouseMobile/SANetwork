@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SANetwork"
-  s.version      = "0.0.9"
+  s.version      = "1.0.0"
   s.summary      = "离散式请求，对AFNetworking的二次封装"
   s.license      = 'MIT'
   s.author       = { "阿宝" => "zhanxuebao@outlook.com" }
