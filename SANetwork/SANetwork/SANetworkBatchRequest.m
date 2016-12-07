@@ -21,7 +21,9 @@
 
 @end
 
-@implementation SANetworkBatchRequest
+@implementation SANetworkBatchRequest{
+    BOOL _isHandleDoneWhenNoContinueByFailResponse;
+}
 
 - (instancetype)initWithRequestArray:(NSArray<SANetworkRequest *> *)requestArray {
     self = [super init];
@@ -30,6 +32,7 @@
         _responseArray = [NSMutableArray array];
         _completedCount = 0;
         _isContinueByFailResponse = YES;
+        _isHandleDoneWhenNoContinueByFailResponse = NO;
     }
     return self;
 }
@@ -83,12 +86,13 @@
             [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
             [self networkBatchRequestCompleted];
         }
-    }else{
+    }else if(_isHandleDoneWhenNoContinueByFailResponse == NO){
         for (SANetworkRequest *networkRequest in self.requestArray) {
             [networkRequest stopRequest];
         }
         [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
         [self networkBatchRequestCompleted];
+        _isHandleDoneWhenNoContinueByFailResponse = YES;
     }
 }
 
