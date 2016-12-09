@@ -50,7 +50,9 @@
         _sessionManager = [AFHTTPSessionManager manager];
         _sessionManager.operationQueue.maxConcurrentOperationCount = 3;
         _sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+        AFJSONResponseSerializer *jsonResponseSerializer = [AFJSONResponseSerializer serializer];
+        jsonResponseSerializer.removesKeysWithNullValues = YES;
+        _sessionManager.responseSerializer = jsonResponseSerializer;
         if ([[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:SAResponseSerializerTypeJSON]) {
             _sessionManager.responseSerializer.acceptableContentTypes = [[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:SAResponseSerializerTypeJSON];
         }
@@ -180,7 +182,9 @@
             break;
         case SAResponseSerializerTypeJSON:
             if (![self.sessionManager.responseSerializer isKindOfClass:[AFJSONResponseSerializer class]]) {
-                self.sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
+                AFJSONResponseSerializer *jsonResponseSerializer = [AFJSONResponseSerializer serializer];
+                jsonResponseSerializer.removesKeysWithNullValues = YES;
+                self.sessionManager.responseSerializer = jsonResponseSerializer;
             }
             break;
         case SAResponseSerializerTypeImage:
