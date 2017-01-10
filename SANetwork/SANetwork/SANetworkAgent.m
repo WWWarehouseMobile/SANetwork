@@ -314,14 +314,16 @@
     if ([self shouldCacheDataByRequest:request]) {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:succeedByResponse:)]) {
             [[PINDiskCache sharedCache] objectForKey:[self keyWithURLString:requestURLString requestParam:requestParam] block:^(PINDiskCache * _Nonnull cache, NSString * _Nonnull key, id<NSCoding>  _Nullable object, NSURL * _Nullable fileURL) {
-                if (object) {
-                    [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
-                    SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponseData:object requestTag:request.tag networkStatus:SANetworkResponseDataCacheStatus];
-                    [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
-                }
-                if ([SANetworkConfig sharedInstance].enableDebug) {
-                    [SANetworkLogger logCacheInfoWithResponseData:object];
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (object) {
+                        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
+                        SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponseData:object requestTag:request.tag networkStatus:SANetworkResponseDataCacheStatus];
+                        [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
+                    }
+                    if ([SANetworkConfig sharedInstance].enableDebug) {
+                        [SANetworkLogger logCacheInfoWithResponseData:object];
+                    }
+                });
             }];
         }
     }
