@@ -125,11 +125,11 @@
     return YES;
 }
 
-- (BOOL)shouldCancelPreviousRequestByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
-    if ([request.requestConfigProtocol respondsToSelector:@selector(shouldCancelPreviousRequest)]) {
-        return [request.requestConfigProtocol shouldCancelPreviousRequest];
+- (SARequestHandleSameRequestType)handleSameRequestTypeByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
+    if ([request.requestConfigProtocol respondsToSelector:@selector(handleSameRequestType)]) {
+        return [request.requestConfigProtocol handleSameRequestType];
     }
-    return NO;
+    return SARequestHandleSameRequestCancelCurrentType;
 }
 
 - (SARequestMethod)requestMethodByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
@@ -285,26 +285,35 @@
         return;
     }
     
-    //检查是否存在相同请求方法未完成，并根据协议接口决定是否结束之前的请求
-    BOOL isContinuePerform = YES;
-    for (SANetworkRequest<SANetworkRequestConfigProtocol> *requestingObj in self.requestRecordDict.allValues) {
-        if ([[self urlStringByRequest:requestingObj] isEqualToString:requestURLString]) {
-            if ([self shouldCancelPreviousRequestByRequest:request]) {
-                [requestingObj stopRequest];
-                [requestingObj accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
-            }else{
-                isContinuePerform = NO;
+    SARequestHandleSameRequestType handleSameRequestType = [self handleSameRequestTypeByRequest:request];
+    if (handleSameRequestType != SARequestHandleSameRequestBothContinueType) {
+        //检查是否存在相同请求方法未完成，并根据协议接口决定是否结束之前的请求
+        BOOL isContinuePerform = YES;
+        for (SANetworkRequest<SANetworkRequestConfigProtocol> *requestingObj in self.requestRecordDict.allValues) {
+            if ([[self urlStringByRequest:requestingObj] isEqualToString:requestURLString]) {
+                switch (handleSameRequestType) {
+                    case SARequestHandleSameRequestCancelCurrentType:
+                        isContinuePerform = NO;
+                        break;
+                    case SARequestHandleSameRequestCancelPreviousType:
+                        [requestingObj stopRequest];
+                        [requestingObj accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
+                        break;
+                    default:
+                        break;
+                }
+                break;
             }
-            break;
+        }
+        
+        if (isContinuePerform == NO){
+            NSLog(@"有个相同URL请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
+            [request stopRequest];
+            [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
+            return;
         }
     }
-    
-    if (isContinuePerform == NO){
-        NSLog(@"有个相同URL请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
-        [request stopRequest];
-        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
-        return;
-    }
+
     
     if ([SANetworkConfig sharedInstance].enableDebug) {
         [SANetworkLogger logDebugRequestInfoWithURL:requestURLString httpMethod:[self requestMethodByRequest:request] params:requestParam reachabilityStatus:[[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]];

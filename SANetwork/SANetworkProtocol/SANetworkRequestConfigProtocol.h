@@ -28,6 +28,18 @@ typedef NS_ENUM(NSInteger , SAResponseSerializerType) {
     SAResponseSerializerTypeImage,
 };
 
+/**
+ *  @author 学宝
+ *
+ *  @brief 处理正在执行的前一个相同方法的请求的方式
+ *  @warning 相同方法的请求是指url相同，参数可能不同
+ */
+typedef NS_ENUM(NSInteger , SARequestHandleSameRequestType) {
+    SARequestHandleSameRequestCancelCurrentType = 0,
+    SARequestHandleSameRequestCancelPreviousType,
+    SARequestHandleSameRequestBothContinueType,
+};
+
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 
 @protocol SANetworkRequestConfigProtocol <NSObject>
@@ -109,11 +121,11 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (AFConstructingBlock)constructingBodyBlock;
 
 /**
- *  @brief 是否取消正在执行的前一个相同方法的请求（参数可能不同）
+ *  @brief 处理正在执行相同方法的请求（参数可能不同）
  *
- *  @return 是否取消前一个请求
+ *  @return 处理方式
  */
-- (BOOL)shouldCancelPreviousRequest;
+- (SARequestHandleSameRequestType)handleSameRequestType;
 
 /**
  *  @brief 可以使用两个根地址，比如可能会用到 CDN 地址、https之类的。默认NO
