@@ -161,4 +161,13 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  *  @return 是否使用基础的请求验证
  */
 - (BOOL)useBaseAuthentication;
+
+/**
+ *  @author 学宝
+ *
+ *  @brief 定制是否输出log日志
+ *  @warning 定制，将忽略SANetworkConfig的enableDebug
+ *
+ */
+- (BOOL)enableDebugLog;
 @end

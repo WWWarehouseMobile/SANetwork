@@ -151,6 +151,13 @@
     return [self stringByMd5String:cacheKey];
 }
 
+- (BOOL)enableDebugLogByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
+    if ([request.requestConfigProtocol respondsToSelector:@selector(enableDebugLog)]) {
+        return [request.requestConfigProtocol enableDebugLog];
+    }
+    return NO;
+}
+
 #pragma mark-
 #pragma mark-Setter
 
@@ -307,7 +314,7 @@
         }
         
         if (isContinuePerform == NO){
-            NSLog(@"有个相同URL请求未完成，这个请求被取消了（可设置shouldCancelPreviousRequest）");
+            NSLog(@"有个相同URL请求未完成，这个请求被取消了（可设置handleSameRequestType）");
             [request stopRequest];
             [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
             return;
@@ -315,10 +322,12 @@
     }
 
     
-    if ([SANetworkConfig sharedInstance].enableDebug) {
+    if ([SANetworkConfig sharedInstance].enableDebug || [self enableDebugLogByRequest:request]) {
         [SANetworkLogger logDebugRequestInfoWithURL:requestURLString httpMethod:[self requestMethodByRequest:request] params:requestParam reachabilityStatus:[[AFNetworkReachabilityManager sharedManager] networkReachabilityStatus]];
     }
     
+    __weak typeof(self)weakSelf = self;
+
     //检测请求是否缓存数据，并执行缓存数据回调方法
     if ([self shouldCacheDataByRequest:request]) {
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:succeedByResponse:)]) {
@@ -329,7 +338,7 @@
                         SANetworkResponse *cacheResponse = [[SANetworkResponse alloc] initWithResponseData:object requestTag:request.tag networkStatus:SANetworkResponseDataCacheStatus];
                         [request.responseDelegate networkRequest:request succeedByResponse:cacheResponse];
                     }
-                    if ([SANetworkConfig sharedInstance].enableDebug) {
+                    if ([SANetworkConfig sharedInstance].enableDebug || [weakSelf enableDebugLogByRequest:request]) {
                         [SANetworkLogger logCacheInfoWithResponseData:object];
                     }
                 });
@@ -350,7 +359,6 @@
     
     [self setupSessionManagerRequestSerializerByRequest:request];
     __block SANetworkRequest<SANetworkRequestConfigProtocol> *blockRequest = request;
-    __weak typeof(self)weakSelf = self;
     switch ([self requestMethodByRequest:request]) {
         case SARequestMethodGet:{
             request.sessionDataTask = [self.sessionManager GET:requestURLString
@@ -471,7 +479,7 @@
         [self afterPerformFailWithResponse:dataErrorResponse request:request];
     }
     
-    if ([SANetworkConfig sharedInstance].enableDebug) {
+    if ([SANetworkConfig sharedInstance].enableDebug || [self enableDebugLogByRequest:request]) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:isAuthentication error:nil];
     }
 }
@@ -492,7 +500,7 @@
     }
     [self afterPerformFailWithResponse:failureResponse request:request];
     
-    if ([SANetworkConfig sharedInstance].enableDebug) {
+    if ([SANetworkConfig sharedInstance].enableDebug || [self enableDebugLogByRequest:request]) {
         [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:nil authentication:NO error:error];
     }
 }
