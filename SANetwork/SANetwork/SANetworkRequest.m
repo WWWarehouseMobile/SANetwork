@@ -34,6 +34,7 @@
 - (void)startRequest {
     [self accessoryWillStart];
     [[SANetworkAgent sharedInstance] addRequest:self];
+    [self accessoryDidStart];
 }
 
 
@@ -64,6 +65,13 @@
     }
 }
 
+- (void)accessoryDidStart {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidStart)]) {
+            [accessory networkRequestAccessoryDidStart];
+        }
+    }
+}
 
 - (void)accessoryDidStop {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {

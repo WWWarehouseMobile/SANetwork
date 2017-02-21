@@ -32,6 +32,7 @@
     [self accessoryWillStart];
     _currentNetworkRequest.responseDelegate = self;
     [[SANetworkAgent sharedInstance] addRequest:self.currentNetworkRequest];
+    [self accessoryDidStart];
 }
 
 - (void)stopChainRequest {
@@ -83,6 +84,14 @@
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryWillStart)]) {
             [accessory networkRequestAccessoryWillStart];
+        }
+    }
+}
+
+- (void)accessoryDidStart {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidStart)]) {
+            [accessory networkRequestAccessoryDidStart];
         }
     }
 }

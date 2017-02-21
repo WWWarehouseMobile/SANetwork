@@ -28,6 +28,11 @@ typedef NS_ENUM(NSInteger, SANetworkAccessoryFinishStatus) {
 - (void)networkRequestAccessoryWillStart;
 
 /**
+ *  @brief 请求已经执行
+ */
+- (void)networkRequestAccessoryDidStart;
+
+/**
  *  @brief 请求已经停止
  */
 - (void)networkRequestAccessoryDidStop;

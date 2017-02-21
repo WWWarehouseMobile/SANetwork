@@ -47,6 +47,7 @@
         networkRequest.responseDelegate = self;
         [[SANetworkAgent sharedInstance] addRequest:networkRequest];
     }
+    [self accessoryDidStart];
 }
 
 - (void)stopBatchRequest {
@@ -127,6 +128,13 @@
     }
 }
 
+- (void)accessoryDidStart {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidStart)]) {
+            [accessory networkRequestAccessoryDidStart];
+        }
+    }
+}
 
 - (void)accessoryDidStop {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
