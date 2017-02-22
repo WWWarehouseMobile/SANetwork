@@ -273,11 +273,11 @@
 
 - (void)addRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     NSString *requestURLString = [self urlStringByRequest:request];
-    if ([requestURLString hasPrefix:@"https"]) {
-        AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
-        [securityPolicy setAllowInvalidCertificates:YES];
-        self.sessionManager.securityPolicy = securityPolicy;
-    }
+//    if ([requestURLString hasPrefix:@"https"]) {
+//        AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
+//        [securityPolicy setAllowInvalidCertificates:YES];
+//        self.sessionManager.securityPolicy = securityPolicy;
+//    }
     
     NSDictionary *requestParam = [self requestParamByRequest:request];
     //检查参数配置
