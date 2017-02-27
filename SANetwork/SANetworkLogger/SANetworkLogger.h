@@ -18,6 +18,4 @@
                                  responseObject:(id)response
                                  authentication:(BOOL)authentication
                                           error:(NSError *)error;
-
-+ (void)logCacheInfoWithResponseData:(id)responseData;
 @end

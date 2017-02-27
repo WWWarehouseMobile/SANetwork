@@ -76,11 +76,12 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 
 
 /**
- *  @brief 是否缓存数据 response。  默认NO
+ *  @author 学宝
  *
- *  @return 是否缓存
+ *  @brief 定制缓存策略，默认NSURLRequestUseProtocolCachePolicy
+ *
  */
-- (BOOL)shouldCacheResponse;
+- (NSURLRequestCachePolicy)cachePolicy;
 
 /**
  *  @brief 请求连接的超时时间。默认20.0秒

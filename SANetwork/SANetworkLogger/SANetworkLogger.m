@@ -69,10 +69,4 @@
     NSLog(@"%@", logString);
 }
 
-+ (void)logCacheInfoWithResponseData:(id)responseData {
-    NSMutableString *logString = [NSMutableString stringWithString:@"\n\n==================================================================================\n=                                Cached Response                                 =\n==================================================================================\n"];
-    [logString appendFormat:@"Response:\n\t%@\n\n", responseData];
-    [logString appendFormat:@"\n==================================================================================\n=                              Cached Response End                               =\n==================================================================================\n\n\n\n"];
-    NSLog(@"%@", logString);
-}
 @end
