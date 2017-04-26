@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SANetwork"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "离散式请求，对AFNetworking的二次封装"
   s.license      = 'MIT'
   s.author       = { "阿宝" => "zhanxuebao@outlook.com" }
@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
     ss.dependency 'MJRefresh', '~> 3.1.0'
   end
 
-  s.dependency 'PINCache', '~> 2.2.2'
   s.dependency 'AFNetworking', '~> 3.0'
 
 end
