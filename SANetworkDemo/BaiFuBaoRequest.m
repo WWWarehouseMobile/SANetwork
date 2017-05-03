@@ -6,9 +6,9 @@
 //  Copyright © 2016年 学宝工作室. All rights reserved.
 //
 
-#import "UserInfoRequest.h"
+#import "BaiFuBaoRequest.h"
 
-@implementation UserInfoRequest
+@implementation BaiFuBaoRequest
 
 - (instancetype)init
 {
@@ -20,7 +20,11 @@
 }
 
 - (NSString *)requestMethodName {
-    return @"http://chengdu.fbbfc.com/api/getUserInfo";
+    return @"callback";
+}
+
+- (NSString *)serviceIdentifierKey {
+    return @"BaiFuBaoIdentifierKey";
 }
 
 - (BOOL)isCorrectWithResponseData:(id)responseData {
@@ -41,6 +45,8 @@
 - (NSDictionary *)requestParamDictionary {
     return @{
              @"mobile" : self.mobile,
+             @"cmd" : @"1059",
+             @"callback" : @"phone"
              };
 }
 

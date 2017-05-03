@@ -8,6 +8,7 @@
 
 #import "SANetworkResponse.h"
 #import "SANetworkConfig.h"
+#import "SANetworkServiceProtocol.h"
 
 @interface SANetworkResponse ()
 
@@ -26,7 +27,7 @@
 
 @implementation SANetworkResponse
 
-- (instancetype)initWithResponseData:(id)responseData requestTag:(NSInteger)requestTag networkStatus:(SANetworkStatus)networkStatus {
+- (instancetype)initWithResponseData:(id)responseData serviceIdentifierKey:(NSString *)serviceIdentifierKey requestTag:(NSInteger)requestTag networkStatus:(SANetworkStatus)networkStatus {
     self = [super init];
     if (self) {
         _responseData = responseData;
@@ -39,15 +40,16 @@
             case SANetworkResponseDataSuccessStatus:
             case SANetworkResponseDataCacheStatus:
             case SANetworkResponseDataIncorrectStatus:{
+                NSObject<SANetworkServiceProtocol> *serviceObject = [[SANetworkConfig sharedInstance] serviceObjectWithServiceIdentifier:serviceIdentifierKey];
                 if ([responseData isKindOfClass:[NSDictionary class]]) {
-                    if ([SANetworkConfig sharedInstance].responseCodeKey && responseData[[SANetworkConfig sharedInstance].responseCodeKey]) {
-                        _responseCode = [responseData[[SANetworkConfig sharedInstance].responseCodeKey] integerValue];
+                    if ([serviceObject respondsToSelector:@selector(responseCodeKey)]) {
+                        _responseCode = [responseData[[serviceObject responseCodeKey]] integerValue];
                     }
-                    if ([SANetworkConfig sharedInstance].responseMessageKey) {
-                        _responseMessage = responseData[[SANetworkConfig sharedInstance].responseMessageKey];
+                    if ([serviceObject respondsToSelector:@selector(responseMessageKey)]) {
+                        _responseMessage = responseData[[serviceObject responseMessageKey]];
                     }
-                    if ([SANetworkConfig sharedInstance].responseContentDataKey) {
-                        _responseContentData = responseData[[SANetworkConfig sharedInstance].responseContentDataKey];
+                    if ([serviceObject respondsToSelector:@selector(responseContentDataKey)]) {
+                        _responseContentData = responseData[[serviceObject responseContentDataKey]];
                     }
                 }
             }

@@ -51,15 +51,19 @@
         AFJSONResponseSerializer *jsonResponseSerializer = [AFJSONResponseSerializer serializer];
         jsonResponseSerializer.removesKeysWithNullValues = YES;
         _sessionManager.responseSerializer = jsonResponseSerializer;
-        if ([[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:SAResponseSerializerTypeJSON]) {
-            _sessionManager.responseSerializer.acceptableContentTypes = [[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:SAResponseSerializerTypeJSON];
-        }
     }
     return _sessionManager;
 }
 
 #pragma mark-
 #pragma mark-Getter
+
+- (NSObject<SANetworkServiceProtocol> *)serviceObjectByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
+    NSString *serviceKey = [request.requestConfigProtocol serviceIdentifierKey];
+    NSAssert(serviceKey.length, @"你应该设置服务标示的key");
+    NSObject<SANetworkServiceProtocol> *serviceObject = [[SANetworkConfig sharedInstance] serviceObjectWithServiceIdentifier:serviceKey];
+    return serviceObject;
+}
 
 - (NSString *)urlStringByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     NSString *detailUrl = @"";
@@ -71,28 +75,14 @@
     }
     
     NSString *serviceURLString = nil;
-    if ([SANetworkConfig sharedInstance].urlSeriveDictionary && [request.requestConfigProtocol respondsToSelector:@selector(serviceKey)]) {
-        NSString *serviceKey = [request.requestConfigProtocol serviceKey];
-        serviceURLString = [SANetworkConfig sharedInstance].urlSeriveDictionary[serviceKey];
-        if ([serviceURLString hasPrefix:@"http"]) {
-            return [serviceURLString stringByAppendingPathComponent:detailUrl];
-        }
-    }
-    
-    NSString *baseUrlString = nil;
-    if ([request.requestConfigProtocol respondsToSelector:@selector(useViceURL)] && [request.requestConfigProtocol useViceURL]) {
-        baseUrlString = [SANetworkConfig sharedInstance].viceBaseUrlString;
-    }else{
-        baseUrlString = [SANetworkConfig sharedInstance].mainBaseUrlString;
-    }
-    
-    if (baseUrlString == nil || ![baseUrlString hasPrefix:@"http"]){
+
+    serviceURLString = [[self serviceObjectByRequest:request] serviceApiBaseUrlString];
+    if ([serviceURLString hasPrefix:@"http"]) {
+        return [serviceURLString stringByAppendingPathComponent:detailUrl];
+    }else {
         NSLog(@"\n\n\n请设置正确的URL\n\n\n");
         return nil;
-    }else if (serviceURLString.length) {
-        baseUrlString = [baseUrlString stringByAppendingString:serviceURLString];
     }
-    return [baseUrlString stringByAppendingPathComponent:detailUrl];
 }
 
 - (NSDictionary *)requestParamByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
@@ -104,11 +94,15 @@
         }
     }
     
-    if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseRequestParamSource)] || [request.requestConfigProtocol useBaseRequestParamSource]) && [SANetworkConfig sharedInstance].baseParamSourceBlock) {
-        NSDictionary *baseRequestParamSource = [SANetworkConfig sharedInstance].baseParamSourceBlock();
-        if (baseRequestParamSource != nil) {
-            [tempDict addEntriesFromDictionary:baseRequestParamSource];
+    if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseRequestParamSource)] || [request.requestConfigProtocol useBaseRequestParamSource])) {
+        NSObject<SANetworkServiceProtocol> *serviceObject = [self serviceObjectByRequest:request];
+        if ([serviceObject respondsToSelector:@selector(serviceBaseParamSource)]) {
+            NSDictionary *baseRequestParamSource = [serviceObject serviceBaseParamSource];
+            if (baseRequestParamSource != nil) {
+                [tempDict addEntriesFromDictionary:baseRequestParamSource];
+            }
         }
+
     }
     if (tempDict.count == 0) {
         return nil;
@@ -210,27 +204,31 @@
         default:
             break;
     }
-    if ([[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:responseSerializerType]) {
-        self.sessionManager.responseSerializer.acceptableContentTypes = [[SANetworkConfig sharedInstance] acceptableContentTypesForResponseSerializerType:responseSerializerType];
-    }
+
 }
 
 - (void)setupSessionManagerRequestSerializerByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     //配置requestSerializerType
+    NSObject<SANetworkServiceProtocol> *serviceObject = [self serviceObjectByRequest:request];
     SARequestSerializerType requestSerializerType;
     if ([request.requestConfigProtocol respondsToSelector:@selector(requestSerializerType)]) {
         requestSerializerType = [request.requestConfigProtocol requestSerializerType];
-    }else{
-        requestSerializerType = [SANetworkConfig sharedInstance].requestSerializerType;
+    }else if([serviceObject respondsToSelector:@selector(requestSerializerType)]){
+        requestSerializerType = [serviceObject serviceRequestSerializerType];
+    }else {
+        requestSerializerType = SARequestSerializerTypeHTTP;
     }
     [self setSessionManagerRequestSerializerByRequestSerializerType:requestSerializerType];
     
     //配置请求头
-    if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.requestConfigProtocol useBaseHTTPRequestHeaders]) && [SANetworkConfig sharedInstance].baseHTTPRequestHeadersBlock) {
-        NSDictionary *requestHeaders = [SANetworkConfig sharedInstance].baseHTTPRequestHeadersBlock();
-        [requestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
-        }];
+    if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.requestConfigProtocol useBaseHTTPRequestHeaders])) {
+        if ([[self serviceObjectByRequest:request] respondsToSelector:@selector(serviceBaseHTTPRequestHeaders)]) {
+            NSDictionary *requestHeaders = [[self serviceObjectByRequest:request] serviceBaseHTTPRequestHeaders];
+            [requestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
+            }];
+        }
+
     }
     if ([request.requestConfigProtocol respondsToSelector:@selector(customHTTPRequestHeaders)]) {
         NSDictionary *customRequestHeaders = [request.requestConfigProtocol customHTTPRequestHeaders];
@@ -240,9 +238,11 @@
     }
     
     //配置请求超时时间
-    NSTimeInterval timeoutInterval = [SANetworkConfig sharedInstance].requestTimeoutInterval;
+    NSTimeInterval timeoutInterval = 20.0f;
     if ([request.requestConfigProtocol respondsToSelector:@selector(requestTimeoutInterval)]) {
         timeoutInterval = [request.requestConfigProtocol requestTimeoutInterval];
+    } else if ([serviceObject respondsToSelector:@selector(requestTimeoutInterval)]) {
+        timeoutInterval = [serviceObject serviceRequestTimeoutInterval];
     }
     self.sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
     
@@ -250,13 +250,17 @@
     SAResponseSerializerType responseSerializerType;
     if ([request.requestConfigProtocol respondsToSelector:@selector(responseSerializerType)]) {
         responseSerializerType = [request.requestConfigProtocol responseSerializerType];
-    }else{
-        responseSerializerType = [SANetworkConfig sharedInstance].responseSerializerType;
+    }else if ([serviceObject respondsToSelector:@selector(responseSerializerType)]){
+        responseSerializerType = [serviceObject serviceResponseSerializerType];
+    }else {
+        responseSerializerType = SAResponseSerializerTypeJSON;
     }
     [self setSessionManagerResponseSerializerByResponseSerializerType:responseSerializerType];
     
     if ([request.requestConfigProtocol respondsToSelector:@selector(responseAcceptableContentTypes)] && [request.requestConfigProtocol responseAcceptableContentTypes]) {
         self.sessionManager.responseSerializer.acceptableContentTypes = [request.requestConfigProtocol responseAcceptableContentTypes];
+    } else {
+        self.sessionManager.responseSerializer.acceptableContentTypes = [serviceObject serviceResponseAcceptableContentTypes];
     }
     
     //配置请求缓存策略
@@ -286,7 +290,7 @@
         NSLog(@"参数配置有误！请查看isCorrectWithRequestParams: !");
         [request stopRequest];
         [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
-        SANetworkResponse *paramIncorrectResponse = [[SANetworkResponse alloc] initWithResponseData:nil requestTag:request.tag networkStatus:SANetworkRequestParamIncorrectStatus];
+        SANetworkResponse *paramIncorrectResponse = [[SANetworkResponse alloc] initWithResponseData:nil serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:SANetworkRequestParamIncorrectStatus];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             [request.responseDelegate networkRequest:request failedByResponse:paramIncorrectResponse];
         }
@@ -424,12 +428,15 @@
         return;
     }
     BOOL isAuthentication = YES;
-    if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseAuthentication)] || [request.requestConfigProtocol useBaseAuthentication]) && [SANetworkConfig sharedInstance].baseAuthenticationBlock) {
-        isAuthentication = [SANetworkConfig sharedInstance].baseAuthenticationBlock(request,response);
+    if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseAuthentication)] || [request.requestConfigProtocol useBaseAuthentication])) {
+        NSObject<SANetworkServiceProtocol> *serviceObject = [self serviceObjectByRequest:request];
+        if ([serviceObject respondsToSelector:@selector(serviceBaseAuthenticationWithNetworkRequest:resonse:)]) {
+            isAuthentication = [serviceObject serviceBaseAuthenticationWithNetworkRequest:request resonse:response];
+        }
     }
     if(isAuthentication && [request.requestConfigProtocol isCorrectWithResponseData:response]){
         [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
-        SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponseData:response requestTag:request.tag networkStatus:SANetworkResponseDataSuccessStatus];
+        SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:SANetworkResponseDataSuccessStatus];
         if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:beforePerformSuccessWithResponse:)]) {
             [request.interceptorDelegate networkRequest:request beforePerformSuccessWithResponse:response];
         }
@@ -441,7 +448,7 @@
         }
     } else {
         [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
-        SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponseData:response requestTag:request.tag networkStatus:isAuthentication ? SANetworkResponseDataIncorrectStatus : SANetworkResponseDataAuthenticationFailStatus];
+        SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:isAuthentication ? SANetworkResponseDataIncorrectStatus : SANetworkResponseDataAuthenticationFailStatus];
         [self beforePerformFailWithResponse:dataErrorResponse request:request];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
@@ -467,7 +474,7 @@
         NSLog(@"请求实例被意外释放!");
         return;
     }
-    SANetworkResponse *failureResponse = [[SANetworkResponse alloc] initWithResponseData:nil requestTag:request.tag networkStatus:[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ? SANetworkNotReachableStatus : SANetworkResponseFailureStatus];
+    SANetworkResponse *failureResponse = [[SANetworkResponse alloc] initWithResponseData:nil serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ? SANetworkNotReachableStatus : SANetworkResponseFailureStatus];
     [self beforePerformFailWithResponse:failureResponse request:request];
     if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
         [request.responseDelegate networkRequest:request failedByResponse:failureResponse];

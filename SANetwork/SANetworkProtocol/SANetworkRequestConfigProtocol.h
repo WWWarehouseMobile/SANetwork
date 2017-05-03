@@ -47,6 +47,13 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 @required
 
 /**
+ *  @brief 属于哪个服务。
+ *  @warning 需要注意的是若想取到这个key对应的服务，要配置SANetworkConfig的urlSeriveDictionary。
+ *  @return 服务的key （string）
+ */
+- (NSString *)serviceIdentifierKey;
+
+/**
  *  @brief 接口地址。若设置带有http的请求地址，将会忽略SANetworkConfig设置的url
  */
 - (NSString *)requestMethodName;
@@ -62,12 +69,6 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 
 @optional
 
-/**
- *  属于哪个服务，看具体服务端怎么写，简单的话，不用使用。
- *  @warning 需要注意的是若想取到这个key对应的服务，要配置SANetworkConfig的urlSeriveDictionary。若取到值以http开头，将忽略SANetworkConfig的mainBaseUrlString及viceBaseUrlString。
- *  @return 服务的key （string）
- */
-- (NSString *)serviceKey;
 
 /**
  *  @brief 请求方式，默认为 SARequestMethodPost
@@ -127,13 +128,6 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  *  @return 处理方式
  */
 - (SARequestHandleSameRequestType)handleSameRequestType;
-
-/**
- *  @brief 可以使用两个根地址，比如可能会用到 CDN 地址、https之类的。默认NO
- *
- *  @return 是否使用副Url
- */
-- (BOOL)useViceURL;
 
 /**
  *  很多请求都会需要相同的请求参数，可设置SANetworkConfig的baseParamSourceBlock，这个block会返回你所设置的基础参数。默认YES

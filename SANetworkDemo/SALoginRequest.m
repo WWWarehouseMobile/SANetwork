@@ -23,6 +23,10 @@
     return @"http://192.168.6.25:8080/base/loginTest";
 }
 
+- (NSString *)serviceIdentifierKey {
+    return nil;
+}
+
 
 - (BOOL)isCorrectWithResponseData:(id)responseData {
     return [responseData[@"code"] integerValue] == 0 ? YES : NO;

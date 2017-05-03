@@ -18,7 +18,7 @@ PODS:
   - MJRefresh (3.1.12)
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.0)
+  - AFNetworking
   - MBProgressHUD (~> 0.9.2)
   - MJRefresh (~> 3.1.0)
 
@@ -27,6 +27,6 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
 
-PODFILE CHECKSUM: a1b69902db8ff2f61def7ef280a3ef1f1f9f0c95
+PODFILE CHECKSUM: eae911010c71115df42575569ddad37214fb6de2
 
 COCOAPODS: 1.2.0.beta.1

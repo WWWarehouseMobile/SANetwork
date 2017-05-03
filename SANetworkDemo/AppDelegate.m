@@ -8,19 +8,27 @@
 
 #import "AppDelegate.h"
 #import "SANetwork.h"
+#import "SAExpressService.h"
+#import "SABaiFuBaoService.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<SANetworkConfigDataSource>
 
 @end
 
 @implementation AppDelegate
 
 
+- (NSDictionary<NSString *,NSObject<SANetworkServiceProtocol> *> *)servicesKindsOfNetwork {
+    return @{@"kuaidiServiceKey": [[SAExpressService alloc] init],
+             @"BaiFuBaoIdentifierKey" : [[SABaiFuBaoService alloc] init]
+             };
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     /**
      *  设定自己需要请求的URL
      */
-    [SANetworkConfig sharedInstance].mainBaseUrlString = @"http://www.kuaidi100.com";
+    [SANetworkConfig sharedInstance].dataSource = self;
     /**
      *  当使用viceBaseUrlString时，请设定请求的SANetworkConfigProtocol中的viceBaseUrlString为YES
      */
@@ -50,16 +58,16 @@
 //                 @"token" : @"8046DB4D7844617E0F9EC72A46CE4317",
 //                 };
 //    }];
-    [[SANetworkConfig sharedInstance] setRequestSerializerType:SARequestSerializerTypeJSON];
+//    [[SANetworkConfig sharedInstance] setRequestSerializerType:SARequestSerializerTypeJSON];
     [SANetworkConfig sharedInstance].enableDebug = YES;  //允许后台打印输出
-    [[SANetworkConfig sharedInstance] setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"text/html", nil] forResponseSerializerType:SAResponseSerializerTypeJSON];
+//    [[SANetworkConfig sharedInstance] setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"text/html", nil] forResponseSerializerType:SAResponseSerializerTypeJSON];
 //
 //    /**
 //     *  根据自己的接口返回，自定义设置
 //     */
-    [SANetworkConfig sharedInstance].responseMessageKey = @"msg";
-    [SANetworkConfig sharedInstance].responseCodeKey = @"code";
-    [SANetworkConfig sharedInstance].responseContentDataKey = @"data";
+//    [SANetworkConfig sharedInstance].responseMessageKey = @"msg";
+//    [SANetworkConfig sharedInstance].responseCodeKey = @"code";
+//    [SANetworkConfig sharedInstance].responseContentDataKey = @"data";
     // Override point for customization after application launch.
     return YES;
 }

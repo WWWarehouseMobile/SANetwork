@@ -8,12 +8,10 @@
 
 #import "SANetworkConfig.h"
 
-static inline NSString *kAcceptableContentTypesKey(SAResponseSerializerType responseSerializerType) {
-    return [NSString stringWithFormat:@"com.sanetwork.responseSerializerType-%ld",(long)responseSerializerType];
-}
-
 @interface SANetworkConfig ()
-@property (nonatomic, strong) NSMutableDictionary *acceptableContentTypesDict;
+
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSObject<SANetworkServiceProtocol> *> *serviceStorageDictionary;
+
 @end
 @implementation SANetworkConfig {
 }
@@ -30,22 +28,30 @@ static inline NSString *kAcceptableContentTypesKey(SAResponseSerializerType resp
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _requestSerializerType = SARequestSerializerTypeHTTP;
-        _responseSerializerType = SAResponseSerializerTypeJSON;
-        _requestTimeoutInterval = 20.0f;
         _enableDebug = NO;
-        _acceptableContentTypesDict = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
-- (void)setAcceptableContentTypes:(NSSet<NSString *> *)acceptableContentTypes forResponseSerializerType:(SAResponseSerializerType)responseSerializerType {
-    if ([acceptableContentTypes count]) {
-        [self.acceptableContentTypesDict setObject:acceptableContentTypes forKey:kAcceptableContentTypesKey(responseSerializerType)];
+- (NSMutableDictionary<NSString *, NSObject<SANetworkServiceProtocol> *> *)serviceStorageDictionary {
+    if (_serviceStorageDictionary == nil) {
+        _serviceStorageDictionary = [[NSMutableDictionary alloc] init];
     }
+    return _serviceStorageDictionary;
 }
 
-- (NSSet<NSString *> *)acceptableContentTypesForResponseSerializerType:(SAResponseSerializerType)responseSerializerType {
-    return self.acceptableContentTypesDict[kAcceptableContentTypesKey(responseSerializerType)];
+- (NSObject<SANetworkServiceProtocol> *)serviceObjectWithServiceIdentifier:(NSString *)serviceIdentifier {
+    NSAssert(self.dataSource, @"必须提供dataSource绑定并实现servicesKindsOfNetwork方法，否则无法正常使用Service模块");
+    if (self.serviceStorageDictionary[serviceIdentifier] == nil) {        
+        if ([[self.dataSource servicesKindsOfNetwork] valueForKey:serviceIdentifier]) {
+            NSObject<SANetworkServiceProtocol> *serviceObject = [[self.dataSource servicesKindsOfNetwork] valueForKey:serviceIdentifier];
+            NSAssert([serviceObject conformsToProtocol:@protocol(SANetworkServiceProtocol)], @"你提供的Service没有遵循SANetworkServiceProtocol");
+            return serviceObject;
+        }else {
+            NSAssert(NO, @"servicesKindsOfServiceFactory中无法找不到相匹配identifier");
+        }
+        return nil;
+    }
+    return self.serviceStorageDictionary[serviceIdentifier];
 }
 @end

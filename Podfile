@@ -1,6 +1,12 @@
-platform :ios, '7.0'
+platform :ios, '8.0'
 target :SANetworkDemo do
-pod 'AFNetworking', '~> 3.0'
+pod 'AFNetworking'
 pod 'MJRefresh', '~> 3.1.0'
 pod 'MBProgressHUD', '~> 0.9.2'
+end
+
+target :SANetworkDemoTests do
+    pod 'AFNetworking'
+    pod 'MJRefresh', '~> 3.1.0'
+    pod 'MBProgressHUD', '~> 0.9.2'
 end

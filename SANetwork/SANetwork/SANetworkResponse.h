@@ -53,6 +53,7 @@ typedef NS_ENUM(NSInteger, SANetworkStatus) {
 @property (nonatomic, assign, readonly) BOOL isCache;
 
 - (instancetype)initWithResponseData:(id)responseData
+                          serviceIdentifierKey:(NSString *)serviceIdentifierKey
                           requestTag:(NSInteger)requestTag
                        networkStatus:(SANetworkStatus)networkStatus;
 

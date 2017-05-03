@@ -14,13 +14,17 @@
 {
     self = [super init];
     if (self) {
-//        self.requestParamSourceDelegate = self;
+        self.requestParamSourceDelegate = self;
     }
     return self;
 }
 
 - (NSString *)requestMethodName {
-    return @"http://192.168.6.24:8080/base/getCaptcha";
+    return @"query";
+}
+
+- (NSString *)serviceIdentifierKey {
+    return @"kuaidiServiceKey";
 }
 
 - (BOOL)isCorrectWithResponseData:(id)responseData {
@@ -30,23 +34,23 @@
     return NO;
 }
 
-- (SARequestMethod)requestMethod {
-    return SARequestMethodPost;
-}
-
-- (SARequestSerializerType)requestSerializerType {
-    return SARequestSerializerTypeHTTP;
-}
-
-- (SAResponseSerializerType)responseSerializerType {
-    return SAResponseSerializerTypeImage;
-}
-
-//- (NSDictionary *)requestParamDictionary {
-//    return @{
-//             @"type" : self.type,
-//             @"postid" : self.postId
-//             };
+//- (SARequestMethod)requestMethod {
+//    return SARequestMethodPost;
 //}
+//
+//- (SARequestSerializerType)requestSerializerType {
+//    return SARequestSerializerTypeHTTP;
+//}
+//
+//- (SAResponseSerializerType)responseSerializerType {
+//    return SAResponseSerializerTypeImage;
+//}
+
+- (NSDictionary *)requestParamDictionary {
+    return @{
+             @"type" : self.type,
+             @"postid" : self.postId
+             };
+}
 
 @end

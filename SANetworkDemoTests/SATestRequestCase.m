@@ -8,7 +8,7 @@
 
 #import "SANetworkTestCase.h"
 #import "ExpressRequest.h"
-#import "UserInfoRequest.h"
+#import "BaiFuBaoRequest.h"
 #import "SALoginRequest.h"
 
 @interface SATestRequestCase : SANetworkTestCase
@@ -31,8 +31,8 @@
     ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
     expressRequest.tag = 101;
     expressRequest.responseDelegate = self;
-//    expressRequest.type = @"yuantong";
-//    expressRequest.postId = @"881443775034378914";
+    expressRequest.type = @"yuantong";
+    expressRequest.postId = @"881443775034378914";
     [expressRequest startRequest];
     [self wait];
 }
@@ -81,7 +81,7 @@
 }
 
 - (void)testUserInfoRequest {
-    UserInfoRequest *userInfoRequest = [[UserInfoRequest alloc] init];
+    BaiFuBaoRequest *userInfoRequest = [[BaiFuBaoRequest alloc] init];
     userInfoRequest.tag = 102;
     userInfoRequest.responseDelegate = self;
     userInfoRequest.mobile = @"13173610819";

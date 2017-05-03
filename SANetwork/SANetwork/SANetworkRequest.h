@@ -12,6 +12,7 @@
 #import "SANetworkRequestConfigProtocol.h"
 #import "SANetworkRequestParamSourceProtocol.h"
 #import "SANetworkResponseProtocol.h"
+#import "SANetworkServiceProtocol.h"
 
 @interface SANetworkRequest : NSObject
 

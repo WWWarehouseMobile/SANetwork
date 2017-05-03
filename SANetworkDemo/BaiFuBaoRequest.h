@@ -8,6 +8,6 @@
 
 #import "SANetworkRequest.h"
 
-@interface UserInfoRequest : SANetworkRequest<SANetworkRequestConfigProtocol,SANetworkRequestParamSourceProtocol>
+@interface BaiFuBaoRequest : SANetworkRequest<SANetworkRequestConfigProtocol,SANetworkRequestParamSourceProtocol>
 @property (nonnull, nonatomic, strong) NSString *mobile;
 @end

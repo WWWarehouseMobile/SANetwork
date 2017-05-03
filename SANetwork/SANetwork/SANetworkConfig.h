@@ -7,79 +7,34 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SANetworkRequest.h"
+#import "SANetworkServiceProtocol.h"
 
-/**
- *  @brief 返回需要统一设定的请求头
- *
- *  @return 请求头的字典
- */
-typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseHTTPRequestHeadersBlock)();
-
-/**
- *  基本的请求参数，在较多接口都会使用到的参数，这些参数可以作为base参数设定，比如用户名、app标示、版本 等等
- *
- *  @return “基本”参数字典
- */
-typedef NSDictionary<NSString *,NSString *>* (^SANetworkRequestBaseParamSourceBlock)();
-
-/**
- *  @brief 返回需要统一设定的请求头
- *
- *  @return 请求头的字典
- */
-typedef BOOL (^SANetworkResponseBaseAuthenticationBlock)(SANetworkRequest *networkRequest, id response);
-
+@protocol SANetworkConfigDataSource;
 /**
  *  @brief 网络配置类
  */
-
 @interface SANetworkConfig : NSObject
 
 + (SANetworkConfig *)sharedInstance;
 
-@property (nonatomic, copy) NSString *mainBaseUrlString;// 主url
-@property (nonatomic, copy) NSString *viceBaseUrlString;// 副url
-
-@property (nonatomic, copy) SANetworkRequestBaseHTTPRequestHeadersBlock baseHTTPRequestHeadersBlock;
-@property (nonatomic, copy) SANetworkRequestBaseParamSourceBlock baseParamSourceBlock;
-@property (nonatomic, copy) SANetworkResponseBaseAuthenticationBlock baseAuthenticationBlock;
-
-/**
- *  @brief 设置请求的服务列表(针对后台配置定制，简单的话，就不需要)
- */
-@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *urlSeriveDictionary;
-
-/**
- *  @brief 默认SARequestSerializerTypeHTTP（即：[AFHTTPRequestSerializer serializer]）
- */
-@property (nonatomic, assign) SARequestSerializerType requestSerializerType;
-
-/**
- *  @brief 默认SAResponseSerializerTypeJSON (即：[AFJSONResponseSerializer serializer])
- */
-@property (nonatomic, assign) SAResponseSerializerType responseSerializerType;
-
-
-- (void)setAcceptableContentTypes:(NSSet<NSString *> *)acceptableContentTypes forResponseSerializerType:(SAResponseSerializerType)responseSerializerType;
-
-- (NSSet<NSString *> *)acceptableContentTypesForResponseSerializerType:(SAResponseSerializerType)responseSerializerType;
-
-/**
- *  @brief 请求超时时间，默认20秒
- */
-@property (nonatomic, assign) NSTimeInterval requestTimeoutInterval;
+@property (nonatomic, weak) id<SANetworkConfigDataSource> dataSource;
 
 /**
  *  @brief 是否打开debug日志，默认关闭
  */
 @property (nonatomic, assign) BOOL enableDebug;
 
+- (NSObject<SANetworkServiceProtocol> *)serviceObjectWithServiceIdentifier:(NSString *)serviceIdentifier;
 
-/*******以下属性的设定用于服务端返回数据的第一层格式统一，设定后，便于更深一层的取到数据 *********/
+@end
 
-@property (nonatomic, strong) NSString *responseMessageKey;
-@property (nonatomic, strong) NSString *responseCodeKey;
-@property (nonatomic, strong) NSString *responseContentDataKey;
+@protocol SANetworkConfigDataSource <NSObject>
+
+@required
+/*
+ * key为service的Identifier
+ * value为service对象，此对象必须要实现SANetworkServiceProtocol协议
+ */
+- (NSDictionary<NSString *, NSObject<SANetworkServiceProtocol> *> *)servicesKindsOfNetwork;
 
 @end
