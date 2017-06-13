@@ -265,7 +265,7 @@ SANetworkResponse还提供了数据改革的协议`SANetworkResponseReformerProt
 	    [self.hud show:YES];
 	}
 	
-	- (void)networkRequestAccessoryDidStop {
+	- (void)networkRequestAccessoryByStatus:(SANetworkStatus)networkStatus {
 	    [self.hud hide:YES afterDelay:0.3f];
 	}
 	
