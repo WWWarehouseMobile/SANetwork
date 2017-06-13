@@ -272,7 +272,7 @@ SANetworkResponse还提供了数据改革的协议`SANetworkResponseReformerProt
 	@end
 	
 
-#####SANetworkInterceptorProtocol
+##### SANetworkInterceptorProtocol
 
 这是一个请求返回之后，针对请求**成功之前**、**成功之后**、**失败之前**、**失败之后**进行拦截，你可以在这些拦截方法处理你的事务。
 
