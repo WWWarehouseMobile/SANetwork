@@ -10,22 +10,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/ISCSMobileOrg/SANetwork.git", :tag => s.version.to_s, :submodules => true}
   s.requires_arc = true
   s.public_header_files = 'SANetwork/SANetwork.h'
-  s.source_files = 'SANetwork/*.{h}'
-
-  s.subspec 'SANetworkLogger' do |ss|
-    ss.source_files = 'SANetwork/SANetworkLogger/*.{h,m}'
-  end
-
-  s.subspec 'SANetworkProtocol' do |ss|
-    ss.source_files = 'SANetwork/SANetworkProtocol/*.{h,m}'
-  end
-
-  s.subspec 'SANetwork' do |ss|
-    ss.source_files = 'SANetwork/SANetwork/*.{h,m}'
-    ss.dependency 'SANetwork/SANetworkProtocol'
-    ss.dependency 'SANetwork/SANetworkLogger'
-  end
-
+  s.source_files = 'SANetwork/*.{h,m}'
   s.dependency 'AFNetworking', '~> 3.0'
-
 end

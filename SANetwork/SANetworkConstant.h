@@ -3,7 +3,7 @@
 //  SANetworkDemo
 //
 //  Created by 詹学宝 on 2017/6/9.
-//  Copyright © 2017年 学宝工作室. All rights reserved.
+//  Copyright © 2017年 浙江网仓科技有限公司. All rights reserved.
 //
 
 #ifndef SANetworkConstant_h
