@@ -87,8 +87,8 @@
 
 - (NSDictionary *)requestParamByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
-    if (request.requestParamSourceDelegate) {
-        NSDictionary *paramDict = [request.requestParamSourceDelegate requestParamDictionary];
+    if ([request.requestConfigProtocol respondsToSelector:@selector(requestParamDictionary)]) {
+        NSDictionary *paramDict = [request.requestConfigProtocol requestParamDictionary];
         if (paramDict != nil) {
             [tempDict addEntriesFromDictionary:paramDict];
         }
@@ -145,10 +145,6 @@
     return NSURLRequestReloadIgnoringCacheData;
 }
 
-- (NSString *)keyWithURLString:(NSString *)urlString requestParam:(NSDictionary *)requestParam {
-    NSString *cacheKey = [self urlStringWithOriginUrlString:urlString appendParameters:requestParam];
-    return [self stringByMd5String:cacheKey];
-}
 
 #pragma mark-
 #pragma mark-Setter
@@ -228,8 +224,8 @@
                 [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
             }];
         }
-
     }
+    
     if ([request.requestConfigProtocol respondsToSelector:@selector(customHTTPRequestHeaders)]) {
         NSDictionary *customRequestHeaders = [request.requestConfigProtocol customHTTPRequestHeaders];
         [customRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
@@ -247,13 +243,11 @@
     self.sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
     
     //配置responseSerializerType
-    SAResponseSerializerType responseSerializerType;
+    SAResponseSerializerType responseSerializerType = SAResponseSerializerTypeJSON;
     if ([request.requestConfigProtocol respondsToSelector:@selector(responseSerializerType)]) {
         responseSerializerType = [request.requestConfigProtocol responseSerializerType];
     }else if ([serviceObject respondsToSelector:@selector(responseSerializerType)]){
         responseSerializerType = [serviceObject serviceResponseSerializerType];
-    }else {
-        responseSerializerType = SAResponseSerializerTypeJSON;
     }
     [self setSessionManagerResponseSerializerByResponseSerializerType:responseSerializerType];
     
@@ -278,18 +272,12 @@
 
 - (void)addRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     NSString *requestURLString = [self urlStringByRequest:request];
-    //    if ([requestURLString hasPrefix:@"https"]) {
-    //        AFSecurityPolicy *securityPolicy = [[AFSecurityPolicy alloc] init];
-    //        [securityPolicy setAllowInvalidCertificates:YES];
-    //        self.sessionManager.securityPolicy = securityPolicy;
-    //    }
-    
     NSDictionary *requestParam = [self requestParamByRequest:request];
+    
     //检查参数配置
     if (![self isCorrectByRequestParams:requestParam request:request]) {
         NSLog(@"参数配置有误！请查看isCorrectWithRequestParams: !");
-        [request stopRequest];
-        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
+        [request stopRequestByStatus:SANetworkRequestParamIncorrectStatus];
         SANetworkResponse *paramIncorrectResponse = [[SANetworkResponse alloc] initWithResponseData:nil serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:SANetworkRequestParamIncorrectStatus];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             [request.responseDelegate networkRequest:request failedByResponse:paramIncorrectResponse];
@@ -308,8 +296,7 @@
                         isContinuePerform = NO;
                         break;
                     case SARequestHandleSameRequestCancelPreviousType:
-                        [requestingObj stopRequest];
-                        [requestingObj accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
+                        [requestingObj stopRequestByStatus:SANetworkRequestCancelStatus];
                         break;
                     default:
                         break;
@@ -320,8 +307,7 @@
         
         if (isContinuePerform == NO){
             NSLog(@"有个相同URL请求未完成，这个请求被取消了（可设置handleSameRequestType）");
-            [request stopRequest];
-            [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusCancel];
+            [request stopRequestByStatus:SANetworkRequestCancelStatus];
             return;
         }
     }
@@ -422,7 +408,6 @@
 - (void)handleRequestSuccess:(NSURLSessionDataTask *)sessionDataTask responseObject:(id)response {
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest<SANetworkRequestConfigProtocol> *request = _requestRecordDict[taskKey];
-    [request stopRequest];
     if (request == nil){
         NSLog(@"请求实例被意外释放!");
         return;
@@ -430,12 +415,12 @@
     BOOL isAuthentication = YES;
     if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseAuthentication)] || [request.requestConfigProtocol useBaseAuthentication])) {
         NSObject<SANetworkServiceProtocol> *serviceObject = [self serviceObjectByRequest:request];
-        if ([serviceObject respondsToSelector:@selector(serviceBaseAuthenticationWithNetworkRequest:resonse:)]) {
-            isAuthentication = [serviceObject serviceBaseAuthenticationWithNetworkRequest:request resonse:response];
+        if ([serviceObject respondsToSelector:@selector(serviceBaseAuthenticationWithNetworkRequest:response:)]) {
+            isAuthentication = [serviceObject serviceBaseAuthenticationWithNetworkRequest:request response:response];
         }
     }
     if(isAuthentication && [request.requestConfigProtocol isCorrectWithResponseData:response]){
-        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
+        [request stopRequestByStatus:SANetworkResponseDataSuccessStatus];
         SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:SANetworkResponseDataSuccessStatus];
         if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:beforePerformSuccessWithResponse:)]) {
             [request.interceptorDelegate networkRequest:request beforePerformSuccessWithResponse:response];
@@ -447,8 +432,9 @@
             [request.interceptorDelegate networkRequest:request afterPerformSuccessWithResponse:response];
         }
     } else {
-        [request accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
-        SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:isAuthentication ? SANetworkResponseDataIncorrectStatus : SANetworkResponseDataAuthenticationFailStatus];
+        SANetworkStatus failStatus = isAuthentication ? SANetworkResponseDataIncorrectStatus : SANetworkResponseDataAuthenticationFailStatus;
+        [request stopRequestByStatus:failStatus];
+        SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:failStatus];
         [self beforePerformFailWithResponse:dataErrorResponse request:request];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
@@ -468,13 +454,13 @@
 - (void)handleRequestFailure:(NSURLSessionDataTask *)sessionDataTask error:(NSError *)error {
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest<SANetworkRequestConfigProtocol> *request = _requestRecordDict[taskKey];
-    [request stopRequest];
-    [request accessoryFinishByStatus:[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ? SANetworkAccessoryFinishStatusNotReachable : SANetworkAccessoryFinishStatusFailure];
+    SANetworkStatus failStatus = [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ? SANetworkNotReachableStatus : SANetworkResponseFailureStatus;
+    [request stopRequestByStatus:failStatus];
     if (request == nil) {
         NSLog(@"请求实例被意外释放!");
         return;
     }
-    SANetworkResponse *failureResponse = [[SANetworkResponse alloc] initWithResponseData:nil serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ? SANetworkNotReachableStatus : SANetworkResponseFailureStatus];
+    SANetworkResponse *failureResponse = [[SANetworkResponse alloc] initWithResponseData:nil serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:failStatus];
     [self beforePerformFailWithResponse:failureResponse request:request];
     if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
         [request.responseDelegate networkRequest:request failedByResponse:failureResponse];
@@ -505,46 +491,4 @@
     }
 }
 
-
-#pragma mark-
-#pragma mark-Other
-
-- (NSString *)urlStringWithOriginUrlString:(NSString *)originUrlString appendParameters:(NSDictionary *)parameters {
-    NSString *filteredUrl = originUrlString;
-    NSMutableString *urlParametersString = [[NSMutableString alloc] initWithString:@""];
-    if (parameters && parameters.count > 0) {
-        for (NSString *key in parameters) {
-            NSString *value = parameters[key];
-            value = [NSString stringWithFormat:@"%@",value];
-            value = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)value, CFSTR("."), CFSTR(":/?#[]@!$&'()*+,;="), kCFStringEncodingUTF8);;
-            [urlParametersString appendFormat:@"&%@=%@", key, value];
-        }
-    }
-    if (urlParametersString.length > 0) {
-        if ([originUrlString rangeOfString:@"?"].location != NSNotFound) {
-            filteredUrl = [filteredUrl stringByAppendingString:urlParametersString];
-        } else {
-            filteredUrl = [filteredUrl stringByAppendingFormat:@"?%@", [urlParametersString substringFromIndex:1]];
-        }
-        return filteredUrl;
-    } else {
-        return originUrlString;
-    }
-}
-
-- (NSString *)stringByMd5String:(NSString *)string {
-    if(string == nil || [string length] == 0)
-        return nil;
-    
-    const char *value = [string UTF8String];
-    
-    unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
-    
-    NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
-        [outputString appendFormat:@"%02x",outputBuffer[count]];
-    }
-    return outputString;
-}
 @end

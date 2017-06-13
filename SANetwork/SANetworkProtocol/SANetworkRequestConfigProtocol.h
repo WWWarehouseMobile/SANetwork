@@ -2,29 +2,51 @@
 //  SANetworkRequestConfigProtocol.h
 //  SANetworkDemo
 //
-//  Created by 阿宝 on 16/7/21.
-//  Copyright © 2016年 学宝工作室. All rights reserved.
+//  Created by 学宝 on 16/7/21.
+//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFURLRequestSerialization.h>
 
+
+/**
+ 网络接口请求方式
+ */
 typedef NS_ENUM(NSInteger , SARequestMethod) {
+    /**Post请求*/
     SARequestMethodPost = 0,
+    /**Get请求*/
     SARequestMethodGet,
 };
 
+
+/**
+ 请求序列化类型
+ */
 typedef NS_ENUM(NSInteger , SARequestSerializerType) {
+    /**Http*/
     SARequestSerializerTypeHTTP = 0,
+    /**Json*/
     SARequestSerializerTypeJSON,
+    /**plist*/
     SARequestSerializerTypePropertyList,
 };
 
+
+/**
+ 响应数据序列化类型
+ */
 typedef NS_ENUM(NSInteger , SAResponseSerializerType) {
+    /**Json*/
     SAResponseSerializerTypeJSON = 0,
+    /**Http*/
     SAResponseSerializerTypeHTTP,
+    /**xml*/
     SAResponseSerializerTypeXMLParser,
+    /**plist*/
     SAResponseSerializerTypePropertyList,
+    /**image*/
     SAResponseSerializerTypeImage,
 };
 
@@ -34,21 +56,39 @@ typedef NS_ENUM(NSInteger , SAResponseSerializerType) {
  *  @brief 处理正在执行的前一个相同方法的请求的方式
  *  @warning 相同方法的请求是指url相同，参数可能不同
  */
+
+/**
+    处理正在执行与前一个相同方法请求的方式
+ * 相同方法的请求是指url相同，参数可能不同
+ */
 typedef NS_ENUM(NSInteger , SARequestHandleSameRequestType) {
+    /**取消正要启动的请求*/
     SARequestHandleSameRequestCancelCurrentType = 0,
+    /**取消正在进行的请求*/
     SARequestHandleSameRequestCancelPreviousType,
+    /**不取消请求，请求同时执行*/
     SARequestHandleSameRequestBothContinueType,
 };
 
+
+/**
+ 上传数据构造Block
+
+ @param formData 要注入的上传信息
+ */
 typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 
+
+/**
+ 请求对象的配置协议
+ */
 @protocol SANetworkRequestConfigProtocol <NSObject>
 
 @required
 
 /**
  *  @brief 属于哪个服务。
- *  @warning 需要注意的是若想取到这个key对应的服务，要配置SANetworkConfig的urlSeriveDictionary。
+ *  @warning 需要注意的是若想取到这个key对应的服务，要先使用这个key配置SANetworkConfig的setServiceObject:serviceIdentifier:。
  *  @return 服务的key （string）
  */
 - (NSString *)serviceIdentifierKey;
@@ -75,6 +115,13 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  */
 - (SARequestMethod)requestMethod;
 
+/**
+ *  @brief 请求所需要的参数
+ *
+ *  @return 参数字典
+ */
+
+- (NSDictionary *)requestParamDictionary;
 
 /**
  *  @author 学宝
@@ -123,7 +170,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (AFConstructingBlock)constructingBodyBlock;
 
 /**
- *  @brief 处理正在执行相同方法的请求（参数可能不同）
+ *  @brief 处理正在执行相同方法的请求（参数可能不同），默认取消正要启动的请求SARequestHandleSameRequestCancelCurrentType
  *
  *  @return 处理方式
  */

@@ -10,8 +10,19 @@
 #import "SANetworkAccessoryProtocol.h"
 
 @class MJRefreshComponent;
+
+/**
+ 定制的Refresh请求插件
+ */
 @interface SANetworkRefreshAccessory : NSObject<SANetworkAccessoryProtocol>
 
+
+/**
+  初始化Refresh请求插件
+
+ @param refreshView 刷新的view
+ @return Refresh请求插件对象
+ */
 - (instancetype)initWithRefreshView:(MJRefreshComponent *)refreshView;
 
 @end

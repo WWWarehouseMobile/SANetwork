@@ -1,24 +1,24 @@
 //
-//  SABaiFuBaoService.m
+//  SATaobaoService.m
 //  SANetworkDemo
 //
-//  Created by 詹学宝 on 2017/4/28.
+//  Created by 詹学宝 on 2017/6/12.
 //  Copyright © 2017年 学宝工作室. All rights reserved.
 //
 
-#import "SABaiFuBaoService.h"
+#import "SATaobaoService.h"
 
-@implementation SABaiFuBaoService
+@implementation SATaobaoService
 - (NSString *)serviceApiBaseUrlString {
-    return @"https://www.baifubao.com";
+    return @"https://suggest.taobao.com/";
 }
 
 - (NSSet<NSString *> *)serviceResponseAcceptableContentTypes {
-    return [NSSet setWithObjects:@"application/json",@"text/html",nil];
+    return [NSSet setWithObjects:@"application/json",nil];
 }
 
 - (SARequestSerializerType)serviceRequestSerializerType {
-    return SARequestSerializerTypeJSON;
+    return SARequestSerializerTypeHTTP;
 }
 
 - (SAResponseSerializerType)serviceResponseSerializerType {
@@ -43,16 +43,7 @@
 
 /*******以下协议的设定用于服务端返回数据的第一层格式统一，设定后，便于更深一层的取到数据 *********/
 
-- (NSString *)responseMessageKey {
-    return nil;
-}
-
-- (NSString *)responseCodeKey {
-    return nil;
-}
-
 - (NSString *)responseContentDataKey {
-    return @"data";
+    return @"result";
 }
-
 @end

@@ -2,7 +2,7 @@
 //  ViewController.m
 //  SANetwork
 //
-//  Created by ISCS01 on 16/3/25.
+//  Created by 学宝 on 16/3/25.
 //  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
 //
 
@@ -11,8 +11,7 @@
 #import "SANetworkHUDAccessory.h"
 #import "ExpressRequest.h"
 #import <AFNetworking/AFNetworking.h>
-#import "BaiFuBaoRequest.h"
-#import "SALoginRequest.h"
+#import "TaobaoSuggestRequest.h"
 
 @interface ViewController ()<SANetworkResponseProtocol,SANetworkBatchRequestResponseDelegate,SANetworkChainRequestResponseDelegate>
 
@@ -34,32 +33,21 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)pressSingleRequest:(id)sender {
-    ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
-    expressRequest.tag = 101;
-    expressRequest.responseDelegate = self;
-    expressRequest.type = @"yuantong";
-    expressRequest.postId = @"881443775034378914";
-    [expressRequest startRequest];
-//    SALoginRequest *loginRequest = [[SALoginRequest alloc] init];
-//    loginRequest.userId = @"1000294";
-//    loginRequest.password = @"1";
-//    loginRequest.tag = 103;
-//    loginRequest.responseDelegate = self;
-//    [loginRequest startRequest];
-    
-//    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Single Loading..."];
-//    UserInfoRequest *userInfoRequest = [[UserInfoRequest alloc] init];
-//    userInfoRequest.mobile = @"13173610819";
-//    userInfoRequest.responseDelegate = self;
-//    [userInfoRequest addNetworkAccessoryObject:hudAccessory]; //添加hud插件
-//    [userInfoRequest startRequest];
+    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Request Loading..."];
+    TaobaoSuggestRequest *suggestRequest = [[TaobaoSuggestRequest alloc] init];
+    suggestRequest.query = @"iphone";
+    suggestRequest.tag = 102;
+    suggestRequest.responseDelegate = self;
+    [suggestRequest addNetworkAccessoryObject:hudAccessory];
+    [suggestRequest startRequest];
 }
 
 - (IBAction)pressChainRequest:(id)sender {
     SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Chain Loading..."];
-    BaiFuBaoRequest *userInfoRequest = [[BaiFuBaoRequest alloc] init];
-    userInfoRequest.mobile = @"13173610819";
-    SANetworkChainRequest *chainRequest = [[SANetworkChainRequest alloc] initWithRootNetworkRequest:userInfoRequest];
+    TaobaoSuggestRequest *suggestRequest = [[TaobaoSuggestRequest alloc] init];
+    suggestRequest.query = @"iphone";
+
+    SANetworkChainRequest *chainRequest = [[SANetworkChainRequest alloc] initWithRootNetworkRequest:suggestRequest];
     chainRequest.delegate = self;
     [chainRequest addNetworkAccessoryObject:hudAccessory];
     [chainRequest startChainRequest];
@@ -68,19 +56,18 @@
 
 - (IBAction)pressBatchRequest:(id)sender {
     SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Batch Loading..."];
-    BaiFuBaoRequest *userInfoRequest = [[BaiFuBaoRequest alloc] init];
-    userInfoRequest.mobile = @"13173610819";
+    TaobaoSuggestRequest *suggestRequest = [[TaobaoSuggestRequest alloc] init];
+    suggestRequest.query = @"iphone";
     
     ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
     expressRequest.type = @"yuantong";
     expressRequest.postId = @"881443775034378914";
     
-    SANetworkBatchRequest *batchRequest = [[SANetworkBatchRequest alloc] initWithRequestArray:@[userInfoRequest,expressRequest]];
+    SANetworkBatchRequest *batchRequest = [[SANetworkBatchRequest alloc] initWithRequestArray:@[suggestRequest,expressRequest]];
     [batchRequest addNetworkAccessoryObject:hudAccessory];
     [batchRequest startBatchRequest];
     _batchRequest = batchRequest;
 }
-
 
 #pragma mark-
 #pragma mark- SANetworkResponseProtocol
@@ -98,7 +85,7 @@
 #pragma mark- SANetworkChainRequestResponseDelegate
 - (__kindof SANetworkRequest *)networkChainRequest:(SANetworkChainRequest *)chainRequest nextNetworkRequestByNetworkRequest:(__kindof SANetworkRequest *)request finishedByResponse:(SANetworkResponse *)response {
     //这里的判断逻辑请求根据自己的业务逻辑灵活处理
-    if (response != nil && [request isKindOfClass:[BaiFuBaoRequest class]]) {
+    if (response != nil && [request isKindOfClass:[TaobaoSuggestRequest class]]) {
         ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
         expressRequest.type = @"yuantong";
         expressRequest.postId = @"881443775034378914";

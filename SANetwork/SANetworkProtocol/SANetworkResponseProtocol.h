@@ -10,6 +10,10 @@
 
 @class SANetworkRequest;
 @class SANetworkResponse;
+
+/**
+ 网络接口响应协议
+ */
 @protocol SANetworkResponseProtocol <NSObject>
 
 @optional
@@ -19,7 +23,6 @@
  *
  *  @param networkRequest 请求对象
  *  @param response       响应的数据（SANetworkResponse）
- *  @warning 若此请求允许缓存，请在此回调中根据response 的isCache 或 networkStatus 属性 做判断处理
  */
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response;
 

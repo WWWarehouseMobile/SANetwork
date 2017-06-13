@@ -1,21 +1,20 @@
 //
-//  SATestRequestCase.m
+//  NetworkSingleRequestTest.m
 //  SANetworkDemo
 //
-//  Created by 阿宝 on 16/7/25.
-//  Copyright © 2016年 学宝工作室. All rights reserved.
+//  Created by 詹学宝 on 2017/6/12.
+//  Copyright © 2017年 学宝工作室. All rights reserved.
 //
 
 #import "SANetworkTestCase.h"
 #import "ExpressRequest.h"
-#import "BaiFuBaoRequest.h"
-#import "SALoginRequest.h"
+#import "TaobaoSuggestRequest.h"
 
-@interface SATestRequestCase : SANetworkTestCase
+@interface NetworkSingleRequestTest : SANetworkTestCase<SANetworkResponseProtocol>
 
 @end
 
-@implementation SATestRequestCase
+@implementation NetworkSingleRequestTest
 
 - (void)setUp {
     [super setUp];
@@ -29,21 +28,20 @@
 
 - (void)testExpressResquest {
     ExpressRequest *expressRequest = [[ExpressRequest alloc] init];
-    expressRequest.tag = 101;
-    expressRequest.responseDelegate = self;
     expressRequest.type = @"yuantong";
     expressRequest.postId = @"881443775034378914";
+    expressRequest.tag = 101;
+    expressRequest.responseDelegate = self;
     [expressRequest startRequest];
     [self wait];
 }
 
-- (void)testSALoginRequest {
-    SALoginRequest *loginRequest = [[SALoginRequest alloc] init];
-    loginRequest.userId = @"1000294";
-    loginRequest.password = @"1";
-    loginRequest.tag = 103;
-    loginRequest.responseDelegate = self;
-    [loginRequest startRequest];
+- (void)testTaobaoSuggestRequest {
+    TaobaoSuggestRequest *suggestRequest = [[TaobaoSuggestRequest alloc] init];
+    suggestRequest.query = @"imac";
+    suggestRequest.tag = 102;
+    suggestRequest.responseDelegate = self;
+    [suggestRequest startRequest];
     [self wait];
 }
 
@@ -53,10 +51,9 @@
             XCTAssert(NO, @"快递查询请求失败");
             break;
         case 102:
-            XCTAssert(NO, @"用户信息查询请求失败");
+            XCTAssert(NO, @"淘宝关键词建议接口调用失败");
             break;
         default:
-            XCTAssert(NO, @"用户登录请求失败");
             break;
     }
     [self notify];
@@ -68,11 +65,9 @@
             XCTAssertNotNil(response.responseData,@"快递查询无数据");
             break;
         case 102:
-            XCTAssertNotNil(response.responseData,@"用户信息查询无数据");
+            XCTAssertNotNil(response.responseContentData,@"用户信息查询无数据");
             break;
         case 103:
-            XCTAssertNotNil(response.responseData,@"用户登录无数据");
-
             break;
         default:
             break;
@@ -80,13 +75,5 @@
     [self notify];
 }
 
-- (void)testUserInfoRequest {
-    BaiFuBaoRequest *userInfoRequest = [[BaiFuBaoRequest alloc] init];
-    userInfoRequest.tag = 102;
-    userInfoRequest.responseDelegate = self;
-    userInfoRequest.mobile = @"13173610819";
-    [userInfoRequest startRequest];
-    [self wait];
-}
 
 @end

@@ -31,7 +31,7 @@
     }
 }
 
-- (void)networkRequestAccessoryDidStop {
+- (void)networkRequestAccessoryByStatus:(SANetworkStatus)networkStatus {
     [self.refreshView endRefreshing];
 }
 

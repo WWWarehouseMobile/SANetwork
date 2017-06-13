@@ -2,73 +2,28 @@
 //  AppDelegate.m
 //  SANetwork
 //
-//  Created by ISCS01 on 16/3/25.
+//  Created by 学宝 on 16/3/25.
 //  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
 //
 
 #import "AppDelegate.h"
 #import "SANetwork.h"
 #import "SAExpressService.h"
-#import "SABaiFuBaoService.h"
+#import "SATaobaoService.h"
 
-@interface AppDelegate ()<SANetworkConfigDataSource>
+@interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-
-- (NSDictionary<NSString *,NSObject<SANetworkServiceProtocol> *> *)servicesKindsOfNetwork {
-    return @{@"kuaidiServiceKey": [[SAExpressService alloc] init],
-             @"BaiFuBaoIdentifierKey" : [[SABaiFuBaoService alloc] init]
-             };
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     /**
      *  设定自己需要请求的URL
      */
-    [SANetworkConfig sharedInstance].dataSource = self;
-    /**
-     *  当使用viceBaseUrlString时，请设定请求的SANetworkConfigProtocol中的viceBaseUrlString为YES
-     */
-//    [SANetworkAgent sharedInstance].viceBaseUrlString = @"http://www.kuaidi100.com";
-    
-//    [[SANetworkConfig sharedInstance] setBaseParamSourceBlock:^NSDictionary *(){
-//        /**
-//         *  根据自己的接口中大部分接口所必须的参数，进行统一设定
-//         */
-//        return @{
-//                 @"username" : @"001",
-//                 @"password" : @"123"
-//                 };
-//    }];
-//    [[SANetworkConfig sharedInstance] setBaseAuthenticationBlock:^BOOL(SANetworkRequest *networkRequest, id response){
-//        //可根据networkRequest、response进行验证。这里书写你的验证逻辑标准。
-//        if(response[@"sign"] == nil) {
-//            return NO;
-//        }
-//        return YES;
-//    }];
-//    [[SANetworkConfig sharedInstance] setBaseHTTPRequestHeadersBlock:^ NSDictionary *(){
-//        return @{
-//                 @"system" : @"iOS 9.0",
-//                 @"version" : @"1.0.0",
-//                 @"time" : @"2016-06-04 14:18:05",
-//                 @"token" : @"8046DB4D7844617E0F9EC72A46CE4317",
-//                 };
-//    }];
-//    [[SANetworkConfig sharedInstance] setRequestSerializerType:SARequestSerializerTypeJSON];
+    [[SANetworkConfig sharedInstance] registerServiceObject:[[SAExpressService alloc] init] serviceIdentifier:@"kuaidiServiceKey"];
+    [[SANetworkConfig sharedInstance]  registerServiceObject:[[SATaobaoService alloc] init] serviceIdentifier:@"TaoBaoIdentifierKey"];
     [SANetworkConfig sharedInstance].enableDebug = YES;  //允许后台打印输出
-//    [[SANetworkConfig sharedInstance] setAcceptableContentTypes:[NSSet setWithObjects:@"application/json",@"text/html", nil] forResponseSerializerType:SAResponseSerializerTypeJSON];
-//
-//    /**
-//     *  根据自己的接口返回，自定义设置
-//     */
-//    [SANetworkConfig sharedInstance].responseMessageKey = @"msg";
-//    [SANetworkConfig sharedInstance].responseCodeKey = @"code";
-//    [SANetworkConfig sharedInstance].responseContentDataKey = @"data";
-    // Override point for customization after application launch.
     return YES;
 }
 

@@ -21,8 +21,8 @@
 
 @end
 
-@implementation SANetworkBatchRequest{
-    BOOL _isHandleDoneWhenNoContinueByFailResponse;
+@implementation SANetworkBatchRequest {
+    SANetworkStatus _networkStatus;
 }
 
 - (instancetype)initWithRequestArray:(NSArray<SANetworkRequest *> *)requestArray {
@@ -30,17 +30,17 @@
     if (self) {
         _requestArray = requestArray;
         _responseArray = [NSMutableArray array];
-        _completedCount = 0;
-        _isContinueByFailResponse = YES;
-        _isHandleDoneWhenNoContinueByFailResponse = NO;
+        _completedCount = -1;
     }
     return self;
 }
 - (void)startBatchRequest {
-    if (self.completedCount > 0 ) {
+    if (self.completedCount > -1 ) {
         NSLog(@"批量请求正在进行，请勿重复启动  !");
         return;
     }
+    _completedCount = 0;
+    _networkStatus = SANetworkResponseDataSuccessStatus;
     
     [self accessoryWillStart];
     for (SANetworkRequest *networkRequest in self.requestArray) {
@@ -55,7 +55,7 @@
     for (SANetworkRequest *networkRequest in self.requestArray) {
         [[SANetworkAgent sharedInstance] removeRequest:networkRequest];
     }
-    [self accessoryDidStop];
+    [self accessoryFinishByStatus:SANetworkRequestCancelStatus];
 }
 
 
@@ -64,51 +64,37 @@
 #pragma mark-SANetworkResponseProtocol
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response{
-    if (response.networkStatus == SANetworkResponseDataCacheStatus) {
-        return;
-    }
     self.completedCount++;
     [self.responseArray addObject:response];
     if (self.completedCount == self.requestArray.count) {
-        [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
         [self networkBatchRequestCompleted];
     }
 }
 
 - (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
-    if (response.networkStatus == SANetworkResponseDataCacheStatus) {
-        return;
-    }
+    self.completedCount++;
     [self.responseArray addObject:response];
     
-    if (self.isContinueByFailResponse) {
-        self.completedCount++;
-        if (self.completedCount == self.requestArray.count) {
-            [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
-            [self networkBatchRequestCompleted];
-        }
-    }else if(_isHandleDoneWhenNoContinueByFailResponse == NO){
-        for (SANetworkRequest *networkRequest in self.requestArray) {
-            [networkRequest stopRequest];
-        }
-        [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
+    _networkStatus = response.networkStatus;
+    if (self.completedCount == self.requestArray.count) {
         [self networkBatchRequestCompleted];
-        _isHandleDoneWhenNoContinueByFailResponse = YES;
     }
 }
 
 
 
 - (void)networkBatchRequestCompleted{
-    [self accessoryDidStop];
+    [self accessoryFinishByStatus:_networkStatus];
     if ([self.delegate respondsToSelector:@selector(networkBatchRequest:completedByResponseArray:)]) {
         [self.delegate networkBatchRequest:self completedByResponseArray:self.responseArray];
     }
-    self.completedCount = 0;
+    self.completedCount = -1;
 }
 
 - (void)dealloc {
-    [self stopBatchRequest];
+    for (SANetworkRequest *networkRequest in self.requestArray) {
+        [[SANetworkAgent sharedInstance] removeRequest:networkRequest];
+    }
 }
 #pragma mark-
 #pragma mark-Accessory
@@ -136,15 +122,7 @@
     }
 }
 
-- (void)accessoryDidStop {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidStop)]) {
-            [accessory networkRequestAccessoryDidStop];
-        }
-    }
-}
-
-- (void)accessoryFinishByStatus:(SANetworkAccessoryFinishStatus)finishStatus {
+- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
             [accessory networkRequestAccessoryByStatus:finishStatus];

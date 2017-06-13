@@ -10,8 +10,19 @@
 #import <UIKit/UIKit.h>
 #import "SANetworkAccessoryProtocol.h"
 
+/**
+ 定制的MBProgressHUD请求插件
+ */
 @interface SANetworkHUDAccessory : NSObject<SANetworkAccessoryProtocol>
 
+
+/**
+ 初始化MBProgressHUD请求插件
+
+ @param view hud需要显示在哪个view上
+ @param text hud显示的文字信息
+ @return MBProgressHUD请求插件对象
+ */
 - (instancetype)initWithShowInView:(UIView *)view text:(NSString *)text;
 
 @end

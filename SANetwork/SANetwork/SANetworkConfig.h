@@ -2,39 +2,47 @@
 //  SANetworkConfig.h
 //  SANetworkDemo
 //
-//  Created by 阿宝 on 16/7/21.
-//  Copyright © 2016年 学宝工作室. All rights reserved.
+//  Created by 学宝 on 16/7/21.
+//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "SANetworkServiceProtocol.h"
 
-@protocol SANetworkConfigDataSource;
 /**
- *  @brief 网络配置类
+ *  @brief 网络接口配置类
  */
 @interface SANetworkConfig : NSObject
 
-+ (SANetworkConfig *)sharedInstance;
 
-@property (nonatomic, weak) id<SANetworkConfigDataSource> dataSource;
+/**
+ 生成网络接口配置单例方法
+
+ @return 网络接口配置单例
+ */
++ (SANetworkConfig *)sharedInstance;
 
 /**
  *  @brief 是否打开debug日志，默认关闭
  */
 @property (nonatomic, assign) BOOL enableDebug;
 
+
+/**
+ 获取网络接口不同服务配置对象
+
+ @param serviceIdentifier 服务配置对象的存储标示
+ @return 服务配置对象
+ */
 - (NSObject<SANetworkServiceProtocol> *)serviceObjectWithServiceIdentifier:(NSString *)serviceIdentifier;
 
-@end
 
-@protocol SANetworkConfigDataSource <NSObject>
+/**
+ 设置网络接口所需的服务配置对象
 
-@required
-/*
- * key为service的Identifier
- * value为service对象，此对象必须要实现SANetworkServiceProtocol协议
+ @param serviceObject 服务配置对象
+ @param serviceIdentifier 服务配置对象的存储标示
  */
-- (NSDictionary<NSString *, NSObject<SANetworkServiceProtocol> *> *)servicesKindsOfNetwork;
+- (void)registerServiceObject:(NSObject<SANetworkServiceProtocol> *)serviceObject serviceIdentifier:(NSString *)serviceIdentifier;
 
 @end

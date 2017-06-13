@@ -2,8 +2,8 @@
 //  SANetworkConfig.m
 //  SANetworkDemo
 //
-//  Created by 阿宝 on 16/7/21.
-//  Copyright © 2016年 学宝工作室. All rights reserved.
+//  Created by 学宝 on 16/7/21.
+//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
 //
 
 #import "SANetworkConfig.h"
@@ -41,17 +41,17 @@
 }
 
 - (NSObject<SANetworkServiceProtocol> *)serviceObjectWithServiceIdentifier:(NSString *)serviceIdentifier {
-    NSAssert(self.dataSource, @"必须提供dataSource绑定并实现servicesKindsOfNetwork方法，否则无法正常使用Service模块");
-    if (self.serviceStorageDictionary[serviceIdentifier] == nil) {        
-        if ([[self.dataSource servicesKindsOfNetwork] valueForKey:serviceIdentifier]) {
-            NSObject<SANetworkServiceProtocol> *serviceObject = [[self.dataSource servicesKindsOfNetwork] valueForKey:serviceIdentifier];
-            NSAssert([serviceObject conformsToProtocol:@protocol(SANetworkServiceProtocol)], @"你提供的Service没有遵循SANetworkServiceProtocol");
-            return serviceObject;
-        }else {
-            NSAssert(NO, @"servicesKindsOfServiceFactory中无法找不到相匹配identifier");
-        }
+    if (self.serviceStorageDictionary[serviceIdentifier] == nil) {
+        NSAssert(NO, @"无法找到 %@ 相匹配的服务对象", serviceIdentifier);
         return nil;
     }
     return self.serviceStorageDictionary[serviceIdentifier];
+}
+
+- (void)registerServiceObject:(NSObject<SANetworkServiceProtocol> *)serviceObject serviceIdentifier:(NSString *)serviceIdentifier {
+    if (serviceObject == nil)   return;
+    
+    NSAssert([serviceObject conformsToProtocol:@protocol(SANetworkServiceProtocol)], @"你提供的Service没有遵循SANetworkServiceProtocol");
+    self.serviceStorageDictionary[serviceIdentifier] = serviceObject;
 }
 @end

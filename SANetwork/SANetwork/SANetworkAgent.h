@@ -11,8 +11,18 @@
 @class SANetworkRequest;
 @protocol SANetworkRequestConfigProtocol;
 
+
+/**
+ 网络请求的管理对象
+ */
 @interface SANetworkAgent : NSObject
 
+
+/**
+ 用于创建网络请求的单例对象
+
+ @return 单例对象
+ */
 + (SANetworkAgent *)sharedInstance;
 
 /**

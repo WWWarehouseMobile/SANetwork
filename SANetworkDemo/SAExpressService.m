@@ -3,7 +3,7 @@
 //  SANetworkDemo
 //
 //  Created by 詹学宝 on 2017/4/28.
-//  Copyright © 2017年 学宝工作室. All rights reserved.
+//  Copyright © 2017年 浙江网仓科技有限公司. All rights reserved.
 //
 
 #import "SAExpressService.h"
@@ -45,7 +45,7 @@
 /*******以下协议的设定用于服务端返回数据的第一层格式统一，设定后，便于更深一层的取到数据 *********/
 
 - (NSString *)responseMessageKey {
-    return nil;
+    return @"message";
 }
 
 - (NSString *)responseCodeKey {

@@ -2,8 +2,8 @@
 //  SANetworkRequest.m
 //  SANetworkDemo
 //
-//  Created by 阿宝 on 16/7/22.
-//  Copyright © 2016年 学宝工作室. All rights reserved.
+//  Created by 学宝 on 16/7/22.
+//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
 //
 
 #import "SANetworkRequest.h"
@@ -38,13 +38,13 @@
 }
 
 
-- (void)stopRequest {
+- (void)stopRequestByStatus:(SANetworkStatus)status {
     [[SANetworkAgent sharedInstance] removeRequest:self];
-    [self accessoryDidStop];
+    [self accessoryFinishByStatus:status];
 }
 
 - (void)dealloc {
-    [self stopRequest];
+    [[SANetworkAgent sharedInstance] removeRequest:self];
 }
 
 #pragma mark-
@@ -73,15 +73,7 @@
     }
 }
 
-- (void)accessoryDidStop {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidStop)]) {
-            [accessory networkRequestAccessoryDidStop];
-        }
-    }
-}
-
-- (void)accessoryFinishByStatus:(SANetworkAccessoryFinishStatus)finishStatus {
+- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
             [accessory networkRequestAccessoryByStatus:finishStatus];

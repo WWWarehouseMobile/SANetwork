@@ -10,6 +10,7 @@
 #import "SANetworkRequest.h"
 #import "SANetworkResponseProtocol.h"
 #import "SANetworkAgent.h"
+#import "SANetworkResponse.h"
 
 @interface SANetworkChainRequest ()<SANetworkResponseProtocol>
 
@@ -36,12 +37,13 @@
 }
 
 - (void)stopChainRequest {
+    _delegate = nil;
     [[SANetworkAgent sharedInstance] removeRequest:self.currentNetworkRequest];
-    [self accessoryDidStop];
+    [self accessoryFinishByStatus:SANetworkRequestCancelStatus];
 }
 
 - (void)dealloc {
-    [self stopChainRequest];
+    [[SANetworkAgent sharedInstance] removeRequest:self.currentNetworkRequest];
 }
 
 
@@ -58,13 +60,11 @@
             return;
         }
     }
-    [self accessoryDidStop];
-    [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusSuccess];
+    [self accessoryFinishByStatus:response.networkStatus];
 }
 
 - (void)networkRequest:(__kindof SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
-    [self accessoryDidStop];
-    [self accessoryFinishByStatus:SANetworkAccessoryFinishStatusFailure];
+    [self accessoryFinishByStatus:response.networkStatus];
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:networkRequest:failedByResponse:)]) {
         [self.delegate networkChainRequest:self networkRequest:networkRequest failedByResponse:response];
     }
@@ -96,15 +96,7 @@
     }
 }
 
-- (void)accessoryDidStop {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidStop)]) {
-            [accessory networkRequestAccessoryDidStop];
-        }
-    }
-}
-
-- (void)accessoryFinishByStatus:(SANetworkAccessoryFinishStatus)finishStatus {
+- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
             [accessory networkRequestAccessoryByStatus:finishStatus];

@@ -7,13 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef NS_ENUM(NSInteger, SANetworkAccessoryFinishStatus) {
-    SANetworkAccessoryFinishStatusSuccess,
-    SANetworkAccessoryFinishStatusFailure,
-    SANetworkAccessoryFinishStatusCancel,
-    SANetworkAccessoryFinishStatusNotReachable,
-};
+#import "SANetworkConstant.h"
 
 /**
  *  @brief 请求插件协议
@@ -32,10 +26,6 @@ typedef NS_ENUM(NSInteger, SANetworkAccessoryFinishStatus) {
  */
 - (void)networkRequestAccessoryDidStart;
 
-/**
- *  @brief 请求已经停止
- */
-- (void)networkRequestAccessoryDidStop;
 
-- (void)networkRequestAccessoryByStatus:(SANetworkAccessoryFinishStatus)accessoryStatus;
+- (void)networkRequestAccessoryByStatus:(SANetworkStatus)networkStatus;
 @end

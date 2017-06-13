@@ -2,30 +2,53 @@
 //  SANetworkRequest.h
 //  SANetworkDemo
 //
-//  Created by 阿宝 on 16/7/22.
-//  Copyright © 2016年 学宝工作室. All rights reserved.
+//  Created by 学宝 on 16/7/22.
+//  Copyright © 2016年 浙江网仓科技有限公司. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "SANetworkAccessoryProtocol.h"
 #import "SANetworkInterceptorProtocol.h"
 #import "SANetworkRequestConfigProtocol.h"
-#import "SANetworkRequestParamSourceProtocol.h"
 #import "SANetworkResponseProtocol.h"
 #import "SANetworkServiceProtocol.h"
 
+
+/**
+ 网络接口请求类
+ */
 @interface SANetworkRequest : NSObject
 
+
+/**
+ 请求的tag
+ */
 @property (nonatomic, assign) NSInteger tag;
 
+/**
+ 请求载体
+ */
 @property (nonatomic, strong) NSURLSessionDataTask *sessionDataTask;
 
+/**
+ 请求配置协议
+ */
 @property (nonatomic, weak, readonly) NSObject<SANetworkRequestConfigProtocol> *requestConfigProtocol;
-@property (nonatomic, weak) id <SANetworkRequestParamSourceProtocol>requestParamSourceDelegate;
 
+/**
+ 响应协议
+ */
 @property (nonatomic, weak) id <SANetworkResponseProtocol>responseDelegate;
+
+/**
+ 拦截协议
+ */
 @property (nonatomic, weak) id <SANetworkInterceptorProtocol>interceptorDelegate;
 
+
+/**
+ 插件协议
+ */
 @property (nonatomic, weak) id <SANetworkAccessoryProtocol>accessoryDelegate;
 
 /**
@@ -36,7 +59,7 @@
 /**
  *  @brief 停止网络请求
  */
-- (void)stopRequest;
+- (void)stopRequestByStatus:(SANetworkStatus)status;
 
 /**
  *  @brief 添加实现了SANetworkAccessoryProtocol的插件对象
@@ -46,5 +69,4 @@
  */
 - (void)addNetworkAccessoryObject:(id<SANetworkAccessoryProtocol>)accessoryDelegate;
 
-- (void)accessoryFinishByStatus:(SANetworkAccessoryFinishStatus)status;
 @end

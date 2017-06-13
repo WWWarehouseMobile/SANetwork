@@ -32,13 +32,11 @@
     if (self) {
         _responseData = responseData;
         _requestTag = requestTag;
-        _isCache = networkStatus == SANetworkResponseDataCacheStatus ? YES:NO;
         _networkStatus = networkStatus;
         
         _responseCode = NSNotFound;
         switch (networkStatus) {
             case SANetworkResponseDataSuccessStatus:
-            case SANetworkResponseDataCacheStatus:
             case SANetworkResponseDataIncorrectStatus:{
                 NSObject<SANetworkServiceProtocol> *serviceObject = [[SANetworkConfig sharedInstance] serviceObjectWithServiceIdentifier:serviceIdentifierKey];
                 if ([responseData isKindOfClass:[NSDictionary class]]) {
