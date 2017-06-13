@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Constants/SANetworkStatus.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/c/tdef/SANetworkStatus</TokenIdentifier>
+			<Abstract type="html">网络请求状态值</Abstract>
+			<DeclaredIn>SANetworkConstant.h</DeclaredIn>
+            
+			
+			<NodeRef refid="16"/>
+		</Token>
+		
+		
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SANetworkNotReachableStatus</TokenIdentifier>
+            <Abstract type="html">网络不可达
+     </Abstract>
+            <Declaration>SANetworkNotReachableStatus</Declaration>
+            
+            <DeclaredIn>SANetworkConstant.h</DeclaredIn>
+            
+            <NodeRef refid="16"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SANetworkRequestParamIncorrectStatus</TokenIdentifier>
+            <Abstract type="html">请求参数错误
+     </Abstract>
+            <Declaration>SANetworkRequestParamIncorrectStatus</Declaration>
+            
+            <DeclaredIn>SANetworkConstant.h</DeclaredIn>
+            
+            <NodeRef refid="16"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SANetworkRequestCancelStatus</TokenIdentifier>
+            <Abstract type="html">请求被取消，暂不提供响应回调
+     </Abstract>
+            <Declaration>SANetworkRequestCancelStatus</Declaration>
+            
+            <DeclaredIn>SANetworkConstant.h</DeclaredIn>
+            
+            <NodeRef refid="16"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SANetworkResponseFailureStatus</TokenIdentifier>
+            <Abstract type="html">请求失败
+     </Abstract>
+            <Declaration>SANetworkResponseFailureStatus</Declaration>
+            
+            <DeclaredIn>SANetworkConstant.h</DeclaredIn>
+            
+            <NodeRef refid="16"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SANetworkResponseDataIncorrectStatus</TokenIdentifier>
+            <Abstract type="html">请求返回的数据错误，可能是接口错误等
+     </Abstract>
+            <Declaration>SANetworkResponseDataIncorrectStatus</Declaration>
+            
+            <DeclaredIn>SANetworkConstant.h</DeclaredIn>
+            
+            <NodeRef refid="16"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SANetworkResponseDataAuthenticationFailStatus</TokenIdentifier>
+            <Abstract type="html">请求返回的数据没有通过验证
+     </Abstract>
+            <Declaration>SANetworkResponseDataAuthenticationFailStatus</Declaration>
+            
+            <DeclaredIn>SANetworkConstant.h</DeclaredIn>
+            
+            <NodeRef refid="16"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SANetworkResponseDataSuccessStatus</TokenIdentifier>
+            <Abstract type="html">数据请求成功
+     </Abstract>
+            <Declaration>SANetworkResponseDataSuccessStatus</Declaration>
+            
+            <DeclaredIn>SANetworkConstant.h</DeclaredIn>
+            
+            <NodeRef refid="16"/>
+        </Token>
+        
+        
+	</File>
+</Tokens>

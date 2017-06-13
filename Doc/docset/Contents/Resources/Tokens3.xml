@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/SANetworkChainRequest.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/SANetworkChainRequest</TokenIdentifier>
+			<Abstract type="html">链式请求对象</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+            
+			
+			<NodeRef refid="3"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkChainRequest/setDelegate:</TokenIdentifier>
+			<Abstract type="html">链式请求的代理对象</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkChainRequestResponseDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkChainRequest/delegate</TokenIdentifier>
+			<Abstract type="html">链式请求的代理对象</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkChainRequestResponseDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkChainRequest/delegate</TokenIdentifier>
+			<Abstract type="html">链式请求的代理对象</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkChainRequestResponseDelegate&gt; delegate</Declaration>
+			
+			
+			<Anchor>//api/name/delegate</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkChainRequest/initWithRootNetworkRequest:</TokenIdentifier>
+			<Abstract type="html">  初始化链式请求，需要配置一个根请求
+*</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>- (instancetype)initWithRootNetworkRequest:(__kindof SANetworkRequest *)networkRequest</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">第一个请求
+*</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">链式请求对象</Abstract></ReturnValue>
+			<Anchor>//api/name/initWithRootNetworkRequest:</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkChainRequest/startChainRequest</TokenIdentifier>
+			<Abstract type="html">启动链式请求</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>- (void)startChainRequest</Declaration>
+			
+			
+			<Anchor>//api/name/startChainRequest</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkChainRequest/stopChainRequest</TokenIdentifier>
+			<Abstract type="html">取消链式请求</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>- (void)stopChainRequest</Declaration>
+			
+			
+			<Anchor>//api/name/stopChainRequest</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkChainRequest/addNetworkAccessoryObject:</TokenIdentifier>
+			<Abstract type="html">添加实现了SANetworkAccessoryProtocol的插件对象</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>- (void)addNetworkAccessoryObject:(id&lt;SANetworkAccessoryProtocol&gt;)accessoryDelegate</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>accessoryDelegate</Name>
+					<Abstract type="html">accessoryDelegate 插件对象。链式请求于请求插件完成协议状态 = 最后一个请求的状态</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/addNetworkAccessoryObject:</Anchor>
+            <NodeRef refid="3"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

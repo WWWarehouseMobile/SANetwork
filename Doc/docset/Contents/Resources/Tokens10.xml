@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/SANetworkChainRequestResponseDelegate.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/SANetworkChainRequestResponseDelegate</TokenIdentifier>
+			<Abstract type="html">链式请求回调代理</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+            
+			
+			<NodeRef refid="10"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkChainRequestResponseDelegate/networkChainRequest:nextNetworkRequestByNetworkRequest:finishedByResponse:</TokenIdentifier>
+			<Abstract type="html">获取链式请求中需要启动的下一个接口对象。链式请求中，一个请求完成时触发</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>- (__kindof SANetworkRequest *)networkChainRequest:(SANetworkChainRequest *)chainRequest nextNetworkRequestByNetworkRequest:(__kindof SANetworkRequest *)request finishedByResponse:(SANetworkResponse *)response</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>chainRequest</Name>
+					<Abstract type="html">链式请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>request</Name>
+					<Abstract type="html">最后完成的请求对象 (刚刚完成的请求对象)</Abstract>
+				</Parameter><Parameter>
+					<Name>response</Name>
+					<Abstract type="html">最后完成请求的响应数据</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">下一个要启动的接口对象</Abstract></ReturnValue>
+			<Anchor>//api/name/networkChainRequest:nextNetworkRequestByNetworkRequest:finishedByResponse:</Anchor>
+            <NodeRef refid="10"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkChainRequestResponseDelegate/networkChainRequest:networkRequest:failedByResponse:</TokenIdentifier>
+			<Abstract type="html">链式请求失败时的回调</Abstract>
+			<DeclaredIn>SANetworkChainRequest.h</DeclaredIn>
+			
+			<Declaration>- (void)networkChainRequest:(SANetworkChainRequest *)chainRequest networkRequest:(__kindof SANetworkRequest *)request failedByResponse:(SANetworkResponse *)response</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>chainRequest</Name>
+					<Abstract type="html">链式请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>request</Name>
+					<Abstract type="html">接口调用失败的请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>response</Name>
+					<Abstract type="html">接口调用失败的响应对象</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkChainRequest:networkRequest:failedByResponse:</Anchor>
+            <NodeRef refid="10"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Constants/SAResponseSerializerType.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/c/tdef/SAResponseSerializerType</TokenIdentifier>
+			<Abstract type="html">响应数据序列化类型</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+			
+			<NodeRef refid="20"/>
+		</Token>
+		
+		
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SAResponseSerializerTypeJSON</TokenIdentifier>
+            <Abstract type="html">Json</Abstract>
+            <Declaration>SAResponseSerializerTypeJSON</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="20"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SAResponseSerializerTypeHTTP</TokenIdentifier>
+            <Abstract type="html">Http</Abstract>
+            <Declaration>SAResponseSerializerTypeHTTP</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="20"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SAResponseSerializerTypeXMLParser</TokenIdentifier>
+            <Abstract type="html">xml</Abstract>
+            <Declaration>SAResponseSerializerTypeXMLParser</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="20"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SAResponseSerializerTypePropertyList</TokenIdentifier>
+            <Abstract type="html">plist</Abstract>
+            <Declaration>SAResponseSerializerTypePropertyList</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="20"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SAResponseSerializerTypeImage</TokenIdentifier>
+            <Abstract type="html">image</Abstract>
+            <Declaration>SAResponseSerializerTypeImage</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="20"/>
+        </Token>
+        
+        
+	</File>
+</Tokens>

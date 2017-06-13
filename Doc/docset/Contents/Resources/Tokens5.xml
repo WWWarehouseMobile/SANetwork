@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/SANetworkLogger.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/SANetworkLogger</TokenIdentifier>
+			<Abstract type="html">日志打印输出类</Abstract>
+			<DeclaredIn>SANetworkLogger.h</DeclaredIn>
+            
+			
+			<NodeRef refid="5"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/SANetworkLogger/logDebugRequestInfoWithURL:httpMethod:params:reachabilityStatus:</TokenIdentifier>
+			<Abstract type="html">接口请求信息日志输出方法</Abstract>
+			<DeclaredIn>SANetworkLogger.h</DeclaredIn>
+			
+			<Declaration>+ (void)logDebugRequestInfoWithURL:(NSString *)url httpMethod:(NSInteger)httpMethod params:(NSDictionary *)params reachabilityStatus:(NSInteger)reachabilityStatus</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>url</Name>
+					<Abstract type="html">请求的url</Abstract>
+				</Parameter><Parameter>
+					<Name>httpMethod</Name>
+					<Abstract type="html">请求方式</Abstract>
+				</Parameter><Parameter>
+					<Name>params</Name>
+					<Abstract type="html">请求参数</Abstract>
+				</Parameter><Parameter>
+					<Name>reachabilityStatus</Name>
+					<Abstract type="html">网络状态</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/logDebugRequestInfoWithURL:httpMethod:params:reachabilityStatus:</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/SANetworkLogger/logDebugResponseInfoWithSessionDataTask:responseObject:authentication:error:</TokenIdentifier>
+			<Abstract type="html">接口响应信息日志输出方法</Abstract>
+			<DeclaredIn>SANetworkLogger.h</DeclaredIn>
+			
+			<Declaration>+ (void)logDebugResponseInfoWithSessionDataTask:(NSURLSessionDataTask *)sessionDataTask responseObject:(id)response authentication:(BOOL)authentication error:(NSError *)error</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>sessionDataTask</Name>
+					<Abstract type="html">执行请求的sessionDataTask</Abstract>
+				</Parameter><Parameter>
+					<Name>response</Name>
+					<Abstract type="html">响应数据</Abstract>
+				</Parameter><Parameter>
+					<Name>authentication</Name>
+					<Abstract type="html">是否通过验证</Abstract>
+				</Parameter><Parameter>
+					<Name>error</Name>
+					<Abstract type="html">error对象</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/logDebugResponseInfoWithSessionDataTask:responseObject:authentication:error:</Anchor>
+            <NodeRef refid="5"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/SANetworkServiceProtocol.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/SANetworkServiceProtocol</TokenIdentifier>
+			<Abstract type="html">网络接口服务配置协议</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+            
+			
+			<NodeRef refid="15"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/serviceApiBaseUrlString</TokenIdentifier>
+			<Abstract type="html">服务接口地址的基础URL</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSString *)serviceApiBaseUrlString</Declaration>
+			
+			<ReturnValue><Abstract type="html">接口基础地址</Abstract></ReturnValue>
+			<Anchor>//api/name/serviceApiBaseUrlString</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/serviceResponseAcceptableContentTypes</TokenIdentifier>
+			<Abstract type="html">服务接口 Acceptable-Content 配置</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSSet&lt;NSString*&gt; *)serviceResponseAcceptableContentTypes</Declaration>
+			
+			<ReturnValue><Abstract type="html">Acceptable-Content Types;</Abstract></ReturnValue>
+			<Anchor>//api/name/serviceResponseAcceptableContentTypes</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/serviceRequestSerializerType</TokenIdentifier>
+			<Abstract type="html">默认SARequestSerializerTypeHTTP（即：[AFHTTPRequestSerializer serializer]）</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (SARequestSerializerType)serviceRequestSerializerType</Declaration>
+			
+			
+			<Anchor>//api/name/serviceRequestSerializerType</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/serviceResponseSerializerType</TokenIdentifier>
+			<Abstract type="html">默认SAResponseSerializerTypeJSON (即：[AFJSONResponseSerializer serializer])</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (SAResponseSerializerType)serviceResponseSerializerType</Declaration>
+			
+			
+			<Anchor>//api/name/serviceResponseSerializerType</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/serviceBaseHTTPRequestHeaders</TokenIdentifier>
+			<Abstract type="html">返回需要统一设定的请求头</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSDictionary&lt;NSString*,NSString*&gt; *)serviceBaseHTTPRequestHeaders</Declaration>
+			
+			<ReturnValue><Abstract type="html">请求头的字典</Abstract></ReturnValue>
+			<Anchor>//api/name/serviceBaseHTTPRequestHeaders</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/serviceBaseParamSource</TokenIdentifier>
+			<Abstract type="html">基本的请求参数，在较多接口都会使用到的参数，这些参数可以作为base参数设定，比如用户名、app标示、版本 等等</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSDictionary&lt;NSString*,NSString*&gt; *)serviceBaseParamSource</Declaration>
+			
+			<ReturnValue><Abstract type="html">“基本”参数字典</Abstract></ReturnValue>
+			<Anchor>//api/name/serviceBaseParamSource</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/serviceBaseAuthenticationWithNetworkRequest:response:</TokenIdentifier>
+			<Abstract type="html">针对特定服务的请求响应数据的统一验证。将影响响应数据的状态</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (BOOL)serviceBaseAuthenticationWithNetworkRequest:(SANetworkRequest *)networkRequest response:(id)response</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">网络接口请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>response</Name>
+					<Abstract type="html">网络接口响应数据</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">是否验证</Abstract></ReturnValue>
+			<Anchor>//api/name/serviceBaseAuthenticationWithNetworkRequest:response:</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/serviceRequestTimeoutInterval</TokenIdentifier>
+			<Abstract type="html">请求超时时间，默认20秒</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSTimeInterval)serviceRequestTimeoutInterval</Declaration>
+			
+			
+			<Anchor>//api/name/serviceRequestTimeoutInterval</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/responseMessageKey</TokenIdentifier>
+			<Abstract type="html">响应数据提示信息的key</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSString *)responseMessageKey</Declaration>
+			
+			<ReturnValue><Abstract type="html">message key</Abstract></ReturnValue>
+			<Anchor>//api/name/responseMessageKey</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/responseCodeKey</TokenIdentifier>
+			<Abstract type="html">响应数据定制code的key</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSString *)responseCodeKey</Declaration>
+			
+			<ReturnValue><Abstract type="html">code key</Abstract></ReturnValue>
+			<Anchor>//api/name/responseCodeKey</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkServiceProtocol/responseContentDataKey</TokenIdentifier>
+			<Abstract type="html">响应数据具体内容的key</Abstract>
+			<DeclaredIn>SANetworkServiceProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSString *)responseContentDataKey</Declaration>
+			
+			<ReturnValue><Abstract type="html">content key</Abstract></ReturnValue>
+			<Anchor>//api/name/responseContentDataKey</Anchor>
+            <NodeRef refid="15"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

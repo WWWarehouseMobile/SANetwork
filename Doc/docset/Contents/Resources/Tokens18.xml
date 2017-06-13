@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Constants/SARequestMethod.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/c/tdef/SARequestMethod</TokenIdentifier>
+			<Abstract type="html">网络接口请求方式</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+			
+			<NodeRef refid="18"/>
+		</Token>
+		
+		
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SARequestMethodPost</TokenIdentifier>
+            <Abstract type="html">Post请求</Abstract>
+            <Declaration>SARequestMethodPost</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="18"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SARequestMethodGet</TokenIdentifier>
+            <Abstract type="html">Get请求</Abstract>
+            <Declaration>SARequestMethodGet</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="18"/>
+        </Token>
+        
+        
+	</File>
+</Tokens>

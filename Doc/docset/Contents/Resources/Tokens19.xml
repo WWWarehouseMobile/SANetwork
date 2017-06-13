@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Constants/SARequestSerializerType.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/c/tdef/SARequestSerializerType</TokenIdentifier>
+			<Abstract type="html">请求序列化类型</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+			
+			<NodeRef refid="19"/>
+		</Token>
+		
+		
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SARequestSerializerTypeHTTP</TokenIdentifier>
+            <Abstract type="html">Http</Abstract>
+            <Declaration>SARequestSerializerTypeHTTP</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="19"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SARequestSerializerTypeJSON</TokenIdentifier>
+            <Abstract type="html">Json</Abstract>
+            <Declaration>SARequestSerializerTypeJSON</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="19"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SARequestSerializerTypePropertyList</TokenIdentifier>
+            <Abstract type="html">plist</Abstract>
+            <Declaration>SARequestSerializerTypePropertyList</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="19"/>
+        </Token>
+        
+        
+	</File>
+</Tokens>

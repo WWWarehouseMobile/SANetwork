@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/SANetworkRequest.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/SANetworkRequest</TokenIdentifier>
+			<Abstract type="html">网络接口请求类</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+            
+			
+			<NodeRef refid="6"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/setTag:</TokenIdentifier>
+			<Abstract type="html">请求的tag</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSInteger tag</Declaration>
+			
+			
+			<Anchor>//api/name/tag</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/tag</TokenIdentifier>
+			<Abstract type="html">请求的tag</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSInteger tag</Declaration>
+			
+			
+			<Anchor>//api/name/tag</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkRequest/tag</TokenIdentifier>
+			<Abstract type="html">请求的tag</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) NSInteger tag</Declaration>
+			
+			
+			<Anchor>//api/name/tag</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/setSessionDataTask:</TokenIdentifier>
+			<Abstract type="html">请求载体</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSURLSessionDataTask *sessionDataTask</Declaration>
+			
+			
+			<Anchor>//api/name/sessionDataTask</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/sessionDataTask</TokenIdentifier>
+			<Abstract type="html">请求载体</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSURLSessionDataTask *sessionDataTask</Declaration>
+			
+			
+			<Anchor>//api/name/sessionDataTask</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkRequest/sessionDataTask</TokenIdentifier>
+			<Abstract type="html">请求载体</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, strong) NSURLSessionDataTask *sessionDataTask</Declaration>
+			
+			
+			<Anchor>//api/name/sessionDataTask</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/setRequestConfigProtocol:</TokenIdentifier>
+			<Abstract type="html">请求配置协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak, readonly) NSObject&lt;SANetworkRequestConfigProtocol&gt; *requestConfigProtocol</Declaration>
+			
+			
+			<Anchor>//api/name/requestConfigProtocol</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/requestConfigProtocol</TokenIdentifier>
+			<Abstract type="html">请求配置协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak, readonly) NSObject&lt;SANetworkRequestConfigProtocol&gt; *requestConfigProtocol</Declaration>
+			
+			
+			<Anchor>//api/name/requestConfigProtocol</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkRequest/requestConfigProtocol</TokenIdentifier>
+			<Abstract type="html">请求配置协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak, readonly) NSObject&lt;SANetworkRequestConfigProtocol&gt; *requestConfigProtocol</Declaration>
+			
+			
+			<Anchor>//api/name/requestConfigProtocol</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/setResponseDelegate:</TokenIdentifier>
+			<Abstract type="html">响应协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkResponseProtocol&gt; responseDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/responseDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/responseDelegate</TokenIdentifier>
+			<Abstract type="html">响应协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkResponseProtocol&gt; responseDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/responseDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkRequest/responseDelegate</TokenIdentifier>
+			<Abstract type="html">响应协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkResponseProtocol&gt; responseDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/responseDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/setInterceptorDelegate:</TokenIdentifier>
+			<Abstract type="html">拦截协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkInterceptorProtocol&gt; interceptorDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/interceptorDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/interceptorDelegate</TokenIdentifier>
+			<Abstract type="html">拦截协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkInterceptorProtocol&gt; interceptorDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/interceptorDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkRequest/interceptorDelegate</TokenIdentifier>
+			<Abstract type="html">拦截协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkInterceptorProtocol&gt; interceptorDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/interceptorDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/setAccessoryDelegate:</TokenIdentifier>
+			<Abstract type="html">插件协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkAccessoryProtocol&gt; accessoryDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/accessoryDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/accessoryDelegate</TokenIdentifier>
+			<Abstract type="html">插件协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkAccessoryProtocol&gt; accessoryDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/accessoryDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkRequest/accessoryDelegate</TokenIdentifier>
+			<Abstract type="html">插件协议</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, weak) id&lt;SANetworkAccessoryProtocol&gt; accessoryDelegate</Declaration>
+			
+			
+			<Anchor>//api/name/accessoryDelegate</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/startRequest</TokenIdentifier>
+			<Abstract type="html">开始网络请求，使用delegate 方式使用这个方法</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>- (void)startRequest</Declaration>
+			
+			
+			<Anchor>//api/name/startRequest</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/stopRequestByStatus:</TokenIdentifier>
+			<Abstract type="html">停止网络请求</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>- (void)stopRequestByStatus:(SANetworkStatus)status</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>status</Name>
+					<Abstract type="html">网络接口状态</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/stopRequestByStatus:</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkRequest/addNetworkAccessoryObject:</TokenIdentifier>
+			<Abstract type="html">添加实现了SANetworkAccessoryProtocol的插件对象</Abstract>
+			<DeclaredIn>SANetworkRequest.h</DeclaredIn>
+			
+			<Declaration>- (void)addNetworkAccessoryObject:(id&lt;SANetworkAccessoryProtocol&gt;)accessoryDelegate</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>accessoryDelegate</Name>
+					<Abstract type="html">插件对象</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/addNetworkAccessoryObject:</Anchor>
+            <NodeRef refid="6"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

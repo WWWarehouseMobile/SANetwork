@@ -56,8 +56,11 @@
  */
 - (void)startRequest;
 
+
 /**
- *  @brief 停止网络请求
+ 停止网络请求
+
+ @param status 网络接口状态
  */
 - (void)stopRequestByStatus:(SANetworkStatus)status;
 

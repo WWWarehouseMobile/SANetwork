@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/SANetworkBatchRequestResponseDelegate.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/SANetworkBatchRequestResponseDelegate</TokenIdentifier>
+			<Abstract type="html">批量请求代理</Abstract>
+			<DeclaredIn>SANetworkBatchRequest.h</DeclaredIn>
+            
+			
+			<NodeRef refid="9"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkBatchRequestResponseDelegate/networkBatchRequest:completedByResponseArray:</TokenIdentifier>
+			<Abstract type="html">批量请求结束回调方法</Abstract>
+			<DeclaredIn>SANetworkBatchRequest.h</DeclaredIn>
+			
+			<Declaration>- (void)networkBatchRequest:(SANetworkBatchRequest *)batchRequest completedByResponseArray:(NSArray&lt;SANetworkResponse*&gt; *)responseArray</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>batchRequest</Name>
+					<Abstract type="html">批量请求的对象</Abstract>
+				</Parameter><Parameter>
+					<Name>responseArray</Name>
+					<Abstract type="html">批量请求里的所有请求响应数据集合</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkBatchRequest:completedByResponseArray:</Anchor>
+            <NodeRef refid="9"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

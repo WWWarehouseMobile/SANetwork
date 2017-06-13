@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Constants/SARequestHandleSameRequestType.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/c/tdef/SARequestHandleSameRequestType</TokenIdentifier>
+			<Abstract type="html">    处理正在执行与前一个相同方法请求的方式
+* 相同方法的请求是指url相同，参数可能不同</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+			
+			<NodeRef refid="17"/>
+		</Token>
+		
+		
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SARequestHandleSameRequestCancelCurrentType</TokenIdentifier>
+            <Abstract type="html">取消正要启动的请求</Abstract>
+            <Declaration>SARequestHandleSameRequestCancelCurrentType</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="17"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SARequestHandleSameRequestCancelPreviousType</TokenIdentifier>
+            <Abstract type="html">取消正在进行的请求</Abstract>
+            <Declaration>SARequestHandleSameRequestCancelPreviousType</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="17"/>
+        </Token>
+        
+        <Token>
+            <TokenIdentifier>//apple_ref/c/econst/SARequestHandleSameRequestBothContinueType</TokenIdentifier>
+            <Abstract type="html">不取消请求，请求同时执行</Abstract>
+            <Declaration>SARequestHandleSameRequestBothContinueType</Declaration>
+            
+            <DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+            <NodeRef refid="17"/>
+        </Token>
+        
+        
+	</File>
+</Tokens>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/SANetworkResponseProtocol.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/SANetworkResponseProtocol</TokenIdentifier>
+			<Abstract type="html">网络接口响应协议</Abstract>
+			<DeclaredIn>SANetworkResponseProtocol.h</DeclaredIn>
+            
+			
+			<NodeRef refid="13"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkResponseProtocol/networkRequest:succeedByResponse:</TokenIdentifier>
+			<Abstract type="html">请求成功的回调</Abstract>
+			<DeclaredIn>SANetworkResponseProtocol.h</DeclaredIn>
+			
+			<Declaration>- (void)networkRequest:(SANetworkRequest *)networkRequest succeedByResponse:(SANetworkResponse *)response</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>response</Name>
+					<Abstract type="html">响应的数据（SANetworkResponse）</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkRequest:succeedByResponse:</Anchor>
+            <NodeRef refid="13"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkResponseProtocol/networkRequest:failedByResponse:</TokenIdentifier>
+			<Abstract type="html">请求失败的回调</Abstract>
+			<DeclaredIn>SANetworkResponseProtocol.h</DeclaredIn>
+			
+			<Declaration>- (void)networkRequest:(SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>response</Name>
+					<Abstract type="html">响应的数据（SANetworkResponse）</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkRequest:failedByResponse:</Anchor>
+            <NodeRef refid="13"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkResponseProtocol/networkRequest:requestingByProgress:</TokenIdentifier>
+			<Abstract type="html">请求进度的回调，一般适用于上传文件</Abstract>
+			<DeclaredIn>SANetworkResponseProtocol.h</DeclaredIn>
+			
+			<Declaration>- (void)networkRequest:(SANetworkRequest *)networkRequest requestingByProgress:(NSProgress *)progress</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>progress</Name>
+					<Abstract type="html">进度</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkRequest:requestingByProgress:</Anchor>
+            <NodeRef refid="13"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

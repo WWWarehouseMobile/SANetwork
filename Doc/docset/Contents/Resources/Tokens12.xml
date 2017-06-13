@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/SANetworkRequestConfigProtocol.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/SANetworkRequestConfigProtocol</TokenIdentifier>
+			<Abstract type="html">请求对象的配置协议</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+            
+			
+			<NodeRef refid="12"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/serviceIdentifierKey</TokenIdentifier>
+			<Abstract type="html">属于哪个服务。</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSString *)serviceIdentifierKey</Declaration>
+			
+			<ReturnValue><Abstract type="html">服务的key （string）</Abstract></ReturnValue>
+			<Anchor>//api/name/serviceIdentifierKey</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/requestMethodName</TokenIdentifier>
+			<Abstract type="html">接口地址。若设置带有http的请求地址，将会忽略SANetworkConfig设置的url</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSString *)requestMethodName</Declaration>
+			
+			
+			<Anchor>//api/name/requestMethodName</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/isCorrectWithResponseData:</TokenIdentifier>
+			<Abstract type="html">检查返回数据是否正确，这样将在response里的succeed和failed 直接使用数据。</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (BOOL)isCorrectWithResponseData:(id)responseData</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>responseData</Name>
+					<Abstract type="html">返回的完整数据</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">是否正确</Abstract></ReturnValue>
+			<Anchor>//api/name/isCorrectWithResponseData:</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/requestMethod</TokenIdentifier>
+			<Abstract type="html">请求方式，默认为 SARequestMethodPost</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (SARequestMethod)requestMethod</Declaration>
+			
+			
+			<Anchor>//api/name/requestMethod</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/requestParamDictionary</TokenIdentifier>
+			<Abstract type="html">请求所需要的参数</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSDictionary *)requestParamDictionary</Declaration>
+			
+			<ReturnValue><Abstract type="html">参数字典</Abstract></ReturnValue>
+			<Anchor>//api/name/requestParamDictionary</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/cachePolicy</TokenIdentifier>
+			<Abstract type="html">定制缓存策略，默认NSURLRequestUseProtocolCachePolicy</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSURLRequestCachePolicy)cachePolicy</Declaration>
+			
+			
+			<Anchor>//api/name/cachePolicy</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/requestTimeoutInterval</TokenIdentifier>
+			<Abstract type="html">请求连接的超时时间。默认20.0秒</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSTimeInterval)requestTimeoutInterval</Declaration>
+			
+			<ReturnValue><Abstract type="html">超时时长</Abstract></ReturnValue>
+			<Anchor>//api/name/requestTimeoutInterval</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/isCorrectWithRequestParams:</TokenIdentifier>
+			<Abstract type="html">检查请求参数</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (BOOL)isCorrectWithRequestParams:(NSDictionary *)params</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>params</Name>
+					<Abstract type="html">请求参数</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">是否执行请求</Abstract></ReturnValue>
+			<Anchor>//api/name/isCorrectWithRequestParams:</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/requestSerializerType</TokenIdentifier>
+			<Abstract type="html">请求的SerializerType 默认SARequestSerializerTypeJSON, 可通过SANetworkConfig设置默认值</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (SARequestSerializerType)requestSerializerType</Declaration>
+			
+			<ReturnValue><Abstract type="html">服务端接受数据类型</Abstract></ReturnValue>
+			<Anchor>//api/name/requestSerializerType</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/responseSerializerType</TokenIdentifier>
+			<Abstract type="html">响应数据的responseSerializerType，默认SAResponseSerializerTypeJSON，可通过SANetworkConfig设置默认值</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (SAResponseSerializerType)responseSerializerType</Declaration>
+			
+			<ReturnValue><Abstract type="html">服务端返回的数据类型</Abstract></ReturnValue>
+			<Anchor>//api/name/responseSerializerType</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/constructingBodyBlock</TokenIdentifier>
+			<Abstract type="html">当POST的内容带有文件等富文本时使用</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (AFConstructingBlock)constructingBodyBlock</Declaration>
+			
+			<ReturnValue><Abstract type="html">ConstructingBlock</Abstract></ReturnValue>
+			<Anchor>//api/name/constructingBodyBlock</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/handleSameRequestType</TokenIdentifier>
+			<Abstract type="html">处理正在执行相同方法的请求（参数可能不同），默认取消正要启动的请求SARequestHandleSameRequestCancelCurrentType</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (SARequestHandleSameRequestType)handleSameRequestType</Declaration>
+			
+			<ReturnValue><Abstract type="html">处理方式</Abstract></ReturnValue>
+			<Anchor>//api/name/handleSameRequestType</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/useBaseRequestParamSource</TokenIdentifier>
+			<Abstract type="html">很多请求都会需要相同的请求参数，可设置SANetworkConfig的baseParamSourceBlock，这个block会返回你所设置的基础参数。默认YES</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (BOOL)useBaseRequestParamSource</Declaration>
+			
+			<ReturnValue><Abstract type="html">是否使用基础参数</Abstract></ReturnValue>
+			<Anchor>//api/name/useBaseRequestParamSource</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/useBaseHTTPRequestHeaders</TokenIdentifier>
+			<Abstract type="html">SANetworkConfig设置过baseHTTPRequestHeadersBlock后，可通过此协议方法决定是否使用baseHTTPRequestHeaders，默认使用（YES）</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (BOOL)useBaseHTTPRequestHeaders</Declaration>
+			
+			<ReturnValue><Abstract type="html">是否使用baseHTTPRequestHeaders</Abstract></ReturnValue>
+			<Anchor>//api/name/useBaseHTTPRequestHeaders</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/customHTTPRequestHeaders</TokenIdentifier>
+			<Abstract type="html">定制请求头</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (NSDictionary *)customHTTPRequestHeaders</Declaration>
+			
+			<ReturnValue><Abstract type="html">请求头数据</Abstract></ReturnValue>
+			<Anchor>//api/name/customHTTPRequestHeaders</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/useBaseAuthentication</TokenIdentifier>
+			<Abstract type="html">是否启用SANetworkConfig设定的请求验证，若设定了验证的Block，默认使用YES</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (BOOL)useBaseAuthentication</Declaration>
+			
+			<ReturnValue><Abstract type="html">是否使用基础的请求验证</Abstract></ReturnValue>
+			<Anchor>//api/name/useBaseAuthentication</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkRequestConfigProtocol/enableDebugLog</TokenIdentifier>
+			<Abstract type="html">定制是否输出log日志</Abstract>
+			<DeclaredIn>SANetworkRequestConfigProtocol.h</DeclaredIn>
+			
+			<Declaration>- (BOOL)enableDebugLog</Declaration>
+			
+			
+			<Anchor>//api/name/enableDebugLog</Anchor>
+            <NodeRef refid="12"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/SANetworkInterceptorProtocol.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/SANetworkInterceptorProtocol</TokenIdentifier>
+			<Abstract type="html">网络接口拦截器协议</Abstract>
+			<DeclaredIn>SANetworkInterceptorProtocol.h</DeclaredIn>
+            
+			
+			<NodeRef refid="11"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkInterceptorProtocol/networkRequest:beforePerformSuccessWithResponse:</TokenIdentifier>
+			<Abstract type="html">在请求成功回调之前执行</Abstract>
+			<DeclaredIn>SANetworkInterceptorProtocol.h</DeclaredIn>
+			
+			<Declaration>- (void)networkRequest:(SANetworkRequest *)networkRequest beforePerformSuccessWithResponse:(SANetworkResponse *)networkResponse</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">网络接口请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>networkResponse</Name>
+					<Abstract type="html">网络接口响应对象</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkRequest:beforePerformSuccessWithResponse:</Anchor>
+            <NodeRef refid="11"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkInterceptorProtocol/networkRequest:afterPerformSuccessWithResponse:</TokenIdentifier>
+			<Abstract type="html">在请求成功回调之后执行</Abstract>
+			<DeclaredIn>SANetworkInterceptorProtocol.h</DeclaredIn>
+			
+			<Declaration>- (void)networkRequest:(SANetworkRequest *)networkRequest afterPerformSuccessWithResponse:(SANetworkResponse *)networkResponse</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">网络接口请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>networkResponse</Name>
+					<Abstract type="html">网络接口响应对象</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkRequest:afterPerformSuccessWithResponse:</Anchor>
+            <NodeRef refid="11"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkInterceptorProtocol/networkRequest:beforePerformFailWithResponse:</TokenIdentifier>
+			<Abstract type="html">在请求失败回调之前执行</Abstract>
+			<DeclaredIn>SANetworkInterceptorProtocol.h</DeclaredIn>
+			
+			<Declaration>- (void)networkRequest:(SANetworkRequest *)networkRequest beforePerformFailWithResponse:(SANetworkResponse *)networkResponse</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">网络接口请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>networkResponse</Name>
+					<Abstract type="html">网络接口响应对象</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkRequest:beforePerformFailWithResponse:</Anchor>
+            <NodeRef refid="11"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/SANetworkInterceptorProtocol/networkRequest:afterPerformFailWithResponse:</TokenIdentifier>
+			<Abstract type="html">在请求失败回调之后执行</Abstract>
+			<DeclaredIn>SANetworkInterceptorProtocol.h</DeclaredIn>
+			
+			<Declaration>- (void)networkRequest:(SANetworkRequest *)networkRequest afterPerformFailWithResponse:(SANetworkResponse *)networkResponse</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>networkRequest</Name>
+					<Abstract type="html">网络接口请求对象</Abstract>
+				</Parameter><Parameter>
+					<Name>networkResponse</Name>
+					<Abstract type="html">网络接口响应对象</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/networkRequest:afterPerformFailWithResponse:</Anchor>
+            <NodeRef refid="11"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>
