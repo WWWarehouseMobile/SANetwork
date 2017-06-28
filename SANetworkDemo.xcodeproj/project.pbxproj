@@ -631,8 +631,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuebao.SANetworkDemo;
 				PRODUCT_NAME = SANetworkDemo;
-				PROVISIONING_PROFILE = "b13de65a-dc71-4131-8e50-eae924810f6b";
-				PROVISIONING_PROFILE_SPECIFIER = "XC Wildcard *";
+				PROVISIONING_PROFILE = "77f0e1f5-41af-44ef-975e-38903d34a039";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development *";
 			};
 			name = Debug;
 		};

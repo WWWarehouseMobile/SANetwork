@@ -209,7 +209,7 @@
     SARequestSerializerType requestSerializerType;
     if ([request.requestConfigProtocol respondsToSelector:@selector(requestSerializerType)]) {
         requestSerializerType = [request.requestConfigProtocol requestSerializerType];
-    }else if([serviceObject respondsToSelector:@selector(requestSerializerType)]){
+    }else if([serviceObject respondsToSelector:@selector(serviceRequestSerializerType)]){
         requestSerializerType = [serviceObject serviceRequestSerializerType];
     }else {
         requestSerializerType = SARequestSerializerTypeHTTP;
@@ -237,7 +237,7 @@
     NSTimeInterval timeoutInterval = 20.0f;
     if ([request.requestConfigProtocol respondsToSelector:@selector(requestTimeoutInterval)]) {
         timeoutInterval = [request.requestConfigProtocol requestTimeoutInterval];
-    } else if ([serviceObject respondsToSelector:@selector(requestTimeoutInterval)]) {
+    } else if ([serviceObject respondsToSelector:@selector(serviceRequestTimeoutInterval)]) {
         timeoutInterval = [serviceObject serviceRequestTimeoutInterval];
     }
     self.sessionManager.requestSerializer.timeoutInterval = timeoutInterval;
@@ -246,7 +246,7 @@
     SAResponseSerializerType responseSerializerType = SAResponseSerializerTypeJSON;
     if ([request.requestConfigProtocol respondsToSelector:@selector(responseSerializerType)]) {
         responseSerializerType = [request.requestConfigProtocol responseSerializerType];
-    }else if ([serviceObject respondsToSelector:@selector(responseSerializerType)]){
+    }else if ([serviceObject respondsToSelector:@selector(serviceResponseSerializerType)]){
         responseSerializerType = [serviceObject serviceResponseSerializerType];
     }
     [self setSessionManagerResponseSerializerByResponseSerializerType:responseSerializerType];
