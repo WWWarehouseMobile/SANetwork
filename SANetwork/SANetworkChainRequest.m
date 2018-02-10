@@ -74,6 +74,8 @@
 #pragma mark-Accessory
 
 - (void)addNetworkAccessoryObject:(id<SANetworkAccessoryProtocol>)accessoryDelegate {
+    if (accessoryDelegate == nil)  return;
+    
     if (!_accessoryArray) {
         _accessoryArray = [NSMutableArray array];
     }
