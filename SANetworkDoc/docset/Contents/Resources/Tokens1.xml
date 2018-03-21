@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/SANetworkAgent.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/SANetworkAgent</TokenIdentifier>
+			<Abstract type="html">网络请求的管理对象</Abstract>
+			<DeclaredIn>SANetworkAgent.h</DeclaredIn>
+            
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/SANetworkAgent/sharedInstance</TokenIdentifier>
+			<Abstract type="html">用于创建网络请求的单例对象</Abstract>
+			<DeclaredIn>SANetworkAgent.h</DeclaredIn>
+			
+			<Declaration>+ (SANetworkAgent *)sharedInstance</Declaration>
+			
+			<ReturnValue><Abstract type="html">单例对象</Abstract></ReturnValue>
+			<Anchor>//api/name/sharedInstance</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkAgent/addRequest:</TokenIdentifier>
+			<Abstract type="html">添加request到请求栈中，并启动</Abstract>
+			<DeclaredIn>SANetworkAgent.h</DeclaredIn>
+			
+			<Declaration>- (void)addRequest:(__kindof SANetworkRequest&lt;SANetworkRequestConfigProtocol&gt; *)request</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>request</Name>
+					<Abstract type="html">一个基于SABaseRequest的实例</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/addRequest:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkAgent/removeRequest:</TokenIdentifier>
+			<Abstract type="html">结束一个请求，并从请求栈中移除</Abstract>
+			<DeclaredIn>SANetworkAgent.h</DeclaredIn>
+			
+			<Declaration>- (void)removeRequest:(__kindof SANetworkRequest&lt;SANetworkRequestConfigProtocol&gt; *)request</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>request</Name>
+					<Abstract type="html">一个基于SABaseRequest的实例</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/removeRequest:</Anchor>
+            <NodeRef refid="1"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/SANetworkResponse.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/SANetworkResponse</TokenIdentifier>
+			<Abstract type="html">网络接口响应对象</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+            
+			
+			<NodeRef refid="7"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/initWithResponseData:serviceIdentifierKey:requestTag:networkStatus:</TokenIdentifier>
+			<Abstract type="html">初始化网络接口响应对象</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>- (instancetype)initWithResponseData:(id)responseData serviceIdentifierKey:(NSString *)serviceIdentifierKey requestTag:(NSInteger)requestTag networkStatus:(SANetworkStatus)networkStatus</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>responseData</Name>
+					<Abstract type="html">响应的原始数据</Abstract>
+				</Parameter><Parameter>
+					<Name>serviceIdentifierKey</Name>
+					<Abstract type="html">服务配置对象的存储标示</Abstract>
+				</Parameter><Parameter>
+					<Name>requestTag</Name>
+					<Abstract type="html">网络接口请求的tag</Abstract>
+				</Parameter><Parameter>
+					<Name>networkStatus</Name>
+					<Abstract type="html">网络接口的状态</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">网络接口响应对象</Abstract></ReturnValue>
+			<Anchor>//api/name/initWithResponseData:serviceIdentifierKey:requestTag:networkStatus:</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/fetchDataWithReformer:</TokenIdentifier>
+			<Abstract type="html">更改数据格式</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>- (id)fetchDataWithReformer:(id&lt;SANetworkResponseReformerProtocol&gt;)reformer</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>reformer</Name>
+					<Abstract type="html">提供怎么去更改的对象</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">更改后的数据</Abstract></ReturnValue>
+			<Anchor>//api/name/fetchDataWithReformer:</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/setResponseData:</TokenIdentifier>
+			<Abstract type="html">请求得到的全部数据</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) id responseData</Declaration>
+			
+			
+			<Anchor>//api/name/responseData</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/responseData</TokenIdentifier>
+			<Abstract type="html">请求得到的全部数据</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) id responseData</Declaration>
+			
+			
+			<Anchor>//api/name/responseData</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkResponse/responseData</TokenIdentifier>
+			<Abstract type="html">请求得到的全部数据</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) id responseData</Declaration>
+			
+			
+			<Anchor>//api/name/responseData</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/setNetworkStatus:</TokenIdentifier>
+			<Abstract type="html">网络接口状态</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) SANetworkStatus networkStatus</Declaration>
+			
+			
+			<Anchor>//api/name/networkStatus</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/networkStatus</TokenIdentifier>
+			<Abstract type="html">网络接口状态</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) SANetworkStatus networkStatus</Declaration>
+			
+			
+			<Anchor>//api/name/networkStatus</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkResponse/networkStatus</TokenIdentifier>
+			<Abstract type="html">网络接口状态</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) SANetworkStatus networkStatus</Declaration>
+			
+			
+			<Anchor>//api/name/networkStatus</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/setRequestTag:</TokenIdentifier>
+			<Abstract type="html">网络接口请求的tag</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) NSInteger requestTag</Declaration>
+			
+			
+			<Anchor>//api/name/requestTag</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/requestTag</TokenIdentifier>
+			<Abstract type="html">网络接口请求的tag</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) NSInteger requestTag</Declaration>
+			
+			
+			<Anchor>//api/name/requestTag</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkResponse/requestTag</TokenIdentifier>
+			<Abstract type="html">网络接口请求的tag</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) NSInteger requestTag</Declaration>
+			
+			
+			<Anchor>//api/name/requestTag</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/setResponseMessage:</TokenIdentifier>
+			<Abstract type="html">请求无网、失败、参数错误、验证失败的情况，此属性都有值</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSString *responseMessage</Declaration>
+			
+			
+			<Anchor>//api/name/responseMessage</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/responseMessage</TokenIdentifier>
+			<Abstract type="html">请求无网、失败、参数错误、验证失败的情况，此属性都有值</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSString *responseMessage</Declaration>
+			
+			
+			<Anchor>//api/name/responseMessage</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkResponse/responseMessage</TokenIdentifier>
+			<Abstract type="html">请求无网、失败、参数错误、验证失败的情况，此属性都有值</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) NSString *responseMessage</Declaration>
+			
+			
+			<Anchor>//api/name/responseMessage</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/setResponseContentData:</TokenIdentifier>
+			<Abstract type="html">响应数据的具体内容</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) id responseContentData</Declaration>
+			
+			
+			<Anchor>//api/name/responseContentData</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/responseContentData</TokenIdentifier>
+			<Abstract type="html">响应数据的具体内容</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) id responseContentData</Declaration>
+			
+			
+			<Anchor>//api/name/responseContentData</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkResponse/responseContentData</TokenIdentifier>
+			<Abstract type="html">响应数据的具体内容</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, copy, readonly) id responseContentData</Declaration>
+			
+			
+			<Anchor>//api/name/responseContentData</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/setResponseCode:</TokenIdentifier>
+			<Abstract type="html">响应数据的定制code值</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) NSInteger responseCode</Declaration>
+			
+			
+			<Anchor>//api/name/responseCode</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkResponse/responseCode</TokenIdentifier>
+			<Abstract type="html">响应数据的定制code值</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) NSInteger responseCode</Declaration>
+			
+			
+			<Anchor>//api/name/responseCode</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkResponse/responseCode</TokenIdentifier>
+			<Abstract type="html">响应数据的定制code值</Abstract>
+			<DeclaredIn>SANetworkResponse.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign, readonly) NSInteger responseCode</Declaration>
+			
+			
+			<Anchor>//api/name/responseCode</Anchor>
+            <NodeRef refid="7"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

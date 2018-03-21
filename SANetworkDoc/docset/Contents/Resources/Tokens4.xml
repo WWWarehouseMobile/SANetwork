@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/SANetworkConfig.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/SANetworkConfig</TokenIdentifier>
+			<Abstract type="html">网络接口配置类</Abstract>
+			<DeclaredIn>SANetworkConfig.h</DeclaredIn>
+            
+			
+			<NodeRef refid="4"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/SANetworkConfig/sharedInstance</TokenIdentifier>
+			<Abstract type="html">生成网络接口配置单例方法</Abstract>
+			<DeclaredIn>SANetworkConfig.h</DeclaredIn>
+			
+			<Declaration>+ (SANetworkConfig *)sharedInstance</Declaration>
+			
+			<ReturnValue><Abstract type="html">网络接口配置单例</Abstract></ReturnValue>
+			<Anchor>//api/name/sharedInstance</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkConfig/serviceObjectWithServiceIdentifier:</TokenIdentifier>
+			<Abstract type="html">获取网络接口不同服务配置对象</Abstract>
+			<DeclaredIn>SANetworkConfig.h</DeclaredIn>
+			
+			<Declaration>- (NSObject&lt;SANetworkServiceProtocol&gt; *)serviceObjectWithServiceIdentifier:(NSString *)serviceIdentifier</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>serviceIdentifier</Name>
+					<Abstract type="html">服务配置对象的存储标示</Abstract>
+				</Parameter>
+			</Parameters>
+			<ReturnValue><Abstract type="html">服务配置对象</Abstract></ReturnValue>
+			<Anchor>//api/name/serviceObjectWithServiceIdentifier:</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkConfig/registerServiceObject:serviceIdentifier:</TokenIdentifier>
+			<Abstract type="html">设置网络接口所需的服务配置对象</Abstract>
+			<DeclaredIn>SANetworkConfig.h</DeclaredIn>
+			
+			<Declaration>- (void)registerServiceObject:(NSObject&lt;SANetworkServiceProtocol&gt; *)serviceObject serviceIdentifier:(NSString *)serviceIdentifier</Declaration>
+			<Parameters>
+				<Parameter>
+					<Name>serviceObject</Name>
+					<Abstract type="html">服务配置对象</Abstract>
+				</Parameter><Parameter>
+					<Name>serviceIdentifier</Name>
+					<Abstract type="html">服务配置对象的存储标示</Abstract>
+				</Parameter>
+			</Parameters>
+			
+			<Anchor>//api/name/registerServiceObject:serviceIdentifier:</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkConfig/setEnableDebug:</TokenIdentifier>
+			<Abstract type="html">是否打开debug日志，默认关闭</Abstract>
+			<DeclaredIn>SANetworkConfig.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL enableDebug</Declaration>
+			
+			
+			<Anchor>//api/name/enableDebug</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instm/SANetworkConfig/enableDebug</TokenIdentifier>
+			<Abstract type="html">是否打开debug日志，默认关闭</Abstract>
+			<DeclaredIn>SANetworkConfig.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL enableDebug</Declaration>
+			
+			
+			<Anchor>//api/name/enableDebug</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/instp/SANetworkConfig/enableDebug</TokenIdentifier>
+			<Abstract type="html">是否打开debug日志，默认关闭</Abstract>
+			<DeclaredIn>SANetworkConfig.h</DeclaredIn>
+			
+			<Declaration>@property (nonatomic, assign) BOOL enableDebug</Declaration>
+			
+			
+			<Anchor>//api/name/enableDebug</Anchor>
+            <NodeRef refid="4"/>
+		</Token>
+		
+        
+        
+	</File>
+</Tokens>

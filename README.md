@@ -1,7 +1,11 @@
 # SANetwork
 
+[![Version](https://img.shields.io/cocoapods/v/SANetwork.svg?style=flat)](http://cocoapods.org/pods/SANetwork)
+[![License](https://img.shields.io/cocoapods/l/SANetwork.svg?style=flat)](http://cocoapods.org/pods/SANetwork)
+[![Platform](https://img.shields.io/cocoapods/p/SANetwork.svg?style=flat)](http://cocoapods.org/pods/SANetwork)
+
 ## 简述
-此类库是对[AFNetworking](https://github.com/AFNetworking/AFNetworking)的二次封装，属于离散式接口封装，主要思想是参照[RTNetworking](https://github.com/casatwy/RTNetworking)扩展书写的。  
+此库是对[AFNetworking](https://github.com/AFNetworking/AFNetworking)的二次封装，属于离散式接口封装。  
 若您对此类库问题有什么看法或建议，欢迎您的反馈！  
 
 添加到你的工程：
@@ -419,13 +423,10 @@ SANetworkResponse还提供了数据改革的协议`SANetworkResponseReformerProt
 	    return nil;
 	}
 	
- 这个回调是早前一个请求成功时被触发，你可以在这个回调里你决定你下一个要执行的请求。失败会调用另一个失败的代理方法。
+ 这个回调是早前一个请求成功时被触发，你可以在这个回调里决定你下一个要执行的请求。失败会调用另一个失败的代理方法。
  
 -----	
-## 写出你们能看懂的代码（而不只是机器能读懂的代码）
 
-封装的批量请求和链式请求的根本还是单个的请求，所以不要一味去思考要不要用这两种类型的请求。
-
-我只想大家用着舒服，用着没问题就好！大家有问题或建议，请与我沟通。
+## 写出你能看懂的代码，而不只是机器能读懂的代码。
 
 

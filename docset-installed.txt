@@ -1,4 +1,0 @@
-Documentation set was installed to Xcode!
-
-Path: /Users/xuebao.zhan/Library/Developer/Shared/Documentation/DocSets/com.xuebaonetwork.sanetwork.SANetwork.docset
-Time: 2017-06-09 01:12:43 +0000

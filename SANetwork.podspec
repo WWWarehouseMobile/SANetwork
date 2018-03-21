@@ -1,14 +1,35 @@
+#
+# Be sure to run `pod lib lint SANetwork.podspec' to ensure this is a
+# valid spec before submitting.
+#
+# Any lines starting with a # are optional, but their use is encouraged
+# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
+#
+
 Pod::Spec.new do |s|
-  s.name         = "SANetwork"
-  s.version      = "1.0.4"
-  s.summary      = "离散式请求，对AFNetworking的二次封装"
-  s.license      = 'MIT'
-  s.author       = { "学宝" => "zhanxuebao@outlook.com" }
-  s.homepage     = "https://github.com/ISCSMobileOrg/SANetwork"
-  s.platform     = :ios,'8.0'
+  s.name             = 'SANetwork'
+  s.version          = '1.0.5'
+  s.summary          = '离散式网络库'
+
+# This description is used to generate tags and improve search results.
+#   * Think: What does it do? Why did you write it? What is the focus?
+#   * Try to keep it short, snappy and to the point.
+#   * Write the description between the DESC delimiters below.
+#   * Finally, don't worry about the indent, CocoaPods strips it!
+
+  s.description      = <<-DESC
+TODO: Add long description of the pod here.
+                       DESC
+
+  s.homepage         = 'https://github.com/WWWarehouseMobile/SANetwork'
+  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.author           = { '学宝' => 'zhanxuebao@outlook.com' }
+  s.source           = { :git => 'git@github.com:WWWarehouseMobile/SANetwork.git', :tag => s.version.to_s }
+
   s.ios.deployment_target = '8.0'
-s.source       = { :git => "https://github.com/ISCSMobileOrg/SANetwork.git", :tag => s.version.to_s}
-  s.requires_arc = true
-  s.source_files = 'SANetwork/*.{h,m}'
+
+  s.source_files = 'SANetwork/Classes/**/*'
+  s.public_header_files = 'SANetwork/Classes/**/*.h'
+
   s.dependency 'AFNetworking', '~> 3.0'
 end
