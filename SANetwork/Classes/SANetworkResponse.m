@@ -37,7 +37,8 @@
         _responseCode = NSNotFound;
         switch (networkStatus) {
             case SANetworkResponseDataSuccessStatus:
-            case SANetworkResponseDataIncorrectStatus:{
+            case SANetworkResponseDataIncorrectStatus:
+            case SANetworkResponseDataAuthenticationFailStatus:{
                 NSObject<SANetworkServiceProtocol> *serviceObject = [[SANetworkConfig sharedInstance] serviceObjectWithServiceIdentifier:serviceIdentifierKey];
                 if ([responseData isKindOfClass:[NSDictionary class]]) {
                     if ([serviceObject respondsToSelector:@selector(responseCodeKey)]) {
@@ -75,13 +76,11 @@
      */
     switch (networkStatus) {
         case SANetworkNotReachableStatus:
-            return NSLocalizedStringFromTable(@"暂无网络连接", @"AFNetworking", nil);
-        case SANetworkResponseDataAuthenticationFailStatus:
-            return NSLocalizedStringFromTable(@"数据验证失败", @"AFNetworking", nil);
+            return NSLocalizedStringFromTable(@"网络异常", @"AFNetworking", nil);
         case SANetworkRequestParamIncorrectStatus:
             return NSLocalizedStringFromTable(@"请求参数有误", @"AFNetworking", nil);
         case SANetworkResponseFailureStatus:
-            return NSLocalizedStringFromTable(@"请求数据失败", @"AFNetworking", nil);
+            return NSLocalizedStringFromTable(@"系统异常", @"AFNetworking", nil);
         default:
             return nil;
     }
