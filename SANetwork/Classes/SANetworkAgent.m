@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) NSMutableDictionary <NSString*, __kindof SANetworkRequest*>*requestRecordDict;
 
+@property (nonatomic, strong) NSMutableArray <NSString *> *historyCustomHeaderKeys;
+
 @end
 
 @implementation SANetworkAgent
@@ -226,8 +228,19 @@
         }
     }
     
+    if (self.historyCustomHeaderKeys.count) {
+        [self.historyCustomHeaderKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.sessionManager.requestSerializer setValue:nil forHTTPHeaderField:obj];
+        }];
+        [self.historyCustomHeaderKeys removeAllObjects];
+    }
+    
     if ([request.requestConfigProtocol respondsToSelector:@selector(customHTTPRequestHeaders)]) {
         NSDictionary *customRequestHeaders = [request.requestConfigProtocol customHTTPRequestHeaders];
+        if (_historyCustomHeaderKeys == nil) {
+            _historyCustomHeaderKeys = [[NSMutableArray alloc] init];
+        }
+        [self.historyCustomHeaderKeys addObjectsFromArray:customRequestHeaders.allKeys];
         [customRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
         }];

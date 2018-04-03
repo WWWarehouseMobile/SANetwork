@@ -192,7 +192,7 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 
 /**
  *  @brief 定制请求头
- *
+ *  @warning 只作用于此接口
  *  @return 请求头数据
  */
 - (NSDictionary *)customHTTPRequestHeaders;
