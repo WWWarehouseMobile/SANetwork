@@ -242,7 +242,13 @@
         }
         [self.historyCustomHeaderKeys addObjectsFromArray:customRequestHeaders.allKeys];
         [customRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
+            if([obj isKindOfClass:[NSString class]]) {
+                [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
+            }else if ([obj isKindOfClass:[NSNumber class]]) {
+                [self.sessionManager.requestSerializer setValue:[(NSNumber *)obj stringValue] forHTTPHeaderField:key];
+            }else {
+                [self.sessionManager.requestSerializer setValue:nil forHTTPHeaderField:key];
+            }
         }];
     }
     
