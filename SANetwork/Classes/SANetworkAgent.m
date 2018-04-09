@@ -461,7 +461,7 @@
         [self afterPerformFailWithResponse:dataErrorResponse request:request];
     }
     
-    if ([request respondsToSelector:@selector(enableDebug)]) {
+    if ([request respondsToSelector:@selector(enableDebugLog)]) {
         if ([request enableDebugLog]) {
             [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:isAuthentication error:nil];
         }
@@ -486,7 +486,7 @@
     }
     [self afterPerformFailWithResponse:failureResponse request:request];
     
-    if ([request respondsToSelector:@selector(enableDebug)]) {
+    if ([request respondsToSelector:@selector(enableDebugLog)]) {
         if ([request enableDebugLog]) {
             [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:nil authentication:NO error:error];
         }
