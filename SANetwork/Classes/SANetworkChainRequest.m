@@ -40,6 +40,7 @@
     _delegate = nil;
     [[SANetworkAgent sharedInstance] removeRequest:self.currentNetworkRequest];
     [self accessoryFinishByStatus:SANetworkRequestCancelStatus];
+    [self accessoryFinishByStatus:SANetworkRequestCancelStatus response:nil];
 }
 
 - (void)dealloc {
@@ -61,10 +62,12 @@
         }
     }
     [self accessoryFinishByStatus:response.networkStatus];
+    [self accessoryFinishByStatus:response.networkStatus response:response.responseData];
 }
 
 - (void)networkRequest:(__kindof SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
     [self accessoryFinishByStatus:response.networkStatus];
+    [self accessoryFinishByStatus:response.networkStatus response:response.responseData];
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:networkRequest:failedByResponse:)]) {
         [self.delegate networkChainRequest:self networkRequest:networkRequest failedByResponse:response];
     }
@@ -106,4 +109,11 @@
     }
 }
 
+- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus response:(id)response {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByStatus:response:)]) {
+            [accessory networkRequestAccessoryDidEndByStatus:finishStatus response:response];
+        }
+    }
+}
 @end

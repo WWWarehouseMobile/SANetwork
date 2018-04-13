@@ -62,4 +62,7 @@
     [self.hud hide:YES afterDelay:1.7f];
 }
 
+- (void)networkRequestAccessoryDidEndByStatus:(SANetworkStatus)networkStatus response:(id)response {
+    NSLog(@"networkRequestAccessoryDidEndByStatus:%@",response);
+}
 @end

@@ -39,8 +39,13 @@
 
 
 - (void)stopRequestByStatus:(SANetworkStatus)status {
+    [self stopRequestByStatus:status response:nil];
+}
+
+- (void)stopRequestByStatus:(SANetworkStatus)status response:(id)response {
     [[SANetworkAgent sharedInstance] removeRequest:self];
     [self accessoryFinishByStatus:status];
+    [self accessoryFinishByStatus:status response:response];
 }
 
 - (void)dealloc {
@@ -79,6 +84,14 @@
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
             [accessory networkRequestAccessoryByStatus:finishStatus];
+        }
+    }
+}
+
+- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus response:(id)response {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByStatus:response:)]) {
+            [accessory networkRequestAccessoryDidEndByStatus:finishStatus response:response];
         }
     }
 }

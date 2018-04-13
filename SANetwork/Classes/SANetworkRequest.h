@@ -64,6 +64,8 @@
  */
 - (void)stopRequestByStatus:(SANetworkStatus)status;
 
+- (void)stopRequestByStatus:(SANetworkStatus)status response:(id)response;
+
 /**
  *  @brief 添加实现了SANetworkAccessoryProtocol的插件对象
  *

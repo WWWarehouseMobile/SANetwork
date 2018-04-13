@@ -28,9 +28,22 @@
 
 
 /**
- 请求全过程
-
+ 请求完成执行
+ @warning 与 networkRequestAccessoryDidEndByStatus:response: 会同时被调用
+ 
  @param networkStatus 请求状态
  */
 - (void)networkRequestAccessoryByStatus:(SANetworkStatus)networkStatus;
+
+
+
+/**
+ 请求完成执行
+ @warning 与 networkRequestAccessoryByStatus: 会同时被调用
+ 
+ @param networkStatus 请求状态
+ @param response 响应数据
+ */
+- (void)networkRequestAccessoryDidEndByStatus:(SANetworkStatus)networkStatus response:(id)response;
+
 @end

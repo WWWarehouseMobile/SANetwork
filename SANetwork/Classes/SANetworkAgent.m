@@ -218,7 +218,17 @@
     }
     [self setSessionManagerRequestSerializerByRequestSerializerType:requestSerializerType];
     
+    
+
+    
     //配置请求头
+    if (self.historyCustomHeaderKeys.count) {
+        [self.historyCustomHeaderKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.sessionManager.requestSerializer setValue:nil forHTTPHeaderField:obj];
+        }];
+        [self.historyCustomHeaderKeys removeAllObjects];
+    }
+    
     if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.requestConfigProtocol useBaseHTTPRequestHeaders])) {
         if ([[self serviceObjectByRequest:request] respondsToSelector:@selector(serviceBaseHTTPRequestHeaders)]) {
             NSDictionary *requestHeaders = [[self serviceObjectByRequest:request] serviceBaseHTTPRequestHeaders];
@@ -227,14 +237,7 @@
             }];
         }
     }
-    
-    if (self.historyCustomHeaderKeys.count) {
-        [self.historyCustomHeaderKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [self.sessionManager.requestSerializer setValue:nil forHTTPHeaderField:obj];
-        }];
-        [self.historyCustomHeaderKeys removeAllObjects];
-    }
-    
+
     if ([request.requestConfigProtocol respondsToSelector:@selector(customHTTPRequestHeaders)]) {
         NSDictionary *customRequestHeaders = [request.requestConfigProtocol customHTTPRequestHeaders];
         if (_historyCustomHeaderKeys == nil) {
@@ -296,7 +299,7 @@
     //检查参数配置
     if (![self isCorrectByRequestParams:requestParam request:request]) {
         NSLog(@"参数配置有误！请查看isCorrectWithRequestParams: !");
-        [request stopRequestByStatus:SANetworkRequestParamIncorrectStatus];
+        [request stopRequestByStatus:SANetworkRequestParamIncorrectStatus response:nil];
         SANetworkResponse *paramIncorrectResponse = [[SANetworkResponse alloc] initWithResponseData:nil serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:SANetworkRequestParamIncorrectStatus];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
             [request.responseDelegate networkRequest:request failedByResponse:paramIncorrectResponse];
@@ -315,7 +318,7 @@
                         isContinuePerform = NO;
                         break;
                     case SARequestHandleSameRequestCancelPreviousType:
-                        [requestingObj stopRequestByStatus:SANetworkRequestCancelStatus];
+                        [requestingObj stopRequestByStatus:SANetworkRequestCancelStatus response:nil];
                         break;
                     default:
                         break;
@@ -326,7 +329,7 @@
         
         if (isContinuePerform == NO){
             NSLog(@"有个相同URL请求未完成，这个请求被取消了（可设置handleSameRequestType）");
-            [request stopRequestByStatus:SANetworkRequestCancelStatus];
+            [request stopRequestByStatus:SANetworkRequestCancelStatus response:nil];
             return;
         }
     }
@@ -439,7 +442,7 @@
         }
     }
     if(isAuthentication && [request.requestConfigProtocol isCorrectWithResponseData:response]){
-        [request stopRequestByStatus:SANetworkResponseDataSuccessStatus];
+        [request stopRequestByStatus:SANetworkResponseDataSuccessStatus response:response];
         SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:SANetworkResponseDataSuccessStatus];
         if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:beforePerformSuccessWithResponse:)]) {
             [request.interceptorDelegate networkRequest:request beforePerformSuccessWithResponse:response];
@@ -452,7 +455,7 @@
         }
     } else {
         SANetworkStatus failStatus = isAuthentication ? SANetworkResponseDataIncorrectStatus : SANetworkResponseDataAuthenticationFailStatus;
-        [request stopRequestByStatus:failStatus];
+        [request stopRequestByStatus:failStatus response:response];
         SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:failStatus];
         [self beforePerformFailWithResponse:dataErrorResponse request:request];
         if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
@@ -474,7 +477,7 @@
     NSString *taskKey = [self keyForSessionDataTask:sessionDataTask];
     SANetworkRequest<SANetworkRequestConfigProtocol> *request = _requestRecordDict[taskKey];
     SANetworkStatus failStatus = [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable ? SANetworkNotReachableStatus : SANetworkResponseFailureStatus;
-    [request stopRequestByStatus:failStatus];
+    [request stopRequestByStatus:failStatus response:nil];
     if (request == nil) {
         NSLog(@"请求实例被意外释放!");
         return;

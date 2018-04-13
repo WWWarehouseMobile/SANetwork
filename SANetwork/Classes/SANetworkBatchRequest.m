@@ -132,4 +132,11 @@
     }
 }
 
+- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus response:(id)response {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByStatus:response:)]) {
+            [accessory networkRequestAccessoryDidEndByStatus:finishStatus response:response];
+        }
+    }
+}
 @end
