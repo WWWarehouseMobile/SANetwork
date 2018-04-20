@@ -58,7 +58,6 @@
 }
 
 - (IBAction)pressBatchRequest:(id)sender {
-    SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Batch Loading..."];
     TaobaoSuggestRequest *suggestRequest = [[TaobaoSuggestRequest alloc] init];
     suggestRequest.query = @"iphone";
     
@@ -67,7 +66,6 @@
     expressRequest.postId = @"881443775034378914";
     
     SANetworkBatchRequest *batchRequest = [[SANetworkBatchRequest alloc] initWithRequestArray:@[suggestRequest,expressRequest]];
-    [batchRequest addNetworkAccessoryObject:hudAccessory];
     [batchRequest startBatchRequest];
     _batchRequest = batchRequest;
 }
