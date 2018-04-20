@@ -13,7 +13,7 @@
 #import "SANetworkResponseProtocol.h"
 #import "SANetworkServiceProtocol.h"
 
-
+@class SANetworkResponse;
 /**
  网络接口请求类
  */
@@ -65,6 +65,8 @@
 - (void)stopRequestByStatus:(SANetworkStatus)status;
 
 - (void)stopRequestByStatus:(SANetworkStatus)status response:(id)response;
+
+- (void)stopRequestByResponse:(SANetworkResponse *)response;
 
 /**
  *  @brief 添加实现了SANetworkAccessoryProtocol的插件对象

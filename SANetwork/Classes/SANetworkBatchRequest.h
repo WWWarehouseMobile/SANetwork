@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SANetworkAccessoryProtocol.h"
 
 @class SANetworkBatchRequest;
 @class SANetworkResponse;
@@ -30,8 +29,6 @@
 @end
 
 @class SANetworkRequest;
-@protocol  SANetworkAccessoryProtocol;
-
 /**
 批量请求对象
  */
@@ -62,11 +59,4 @@
  */
 - (void)stopBatchRequest;
 
-/**
- *  @brief 添加实现了SANetworkAccessoryProtocol的插件对象
- *
- *  @param accessoryDelegate 插件对象
- *  @warning 务必在启动请求之前添加插件。批量请求于请求插件完成协议状态 = 最后一个失败请求的状态
- */
-- (void)addNetworkAccessoryObject:(id<SANetworkAccessoryProtocol>)accessoryDelegate;
 @end

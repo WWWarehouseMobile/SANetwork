@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SANetworkConstant.h"
-
+@class SANetworkResponse;
 /**
  *  @brief 请求插件协议
  */
@@ -29,7 +29,7 @@
 
 /**
  请求完成执行
- @warning 与 networkRequestAccessoryDidEndByStatus:response: 会同时被调用
+ @warning 与 networkRequestAccessoryDidEndByStatus:response: && networkRequestAccessoryDidEndByStatus: 会同时被调用
  
  @param networkStatus 请求状态
  */
@@ -39,11 +39,19 @@
 
 /**
  请求完成执行
- @warning 与 networkRequestAccessoryByStatus: 会同时被调用
+ @warning 与 networkRequestAccessoryByStatus: && networkRequestAccessoryDidEndByStatus: 会同时被调用
  
  @param networkStatus 请求状态
  @param response 响应数据
  */
 - (void)networkRequestAccessoryDidEndByStatus:(SANetworkStatus)networkStatus response:(id)response;
+
+/**
+ 请求完成执行
+ @warning 与 networkRequestAccessoryByStatus: && networkRequestAccessoryDidEndByStatus:response: 会同时被调用
+ 
+ @param response 响应数据
+ */
+- (void)networkRequestAccessoryDidEndByResponse:(SANetworkResponse *)response;
 
 @end

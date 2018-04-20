@@ -41,6 +41,7 @@
     [[SANetworkAgent sharedInstance] removeRequest:self.currentNetworkRequest];
     [self accessoryFinishByStatus:SANetworkRequestCancelStatus];
     [self accessoryFinishByStatus:SANetworkRequestCancelStatus response:nil];
+    [self accessoryFinishByResponse:nil];
 }
 
 - (void)dealloc {
@@ -63,11 +64,13 @@
     }
     [self accessoryFinishByStatus:response.networkStatus];
     [self accessoryFinishByStatus:response.networkStatus response:response.responseData];
+    [self accessoryFinishByResponse:response];
 }
 
 - (void)networkRequest:(__kindof SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
     [self accessoryFinishByStatus:response.networkStatus];
     [self accessoryFinishByStatus:response.networkStatus response:response.responseData];
+    [self accessoryFinishByResponse:response];
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:networkRequest:failedByResponse:)]) {
         [self.delegate networkChainRequest:self networkRequest:networkRequest failedByResponse:response];
     }
@@ -113,6 +116,14 @@
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByStatus:response:)]) {
             [accessory networkRequestAccessoryDidEndByStatus:finishStatus response:response];
+        }
+    }
+}
+
+- (void)accessoryFinishByResponse:(SANetworkResponse *)response {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByResponse:)]) {
+            [accessory networkRequestAccessoryDidEndByResponse:response];
         }
     }
 }

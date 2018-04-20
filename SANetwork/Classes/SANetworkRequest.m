@@ -48,6 +48,11 @@
     [self accessoryFinishByStatus:status response:response];
 }
 
+- (void)stopRequestByResponse:(SANetworkResponse *)response {
+    [[SANetworkAgent sharedInstance] removeRequest:self];
+    [self accessoryFinishByResponse:response];
+}
+
 - (void)dealloc {
     [[SANetworkAgent sharedInstance] removeRequest:self];
 }
@@ -92,6 +97,14 @@
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByStatus:response:)]) {
             [accessory networkRequestAccessoryDidEndByStatus:finishStatus response:response];
+        }
+    }
+}
+
+- (void)accessoryFinishByResponse:(SANetworkResponse *)response {
+    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByResponse:)]) {
+            [accessory networkRequestAccessoryDidEndByResponse:response];
         }
     }
 }
