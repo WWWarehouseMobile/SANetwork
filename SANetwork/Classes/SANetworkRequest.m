@@ -8,6 +8,7 @@
 
 #import "SANetworkRequest.h"
 #import "SANetworkAgent.h"
+#import "SANetworkResponse.h"
 
 @interface SANetworkRequest ()
 @property (nonatomic, weak) id <SANetworkRequestConfigProtocol> requestConfigProtocol;
@@ -39,13 +40,9 @@
 
 
 - (void)stopRequestByStatus:(SANetworkStatus)status {
-    [self stopRequestByStatus:status response:nil];
-}
-
-- (void)stopRequestByStatus:(SANetworkStatus)status response:(id)response {
     [[SANetworkAgent sharedInstance] removeRequest:self];
-    [self accessoryFinishByStatus:status];
-    [self accessoryFinishByStatus:status response:response];
+    SANetworkResponse *cancelResponse = [[SANetworkResponse alloc] initWithResponseData:nil serviceIdentifierKey:nil requestTag:self.tag networkStatus:SANetworkRequestCancelStatus];
+    [self accessoryFinishByResponse:cancelResponse];
 }
 
 - (void)stopRequestByResponse:(SANetworkResponse *)response {
@@ -85,24 +82,13 @@
     }
 }
 
-- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
-            [accessory networkRequestAccessoryByStatus:finishStatus];
-        }
-    }
-}
-
-- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus response:(id)response {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByStatus:response:)]) {
-            [accessory networkRequestAccessoryDidEndByStatus:finishStatus response:response];
-        }
-    }
-}
 
 - (void)accessoryFinishByResponse:(SANetworkResponse *)response {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
+            [accessory networkRequestAccessoryByStatus:response.networkStatus];
+        }
+        
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByResponse:)]) {
             [accessory networkRequestAccessoryDidEndByResponse:response];
         }

@@ -27,6 +27,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(af_reachabilityDidChangeWithNofitication:) name:AFNetworkingReachabilityDidChangeNotification object:nil];
+}
+
+- (void)af_reachabilityDidChangeWithNofitication:(NSNotification *)notificaiton {
+    NSLog(@"userInfo:%@",notificaiton.userInfo);
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,7 +55,7 @@
     SANetworkHUDAccessory *hudAccessory = [[SANetworkHUDAccessory alloc] initWithShowInView:self.view text:@"Chain Loading..."];
     TaobaoSuggestRequest *suggestRequest = [[TaobaoSuggestRequest alloc] init];
     suggestRequest.query = @"iphone";
-    
+
     SANetworkChainRequest *chainRequest = [[SANetworkChainRequest alloc] initWithRootNetworkRequest:suggestRequest];
     chainRequest.delegate = self;
     [chainRequest addNetworkAccessoryObject:hudAccessory];
@@ -104,5 +110,9 @@
 
 - (void)networkBatchRequest:(SANetworkBatchRequest *)batchRequest completedByResponseArray:(NSArray<SANetworkResponse *> *)responseArray {
     //    NSLog(@"responseArray: %@",responseArray);
+}
+
+- (void)dealloc {
+    NSLog(@"SAViewController -- dealloc");
 }
 @end

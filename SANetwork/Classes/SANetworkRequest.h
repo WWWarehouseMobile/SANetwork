@@ -51,6 +51,9 @@
  */
 @property (nonatomic, weak) id <SANetworkAccessoryProtocol>accessoryDelegate;
 
+@property (nonatomic, assign) NSUInteger retryCount;
+
+
 /**
  *  @brief 开始网络请求，使用delegate 方式使用这个方法
  */
@@ -63,8 +66,6 @@
  @param status 网络接口状态
  */
 - (void)stopRequestByStatus:(SANetworkStatus)status;
-
-- (void)stopRequestByStatus:(SANetworkStatus)status response:(id)response;
 
 - (void)stopRequestByResponse:(SANetworkResponse *)response;
 

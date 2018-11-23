@@ -39,9 +39,8 @@
 - (void)stopChainRequest {
     _delegate = nil;
     [[SANetworkAgent sharedInstance] removeRequest:self.currentNetworkRequest];
-    [self accessoryFinishByStatus:SANetworkRequestCancelStatus];
-    [self accessoryFinishByStatus:SANetworkRequestCancelStatus response:nil];
-    [self accessoryFinishByResponse:nil];
+    SANetworkResponse *cancelResponse = [[SANetworkResponse alloc] initWithResponseData:nil serviceIdentifierKey:nil requestTag:self.currentNetworkRequest.tag networkStatus:SANetworkRequestCancelStatus];
+    [self accessoryFinishByResponse:cancelResponse];
 }
 
 - (void)dealloc {
@@ -62,14 +61,10 @@
             return;
         }
     }
-    [self accessoryFinishByStatus:response.networkStatus];
-    [self accessoryFinishByStatus:response.networkStatus response:response.responseData];
     [self accessoryFinishByResponse:response];
 }
 
 - (void)networkRequest:(__kindof SANetworkRequest *)networkRequest failedByResponse:(SANetworkResponse *)response {
-    [self accessoryFinishByStatus:response.networkStatus];
-    [self accessoryFinishByStatus:response.networkStatus response:response.responseData];
     [self accessoryFinishByResponse:response];
     if ([self.delegate respondsToSelector:@selector(networkChainRequest:networkRequest:failedByResponse:)]) {
         [self.delegate networkChainRequest:self networkRequest:networkRequest failedByResponse:response];
@@ -104,27 +99,16 @@
     }
 }
 
-- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
-            [accessory networkRequestAccessoryByStatus:finishStatus];
-        }
-    }
-}
-
-- (void)accessoryFinishByStatus:(SANetworkStatus)finishStatus response:(id)response {
-    for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
-        if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByStatus:response:)]) {
-            [accessory networkRequestAccessoryDidEndByStatus:finishStatus response:response];
-        }
-    }
-}
-
 - (void)accessoryFinishByResponse:(SANetworkResponse *)response {
     for (id<SANetworkAccessoryProtocol>accessory in self.accessoryArray) {
+        if ([accessory respondsToSelector:@selector(networkRequestAccessoryByStatus:)]) {
+            [accessory networkRequestAccessoryByStatus:response.networkStatus];
+        }
+        
         if ([accessory respondsToSelector:@selector(networkRequestAccessoryDidEndByResponse:)]) {
             [accessory networkRequestAccessoryDidEndByResponse:response];
         }
     }
 }
+
 @end

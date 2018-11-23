@@ -132,7 +132,14 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
 - (NSURLRequestCachePolicy)cachePolicy;
 
 /**
- *  @brief 请求连接的超时时间。默认20.0秒
+ *  @brief 请求失败之后的重试次数，默认为0
+ *  @warning 仅限SANetworkResponseFailureStatus 或 SANetworkNotReachableStatus 失败状态下，起作用
+ *  @return 重试次数
+ */
+- (NSUInteger)requestRetryCountWhenFailure;
+
+/**
+ *  @brief 请求连接的超时时间。默认15秒
  *  @return 超时时长
  */
 - (NSTimeInterval)requestTimeoutInterval;

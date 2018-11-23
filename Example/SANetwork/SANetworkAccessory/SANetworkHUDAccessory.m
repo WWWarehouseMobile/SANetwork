@@ -65,4 +65,8 @@
 - (void)networkRequestAccessoryDidEndByStatus:(SANetworkStatus)networkStatus response:(id)response {
     NSLog(@"networkRequestAccessoryDidEndByStatus:%@",response);
 }
+
+- (void)dealloc {
+    NSLog(@"SANetworkHUDAccessory ---- dealloc");
+}
 @end

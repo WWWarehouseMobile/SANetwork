@@ -14,6 +14,10 @@
  */
 typedef NS_ENUM(NSInteger, SANetworkStatus) {
     /**
+     *  @brief 请求被取消，暂不提供响应回调
+     */
+    SANetworkRequestCancelStatus,
+    /**
      *  @brief 网络不可达
      */
     SANetworkNotReachableStatus,
@@ -21,10 +25,6 @@ typedef NS_ENUM(NSInteger, SANetworkStatus) {
      *  @brief 请求参数错误
      */
     SANetworkRequestParamIncorrectStatus,
-    /**
-     *  @brief 请求被取消，暂不提供响应回调
-     */
-    SANetworkRequestCancelStatus,
     /**
      *  @brief 请求失败
      */

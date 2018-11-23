@@ -1,6 +1,6 @@
 {
   "name": "SANetwork",
-  "version": "1.0.5",
+  "version": "1.0.11",
   "summary": "离散式网络库",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/WWWarehouseMobile/SANetwork",
@@ -12,8 +12,8 @@
     "学宝": "zhanxuebao@outlook.com"
   },
   "source": {
-    "git": "git@github.com:WWWarehouseMobile/SANetwork.git",
-    "tag": "1.0.5"
+    "git": "https://github.com/WWWarehouseMobile/SANetwork.git",
+    "tag": "1.0.11"
   },
   "platforms": {
     "ios": "8.0"

@@ -69,11 +69,17 @@
 - (BOOL)serviceBaseAuthenticationWithNetworkRequest:(SANetworkRequest *)networkRequest response:(id)response;
 
 /**
- *  @brief 请求超时时间，默认20秒
+ *  @brief 请求失败之后的重试次数，最大设置为3次，默认为0
+ *  @warning 仅限SANetworkResponseFailureStatus 或 SANetworkNotReachableStatus 失败状态下，起作用
+ *  @return 重试次数
+ */
+- (NSUInteger)serviceRequestRetryCountWhenFailure;
+
+/**
+ *  @brief 请求超时时间，默认15秒
+ *  @return 服务的请求超时时间
  */
 - (NSTimeInterval)serviceRequestTimeoutInterval;
-
-
 
 /*******以下协议的设定用于服务端返回数据的第一层格式统一，设定后，便于更深一层的取到数据 *********/
 
@@ -100,4 +106,7 @@
  @return content key
  */
 - (NSString *)responseContentDataKey;
+
+
+
 @end

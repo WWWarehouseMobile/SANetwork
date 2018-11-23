@@ -39,4 +39,8 @@
              @"q" : self.query,
              };
 }
+
+- (void)dealloc {
+    NSLog(@"TaobaoSuggestRequest -- dealloc");
+}
 @end
