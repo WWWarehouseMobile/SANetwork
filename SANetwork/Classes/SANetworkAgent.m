@@ -288,7 +288,7 @@
 
 - (NSUInteger)retryCountWhenFailureByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     NSObject<SANetworkServiceProtocol> *serviceObject = [self serviceObjectByRequest:request];
-    NSUInteger *retryCount = 0;
+    NSUInteger retryCount = 0;
     if ([request.requestConfigProtocol respondsToSelector:@selector(requestRetryCountWhenFailure)]) {
         retryCount = [request.requestConfigProtocol requestRetryCountWhenFailure];
     } else if ([serviceObject respondsToSelector:@selector(serviceRequestRetryCountWhenFailure)]) {
