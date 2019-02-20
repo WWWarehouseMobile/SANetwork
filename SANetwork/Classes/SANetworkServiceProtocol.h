@@ -9,6 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "SANetworkRequestConfigProtocol.h"
 
+
+/**
+ 服务的验证结果状态
+
+ - SAServiceAuthenticationStatusPass: 通过
+ - SAServiceAuthenticationStatusWarning: 警告
+ - SAServiceAuthenticationStatusWrong: 错误
+ */
+typedef NS_ENUM(NSInteger , SAServiceAuthenticationStatus) {
+    SAServiceAuthenticationStatusPass = 0,
+    SAServiceAuthenticationStatusWarning,
+    SAServiceAuthenticationStatusWrong
+};
+
+
 @class SANetworkRequest;
 
 
@@ -64,9 +79,9 @@
 
  @param networkRequest 网络接口请求对象
  @param response 网络接口响应数据
- @return 是否验证
+ @return 验证结果状态
  */
-- (BOOL)serviceBaseAuthenticationWithNetworkRequest:(SANetworkRequest *)networkRequest response:(id)response;
+- (SAServiceAuthenticationStatus)serviceBaseAuthenticationWithNetworkRequest:(SANetworkRequest *)networkRequest response:(id)response;
 
 /**
  *  @brief 请求失败之后的重试次数，最大设置为3次，默认为0

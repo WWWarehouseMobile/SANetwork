@@ -48,7 +48,11 @@
     suggestRequest.tag = 102;
     suggestRequest.responseDelegate = self;
     [suggestRequest addNetworkAccessoryObject:hudAccessory];
-    [suggestRequest startRequest];
+    
+    for (NSInteger i = 0; i<10; i++) {
+
+        [suggestRequest startRequest];
+    }
 }
 
 - (IBAction)pressChainRequest:(id)sender {

@@ -304,6 +304,10 @@
 #pragma mark-处理Request
 
 - (void)addRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
+    if ([_requestRecordDict.allValues containsObject:request]) {
+        NSLog(@"\n\n\n------------- 重复启动请求！相同的请求正在执行中 -----------");
+        return;
+    }
     NSString *requestURLString = [self urlStringByRequest:request];
     NSDictionary *requestParam = [self requestParamByRequest:request];
     
@@ -452,14 +456,14 @@
     
     request.retryCount = 0;
 
-    BOOL isAuthentication = YES;
+    SAServiceAuthenticationStatus authenticationStatus = SAServiceAuthenticationStatusPass;
     if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseAuthentication)] || [request.requestConfigProtocol useBaseAuthentication])) {
         NSObject<SANetworkServiceProtocol> *serviceObject = [self serviceObjectByRequest:request];
         if ([serviceObject respondsToSelector:@selector(serviceBaseAuthenticationWithNetworkRequest:response:)]) {
-            isAuthentication = [serviceObject serviceBaseAuthenticationWithNetworkRequest:request response:response];
+            authenticationStatus = [serviceObject serviceBaseAuthenticationWithNetworkRequest:request response:response];
         }
     }
-    if(isAuthentication && [request.requestConfigProtocol isCorrectWithResponseData:response]){
+    if(authenticationStatus ==  SAServiceAuthenticationStatusPass && [request.requestConfigProtocol isCorrectWithResponseData:response]){
         SANetworkResponse *successResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:SANetworkResponseDataSuccessStatus];
         [request stopRequestByResponse:successResponse];
         if ([request.interceptorDelegate respondsToSelector:@selector(networkRequest:beforePerformSuccessWithResponse:)]) {
@@ -472,22 +476,35 @@
             [request.interceptorDelegate networkRequest:request afterPerformSuccessWithResponse:response];
         }
     } else {
-        SANetworkStatus failStatus = isAuthentication ? SANetworkResponseDataIncorrectStatus : SANetworkResponseDataAuthenticationFailStatus;
+        SANetworkStatus failStatus;
+        switch (authenticationStatus) {
+            case SAServiceAuthenticationStatusPass:
+                failStatus = SANetworkResponseDataIncorrectStatus;
+                break;
+            case SAServiceAuthenticationStatusWarning:
+                failStatus = SANetworkResponseDataAuthenticationFailStatus;
+                break;
+            default:
+                failStatus = SANetworkRequestCancelStatus;
+                break;
+        }
         SANetworkResponse *dataErrorResponse = [[SANetworkResponse alloc] initWithResponseData:response serviceIdentifierKey:[request serviceIdentifierKey] requestTag:request.tag networkStatus:failStatus];
         [request stopRequestByResponse:dataErrorResponse];
-        [self beforePerformFailWithResponse:dataErrorResponse request:request];
-        if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
-            [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
+        if (authenticationStatus != SAServiceAuthenticationStatusWrong) {
+            [self beforePerformFailWithResponse:dataErrorResponse request:request];
+            if ([request.responseDelegate respondsToSelector:@selector(networkRequest:failedByResponse:)]) {
+                [request.responseDelegate networkRequest:request failedByResponse:dataErrorResponse];
+            }
+            [self afterPerformFailWithResponse:dataErrorResponse request:request];
         }
-        [self afterPerformFailWithResponse:dataErrorResponse request:request];
     }
     
     if ([request respondsToSelector:@selector(enableDebugLog)]) {
         if ([request enableDebugLog]) {
-            [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:isAuthentication error:nil];
+            [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:authenticationStatus ==  SAServiceAuthenticationStatusPass error:nil];
         }
     }else if ([SANetworkConfig sharedInstance].enableDebug) {
-        [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:isAuthentication error:nil];
+        [SANetworkLogger logDebugResponseInfoWithSessionDataTask:sessionDataTask responseObject:response authentication:authenticationStatus ==  SAServiceAuthenticationStatusPass error:nil];
     }
 }
 
