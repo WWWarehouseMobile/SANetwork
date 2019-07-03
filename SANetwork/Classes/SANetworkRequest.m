@@ -13,7 +13,7 @@
 @interface SANetworkRequest ()
 @property (nonatomic, weak) id <SANetworkRequestConfigProtocol> requestConfigProtocol;
 
-@property (nonatomic, strong) NSMutableArray *accessoryArray;
+@property (nonatomic, strong) NSPointerArray *accessoryArray;
 
 
 @end
@@ -61,9 +61,9 @@
     if (accessoryDelegate == nil)  return;
 
     if (_accessoryArray == nil) {
-        _accessoryArray = [NSMutableArray array];
+        _accessoryArray = [NSPointerArray weakObjectsPointerArray];
     }
-    [self.accessoryArray addObject:accessoryDelegate];
+    [self.accessoryArray addPointer:(__bridge void * _Nullable)(accessoryDelegate)];
 }
 
 - (void)accessoryWillStart {
