@@ -14,8 +14,7 @@
 
 @interface SANetworkChainRequest ()<SANetworkResponseProtocol>
 
-@property (nonatomic, strong) NSPointerArray *accessoryArray;
-
+@property (nonatomic, strong) NSMutableArray *accessoryArray;
 @property (nonatomic, strong) SANetworkRequest *currentNetworkRequest;
 
 @end
@@ -78,10 +77,10 @@
 - (void)addNetworkAccessoryObject:(id<SANetworkAccessoryProtocol>)accessoryDelegate {
     if (accessoryDelegate == nil)  return;
 
-    if (_accessoryArray == nil) {
-        _accessoryArray = [NSPointerArray weakObjectsPointerArray];
+    if (!_accessoryArray) {
+        _accessoryArray = [NSMutableArray array];
     }
-    [self.accessoryArray addPointer:(__bridge void * _Nullable)(accessoryDelegate)];
+    [self.accessoryArray addObject:accessoryDelegate];
 }
 
 - (void)accessoryWillStart {
