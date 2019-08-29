@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 
+@property (nonatomic, strong) NSMutableArray <SANetworkBatchRequest *>*requestArray;
+
 @property (nonatomic, strong) NSMutableDictionary <NSString *, __kindof SANetworkRequest *> *requestRecordDict;
 
 @property (nonatomic, strong) NSMutableArray <NSString *> *historyCustomHeaderKeys;
@@ -40,6 +42,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _requestArray = [NSMutableArray array];
         _requestRecordDict = [NSMutableDictionary dictionary];
         [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     }
@@ -423,6 +426,18 @@
     NSString *taskKey = [self keyForSessionDataTask:request.sessionDataTask];
     @synchronized(self) {
         [_requestRecordDict removeObjectForKey:taskKey];
+    }
+}
+
+- (void)addBatchRequest:(SANetworkBatchRequest *)batchRequest {
+    @synchronized (self) {
+        [_requestArray addObject:batchRequest];
+    }
+}
+
+- (void)removeBatchRequest:(SANetworkBatchRequest *)batchRequest {
+    @synchronized (self) {
+        [_requestArray removeObject:batchRequest];
     }
 }
 

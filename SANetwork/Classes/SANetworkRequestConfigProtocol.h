@@ -70,6 +70,21 @@ typedef NS_ENUM(NSInteger , SARequestHandleSameRequestType) {
     SARequestHandleSameRequestBothContinueType,
 };
 
+/**
+ 队列处理优先级
+ 
+ - SANetworkPriorityTypeVeryHigh:      非常高
+ - SANetworkPriorityTypeDefaultHigh:   高
+ - SANetworkPriorityTypeDefaultNormal: 正常
+ - SANetworkPriorityTypeDefaultLow:    低
+ - SANetworkPriorityTypeVeryLow:       非常低
+ */
+typedef int  SANetworkPriorityType NS_TYPED_EXTENSIBLE_ENUM;
+static const SANetworkPriorityType SANetworkPriorityTypeVeryHigh      NS_AVAILABLE_IOS(10_0) = 1000;
+static const SANetworkPriorityType SANetworkPriorityTypeDefaultHigh   NS_AVAILABLE_IOS(10_0) = 750;
+static const SANetworkPriorityType SANetworkPriorityTypeDefaultNormal NS_AVAILABLE_IOS(10_0) = 500;
+static const SANetworkPriorityType SANetworkPriorityTypeDefaultLow    NS_AVAILABLE_IOS(10_0) = 250;
+static const SANetworkPriorityType SANetworkPriorityTypeVeryLow       NS_AVAILABLE_IOS(10_0) = 50;
 
 /**
  上传数据构造Block
@@ -122,6 +137,13 @@ typedef void (^AFConstructingBlock)(id<AFMultipartFormData> formData);
  */
 
 - (NSDictionary *)requestParamDictionary;
+
+/**
+ 请求队列执行优先级
+ @waring 跟NSOperation.queuePriority 对应
+ @return 优先级
+ */
+- (SANetworkPriorityType)networkPriorityType;
 
 /**
  *  @author 学宝

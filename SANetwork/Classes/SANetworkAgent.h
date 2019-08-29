@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class SANetworkRequest;
+@class SANetworkRequest,SANetworkBatchRequest;
 @protocol SANetworkRequestConfigProtocol;
 
 
@@ -38,5 +38,10 @@
  *  @param request 一个基于SABaseRequest的实例
  */
 - (void)removeRequest:(__kindof SANetworkRequest *)request;
+
+
+- (void)addBatchRequest:(SANetworkBatchRequest *)batchRequest;
+
+- (void)removeBatchRequest:(SANetworkBatchRequest *)batchRequest;
 
 @end

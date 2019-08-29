@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SANetworkAccessoryProtocol.h"
 
 @class SANetworkBatchRequest;
 @class SANetworkResponse;
@@ -34,6 +35,8 @@
  */
 @interface SANetworkBatchRequest : NSObject
 
+/*! 最大并发量 最大并发量不要乱写（5以内），一般以2~3为宜 默认3 */
+@property (nonatomic, assign) NSInteger maxConcurrentCount;
 
 /**
  批量请求结果回调代理
@@ -58,5 +61,15 @@
  *  @brief 取消网络批量请求
  */
 - (void)stopBatchRequest;
+
+/**
+ 添加实现了DYNetworkAccessoryProtocol的插件对象
+ @waring 在启动请求之前添加插件 可添加多个
+ @param accessoryDelegate accessoryDelegate 插件对象
+ */
+- (void)addNetworkAccessoryObject:(id<SANetworkAccessoryProtocol>)accessoryDelegate;
+
+
+
 
 @end

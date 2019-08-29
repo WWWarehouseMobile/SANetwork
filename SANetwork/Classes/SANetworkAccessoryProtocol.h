@@ -29,6 +29,11 @@
 
 
 /**
+ 请求完成
+ */
+- (void)networkRequestAccessoryDidFinish;
+
+/**
  请求完成执行
  @warning 与 networkRequestAccessoryDidEndByResponse: 会同时被调用
  

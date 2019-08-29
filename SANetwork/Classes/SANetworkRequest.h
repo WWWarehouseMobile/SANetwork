@@ -53,6 +53,9 @@
 
 @property (nonatomic, assign) NSUInteger retryCount;
 
+/*! 优先级（默认 SANetworkPriorityTypeDefaultNormal ） */
+@property (nonatomic, assign, readonly) SANetworkPriorityType priorityType;
+
 
 /**
  *  @brief 开始网络请求，使用delegate 方式使用这个方法
