@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SANetwork'
-  s.version          = '1.1.3'
+  s.version          = '1.1.4'
   s.summary          = '离散式网络库'
 
 # This description is used to generate tags and improve search results.

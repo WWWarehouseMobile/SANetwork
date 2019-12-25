@@ -314,6 +314,11 @@
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = XDK267KQ83;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -403,7 +408,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"WWWarehouse\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"../SANetworkDoc\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"../SANetwork\"";
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"WWWarehouse\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"../SANetworkDoc\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n\"../SANetwork\"\n";
 		};
 		7FB77548974E4F7B33C426F4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
