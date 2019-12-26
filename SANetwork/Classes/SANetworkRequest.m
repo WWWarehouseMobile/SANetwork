@@ -8,7 +8,7 @@
 
 #import "SANetworkRequest.h"
 #import "SANetworkAgent.h"
-#import "SANetworkResponse.h"
+//#import "SANetworkResponse.h"
 
 @interface SANetworkRequest ()
 @property (nonatomic, weak) id <SANetworkRequestConfigProtocol> requestConfigProtocol;

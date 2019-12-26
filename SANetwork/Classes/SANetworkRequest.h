@@ -13,7 +13,8 @@
 #import "SANetworkResponseProtocol.h"
 #import "SANetworkServiceProtocol.h"
 
-@class SANetworkResponse;
+#import "SANetworkResponse.h"
+
 /**
  网络接口请求类
  */
