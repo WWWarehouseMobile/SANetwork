@@ -14,7 +14,10 @@
 #import "SANetworkBatchRequest.h"
 #import "SANetworkChainRequest.h"
 #import "SANetworkResponse.h"
-#import "SANetworkAccessoryProtocol.h"
 #import "SANetworkAgent.h"
+#import "SANetworkServiceProtocol.h"
+#import "SANetworkAccessoryProtocol.h"
+#import "SANetworkInterceptorProtocol.h"
+#import "SANetworkRequestConfigProtocol.h"
 
 #endif /* SANetwork_h */
