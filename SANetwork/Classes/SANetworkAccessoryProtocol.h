@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "SANetworkConstant.h"
+#import "SANetworkResponse.h"
 
-
-@class SANetworkResponse;
 /**
  *  @brief 请求插件协议
  */
