@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @class SANetworkRequest;
-@protocol SANetworkRequestConfigProtocol;
-
 
 /**
  网络请求的管理对象

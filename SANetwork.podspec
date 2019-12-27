@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SANetwork'
-  s.version          = '1.1.7'
+  s.version          = '1.1.8'
   s.summary          = '离散式网络库'
 
 # This description is used to generate tags and improve search results.
@@ -26,7 +26,7 @@ TODO: Add long description of the pod here.
   s.author           = { '学宝' => 'zhanxuebao@outlook.com' }
   s.source           = { :git => 'https://github.com/WWWarehouseMobile/SANetwork.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'SANetwork/Classes/**/*'
   #s.public_header_files = 'SANetwork/Classes/**/*.h'
