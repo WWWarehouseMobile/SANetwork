@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
 @class SANetworkChainRequest;
 @class SANetworkRequest;
 @class SANetworkResponse;
@@ -85,3 +88,4 @@
 - (void)addNetworkAccessoryObject:(id<SANetworkAccessoryProtocol>)accessoryDelegate;
 
 @end
+NS_ASSUME_NONNULL_END
