@@ -21,8 +21,6 @@
 
 @property (nonatomic, strong) NSMutableDictionary <NSString *, __kindof SANetworkRequest *> *requestRecordDict;
 
-@property (nonatomic, strong) NSMutableArray <NSString *> *historyCustomHeaderKeys;
-
 @end
 
 @implementation SANetworkAgent
@@ -133,6 +131,14 @@
     return SARequestMethodPost;
 }
 
+
+- (NSDictionary *)requestCustomHeadersByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
+    if ([request.requestConfigProtocol respondsToSelector:@selector(customHTTPRequestHeaders)]) {
+        return [request.requestConfigProtocol customHTTPRequestHeaders];
+    }
+    return nil;
+}
+
 - (NSURLRequestCachePolicy)cachePolicyByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     if ([request.requestConfigProtocol respondsToSelector:@selector(cachePolicy)]) {
         NSURLRequestCachePolicy cachePolicy = [request.requestConfigProtocol cachePolicy];
@@ -204,6 +210,8 @@
 
 }
 
+
+
 - (void)setupSessionManagerRequestSerializerByRequest:(__kindof SANetworkRequest<SANetworkRequestConfigProtocol> *)request {
     //配置requestSerializerType
     NSObject<SANetworkServiceProtocol> *serviceObject = [self serviceObjectByRequest:request];
@@ -217,14 +225,6 @@
     }
     [self setSessionManagerRequestSerializerByRequestSerializerType:requestSerializerType];
     
-    //配置请求头
-    if (self.historyCustomHeaderKeys.count) {
-        [self.historyCustomHeaderKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [self.sessionManager.requestSerializer setValue:nil forHTTPHeaderField:obj];
-        }];
-        [self.historyCustomHeaderKeys removeAllObjects];
-    }
-    
     if ((![request.requestConfigProtocol respondsToSelector:@selector(useBaseHTTPRequestHeaders)] || [request.requestConfigProtocol useBaseHTTPRequestHeaders])) {
         if ([serviceObject respondsToSelector:@selector(serviceBaseHTTPRequestHeaders)]) {
             NSDictionary *requestHeaders = [serviceObject serviceBaseHTTPRequestHeaders];
@@ -232,23 +232,6 @@
                 [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
             }];
         }
-    }
-
-    if ([request.requestConfigProtocol respondsToSelector:@selector(customHTTPRequestHeaders)]) {
-        NSDictionary *customRequestHeaders = [request.requestConfigProtocol customHTTPRequestHeaders];
-        if (_historyCustomHeaderKeys == nil) {
-            _historyCustomHeaderKeys = [[NSMutableArray alloc] init];
-        }
-        [self.historyCustomHeaderKeys addObjectsFromArray:customRequestHeaders.allKeys];
-        [customRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            if([obj isKindOfClass:[NSString class]]) {
-                [self.sessionManager.requestSerializer setValue:obj forHTTPHeaderField:key];
-            }else if ([obj isKindOfClass:[NSNumber class]]) {
-                [self.sessionManager.requestSerializer setValue:[(NSNumber *)obj stringValue] forHTTPHeaderField:key];
-            }else {
-                [self.sessionManager.requestSerializer setValue:nil forHTTPHeaderField:key];
-            }
-        }];
     }
     
     //配置请求超时时间
@@ -364,50 +347,53 @@
 
     __weak typeof(self)weakSelf = self;
     __block SANetworkRequest<SANetworkRequestConfigProtocol> *blockRequest = request;
+    NSDictionary *customHeaders = [self requestCustomHeadersByRequest:request];
     switch ([self requestMethodByRequest:request]) {
         case SARequestMethodGet:{
             request.sessionDataTask = [self.sessionManager GET:requestURLString
                                                     parameters:requestParam
+                                                       headers:customHeaders
                                                       progress:^(NSProgress * _Nonnull downloadProgress) {
-                                                          [weakSelf handleRequestProgress:downloadProgress request:blockRequest];
-                                                      }
+                [weakSelf handleRequestProgress:downloadProgress request:blockRequest];
+            }
                                                        success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                                           [weakSelf handleRequestSuccess:task responseObject:responseObject];
-                                                       }
+                [weakSelf handleRequestSuccess:task responseObject:responseObject];
+            }
                                                        failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                                           [weakSelf handleRequestFailure:task error:error];
-                                                       }];
+                [weakSelf handleRequestFailure:task error:error];
+            }];
         }
             break;
         case SARequestMethodPost:{
             AFConstructingBlock constructingBlock = [self constructingBlockByRequest:request];
             if (constructingBlock) {
                 request.sessionDataTask = [self.sessionManager POST:requestURLString
-                                                         parameters:requestParam
-                                          constructingBodyWithBlock:constructingBlock
+                                                                   parameters:requestParam
+                                                                      headers:customHeaders
+                                                    constructingBodyWithBlock:constructingBlock
                                                            progress:^(NSProgress * _Nonnull uploadProgress) {
-                                                               [weakSelf handleRequestProgress:uploadProgress request:blockRequest];
-                                                           }
+                     [weakSelf handleRequestProgress:uploadProgress request:blockRequest];
+                }
                                                             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                                                [weakSelf handleRequestSuccess:task responseObject:responseObject];
-                                                            }
+                     [weakSelf handleRequestSuccess:task responseObject:responseObject];
+                }
                                                             failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                                                [weakSelf handleRequestFailure:task error:error];
-                                                            }];
+                    [weakSelf handleRequestFailure:task error:error];
+                }];
             }else{
                 request.sessionDataTask = [self.sessionManager POST:requestURLString
                                                          parameters:requestParam
+                                                            headers:customHeaders
                                                            progress:^(NSProgress * _Nonnull uploadProgress) {
-                                                               [weakSelf handleRequestProgress:uploadProgress request:blockRequest];
-                                                           }
+                    [weakSelf handleRequestProgress:uploadProgress request:blockRequest];
+                }
                                                             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                                                [weakSelf handleRequestSuccess:task responseObject:responseObject];
-                                                            }
-                                                            failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                                                                [weakSelf handleRequestFailure:task error:error];
-                                                            }];
+                     [weakSelf handleRequestSuccess:task responseObject:responseObject];
+                } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    [weakSelf handleRequestFailure:task error:error];
+                }];
             }
-        }
+            }
             break;
         default:
             break;

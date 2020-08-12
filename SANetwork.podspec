@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SANetwork'
-  s.version          = '1.1.11'
+  s.version          = '1.2.0'
   s.summary          = '离散式网络库'
 
 # This description is used to generate tags and improve search results.
@@ -31,5 +31,5 @@ TODO: Add long description of the pod here.
   s.source_files = 'SANetwork/Classes/**/*'
   #s.public_header_files = 'SANetwork/Classes/**/*.h'
 
-  s.dependency 'AFNetworking', '~> 3.0'
+  s.dependency 'AFNetworking', '~> 4.0'
 end
